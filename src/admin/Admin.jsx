@@ -22,7 +22,7 @@ import LandingCMS from '../superadmin/pages/LandingCMS';
 import ReportsAnalyst from './components/ReportsAnalyst';
 import WalletManager from './components/WalletManager';
 import LoanApprovalManager from './components/LoanApprovalManager';
-import Overview from './components/Overview';
+
 import ServicesManager from './components/ServicesManager';
 import SettingsManager from './components/SettingsManager';
 import { useAuth } from '../context/AuthContext';
@@ -61,8 +61,8 @@ const Admin = () => {
     const [superadmins, setSuperadmins] = useState([]);
     const [trashUsers, setTrashUsers] = useState([]);
 
-    // Default to Dashboard for Header users since they might not have Approvals access
-    const initialSection = (currentUser && ['NATIONAL_HEADER', 'STATE_HEADER', 'REGIONAL_HEADER'].includes(currentUser.role)) ? 'Dashboard' : 'Approvals';
+    // Default to Dashboard (Live Feed) for all users
+    const initialSection = 'Dashboard';
     const [activeSection, setActiveSection] = useState(initialSection);
     const [expandedSA, setExpandedSA] = useState(null); // ID of expanded SuperAdmin row
     const [expandedNav, setExpandedNav] = useState(null); // which nav group is expanded
@@ -2583,7 +2583,6 @@ const Admin = () => {
     );
 
     const ANALYTICS_NAV = [
-        { id: 'Overview', icon: LayoutGrid, label: 'Dashboard' },
         { id: 'Dashboard', icon: ActivityIcon, label: 'Live Feed' },
         { id: 'ReportsAnalyst', icon: BarChart3, label: 'Analytics' },
     ];
@@ -3012,8 +3011,8 @@ const Admin = () => {
             {/* ══════════════ MAIN ══════════════ */}
             <div className={`flex-1 flex flex-col min-w-0 overflow-hidden bg-[#fcfcf7]`}>
 
-                {/* Top Header Removal (it's inside Overview now) */}
-                {activeSection !== 'Overview' && (
+                {/* Main Header */}
+                {(
                     <header className="bg-white/90 backdrop-blur-md border-b border-slate-200/60 px-5 py-3 flex items-center justify-between sticky top-0 z-30 shrink-0">
                         <div className="flex items-center gap-3">
                             <button onClick={() => setShowMobileSidebar(true)}
@@ -3048,7 +3047,7 @@ const Admin = () => {
                 )}
 
                 {/* Page content */}
-                <main className={`flex-1 overflow-y-auto ${['Overview', 'ReportsAnalyst'].includes(activeSection) ? '' : 'p-4 md:p-6'}`}>
+                <main className={`flex-1 overflow-y-auto ${['ReportsAnalyst'].includes(activeSection) ? '' : 'p-4 md:p-6'}`}>
                     <AnimatePresence>
                         {status && (
                             <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
@@ -3059,14 +3058,13 @@ const Admin = () => {
                         )}
                     </AnimatePresence>
 
-                    <div className={['Overview', 'ReportsAnalyst', 'AllMembers'].includes(activeSection) ? 'w-full space-y-5 px-4 md:px-8' : 'max-w-full lg:max-w-[1800px] mx-auto space-y-5 px-4 md:px-6'}>
+                    <div className={['ReportsAnalyst', 'AllMembers'].includes(activeSection) ? 'w-full space-y-5 px-4 md:px-8' : 'max-w-full lg:max-w-[1800px] mx-auto space-y-5 px-4 md:px-6'}>
 
                         {/* ── Permission gate for employee users ── */}
                         {isEmployee && !EMPLOYEE_ALLOWED_SECTIONS.includes(activeSection) ? (
                             <UnauthorizedAccess sectionName={activeLabel} />
                         ) : (
                             <>
-                                {activeSection === 'Overview' && <Overview data={data} distributors={distributors} superadmins={superadmins} onNavigate={setActiveSection} />}
                                 {activeSection === 'Approvals' && <ApprovalsTable 
                                     data={data} 
                                     distributors={distributors} 

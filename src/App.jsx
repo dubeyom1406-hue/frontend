@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
 
@@ -140,12 +140,61 @@ const SuperAdminOldReports_SA = lazy(() => import('./superadmin/pages/OldReports
 
 import ProtectedRoute from './components/ProtectedRoute';
 import LockScreen from './components/LockScreen';
+import { useAuth } from './context/AuthContext';
+import { useLocation } from 'react-router-dom';
+
+// --- Security Helper ---
+// Forces a full ID/Password login (logout) if sensitive routes are entered directly or switched.
+const SecurityMonitor = () => {
+    const { user, logout } = useAuth();
+    const location = useLocation();
+    const prevPortal = useRef(null);
+
+    useEffect(() => {
+        if (!user) {
+            prevPortal.current = null;
+            return;
+        }
+
+        const currentPath = location.pathname;
+        const loginPaths = ['/login', '/admin-login', '/portal', '/'];
+        
+        const getPortal = (path) => {
+            if (path === '/admin' || path.startsWith('/admin/')) return '/admin';
+            if (path === '/distributor' || path.startsWith('/distributor/')) return '/distributor';
+            if (path === '/superadmin' || path.startsWith('/superadmin/')) return '/superadmin';
+            return '/retailer';
+        }
+
+        if (loginPaths.includes(currentPath)) {
+            prevPortal.current = '/login';
+            return;
+        }
+
+        const currentPortal = getPortal(currentPath);
+        const sensitivePortals = ['/admin', '/distributor', '/superadmin'];
+        const isEnteringSensitive = sensitivePortals.includes(currentPortal);
+        
+        const wasJustAtLogin = prevPortal.current === '/login';
+        const isPortalSwitch = prevPortal.current && prevPortal.current !== '/login' && prevPortal.current !== currentPortal;
+        const isFreshEntryToSensitive = !prevPortal.current && isEnteringSensitive;
+
+        if (isFreshEntryToSensitive || (isEnteringSensitive && isPortalSwitch && !wasJustAtLogin)) {
+             logout();
+        } else {
+             prevPortal.current = currentPortal;
+        }
+    }, [location.pathname, user, logout]);
+
+    return null;
+};
 
 function App() {
   return (
     <AuthProvider>
       <LanguageProvider>
         <Router>
+          <SecurityMonitor />
           <LockScreen />
           <Suspense fallback={<PageLoader />}>
             <Routes>

@@ -65,6 +65,7 @@ export function AuthProvider({ children }) {
         setUser(res.user);
         setPermissions(res.user.permissions || []);
         localStorage.setItem("last_activity", Date.now().toString());
+        sessionStorage.setItem('just_unlocked', 'true');
         return { success: true };
       } else {
         return { success: false, message: res.message };
@@ -90,6 +91,7 @@ export function AuthProvider({ children }) {
     if (user && user.pin === pin) {
       setIsLocked(false);
       localStorage.setItem("last_activity", Date.now().toString());
+      sessionStorage.setItem('just_unlocked', 'true');
       return true;
     }
     return false;

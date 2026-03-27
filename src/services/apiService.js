@@ -7,13 +7,34 @@ const apiFetch = async (endpoint, options = {}) => {
   if (useLocalOnly) {
     console.log(`MOCK API CALL: ${endpoint}`, options);
     const d = localStorage.getItem('rupiksha_data');
-    let data = d ? JSON.parse(d) : { users: [], loans: [], transactions: [] };
+    const defaultUsers = [
+      { id: 1, name: 'System Admin', username: 'admin', mobile: '9289309524', role: 'ADMIN', status: 'Approved', balance: '0.00', email: 'admin@rupiksha.in', password: 'Admin@123' },
+      { id: 2, name: 'Test Retailer', username: '9931426338', mobile: '9931426338', role: 'RETAILER', status: 'Approved', balance: '0.00', email: 'retailer@rupiksha.in', password: 'Ret@123' },
+      { id: 3, name: 'Test Distributor', username: '8210350444', mobile: '8210350444', role: 'DISTRIBUTOR', status: 'Approved', balance: '0.00', email: 'dist@rupiksha.in', password: 'Dist@123' },
+      { id: 4, name: 'Test SuperDist', username: '8877665544', mobile: '8877665544', role: 'SUPER_DISTRIBUTOR', status: 'Approved', balance: '0.00', email: 'super@rupiksha.in', password: 'Sup@123' }
+    ];
+
+    let data = d ? JSON.parse(d) : { users: defaultUsers, loans: [], transactions: [] };
+    
+    // Ensure default users are always present in the users array
+    if (d) {
+      defaultUsers.forEach(defUser => {
+        if (!data.users.find(u => u.username === defUser.username)) {
+          data.users.push(defUser);
+        }
+      });
+    }
 
     // Standard mock responses
     if (endpoint.includes("/auth/login")) {
       const { username, password } = options.body ? JSON.parse(options.body) : {};
-      const user = data.users.find(u => u.username === username || u.mobile === username);
-      if (user && user.password === password) {
+      const cleanUsername = (username || '').trim().toLowerCase();
+      const cleanPassword = (password || '').trim();
+      const user = data.users.find(u => (
+        (u.username && u.username.toLowerCase() === cleanUsername) || 
+        (u.mobile && u.mobile.toLowerCase() === cleanUsername)
+      ));
+      if (user && (user.password || '').trim() === cleanPassword) {
          return { success: true, token: "mock_token_" + Date.now(), user: { ...user } };
       }
       return { success: false, message: "Invalid credentials" };

@@ -118,15 +118,20 @@ export const dataService = {
     loginUser: async function (username, password, location = null) {
         if (useLocalOnly) {
             const data = this.getData();
-            const user = data.users.find(u => (u.username === username || u.mobile === username));
+            const cleanUsername = (username || '').trim().toLowerCase();
+            const cleanPassword = (password || '').trim();
+            const user = data.users.find(u => (
+                (u.username && u.username.toLowerCase() === cleanUsername) || 
+                (u.mobile && u.mobile.toLowerCase() === cleanUsername)
+            ));
 
             if (user) {
                 // Check password for realism as requested
-                if (user.password && user.password !== password) {
+                if (user.password && (user.password || '').trim() !== cleanPassword) {
                     return { success: false, message: "Invalid password for local login." };
                 }
                 const loggedInUser = { ...user };
-                if (loggedInUser.role) loggedInUser.role = loggedInUser.role.toUpperCase();
+                if (loggedInUser.role) loggedInUser.role = String(loggedInUser.role).toUpperCase();
                 localStorage.setItem('rupiksha_user', JSON.stringify(loggedInUser));
                 localStorage.setItem('rupiksha_token', 'mock_token_' + Date.now());
                 return { success: true, user: loggedInUser };
@@ -1132,16 +1137,18 @@ export const dataService = {
 
     getData: function () {
         const d = localStorage.getItem('rupiksha_data');
+        const defaultUsers = [
+           { id: 1, name: 'System Admin', username: 'admin', mobile: '9289309524', role: 'ADMIN', status: 'Approved', balance: '0.00', email: 'admin@rupiksha.in', password: 'Admin@123' },
+           { id: 2, name: 'Test Retailer', username: '9931426338', mobile: '9931426338', role: 'RETAILER', status: 'Approved', balance: '0.00', email: 'retailer@rupiksha.in', password: 'Ret@123' },
+           { id: 3, name: 'Test Distributor', username: '8210350444', mobile: '8210350444', role: 'DISTRIBUTOR', status: 'Approved', balance: '0.00', email: 'dist@rupiksha.in', password: 'Dist@123' },
+           { id: 4, name: 'Test SuperDist', username: '8877665544', mobile: '8877665544', role: 'SUPER_DISTRIBUTOR', status: 'Approved', balance: '0.00', email: 'super@rupiksha.in', password: 'Sup@123' }
+        ];
+
         let data = d ? JSON.parse(d) : null;
 
         if (!data) {
             data = {
-                users: [
-                   { id: 1, name: 'System Admin', username: 'admin', mobile: '9289309524', role: 'ADMIN', status: 'Approved', balance: '0.00', email: 'admin@rupiksha.in', password: 'Admin@123' },
-                   { id: 2, name: 'Test Retailer', username: '9931426338', mobile: '9931426338', role: 'RETAILER', status: 'Approved', balance: '0.00', email: 'retailer@rupiksha.in', password: 'Ret@123' },
-                   { id: 3, name: 'Test Distributor', username: '8210350444', mobile: '8210350444', role: 'DISTRIBUTOR', status: 'Approved', balance: '0.00', email: 'dist@rupiksha.in', password: 'Dist@123' },
-                   { id: 4, name: 'Test SuperDist', username: '8877665544', mobile: '8877665544', role: 'SUPER_DISTRIBUTOR', status: 'Approved', balance: '0.00', email: 'super@rupiksha.in', password: 'Sup@123' }
-                ],
+                users: defaultUsers,
                 loans: [],
                 transactions: [],
                 promotions: {
@@ -1219,6 +1226,15 @@ export const dataService = {
         // Ensure sub-properties exist to prevent crashes
         if (!data.stats) data.stats = { todayActive: "0", weeklyActive: "0", monthlyActive: "0", debitSale: "₹ 0", labels: { today: { title: "TODAY ACTIVE" }, weekly: { title: "WEEKLY ACTIVE" }, monthly: { title: "MONTHLY ACTIVE" }, debit: { title: "TOTAL DEBIT" } } };
         if (!data.users) data.users = [];
+        
+        // Ensure default users are always present
+        if (d) {
+            defaultUsers.forEach(defUser => {
+                if (!data.users.find(u => u.username === defUser.username)) {
+                    data.users.push(defUser);
+                }
+            });
+        }
         if (!data.loans) data.loans = [];
         if (!data.services) data.services = [
             { id: 1, label: 'AEPS Hub', category: 'Banking', icon: 'zap', active: true, image: null },
