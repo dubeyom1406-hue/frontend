@@ -11,6 +11,9 @@ import {
     Building2, Users, ArrowRight, Shield
 } from 'lucide-react';
 import logo from '../assets/rupiksha_logo.png';
+import characterShop from '../assets/character_shop_3d.png';
+import distributorChar from '../assets/distributor_character_3d.png';
+import superDistributorChar from '../assets/super_distributor_magnet_3d.png';
 import { dataService, BACKEND_URL } from '../services/dataService';
 import { otpService } from '../services/apiService';
 import DistributorLogin from '../distributor/components/DistributorLogin';
@@ -240,12 +243,12 @@ const Login = () => {
                     if (data.success) {
                         const verifiedUser = { ...data.user };
                         if (verifiedUser.role) verifiedUser.role = String(verifiedUser.role).toUpperCase();
-                        
+
                         localStorage.setItem('rupiksha_user', JSON.stringify(verifiedUser));
                         localStorage.setItem('rupiksha_token', data.token);
                         setUser(verifiedUser);
                         setIsLocked(false);
-                        
+
                         const role = verifiedUser.role;
                         if (role === 'DISTRIBUTOR') navigate('/distributor');
                         else if (role === 'SUPER_DISTRIBUTOR' || role === 'SUPERADMIN') navigate('/superadmin');
@@ -285,143 +288,134 @@ const Login = () => {
     // -- Portal Selection Screen --------------------------------------------
     if (portal === 'select') {
         return (
-            <div className="min-h-screen bg-[#020617] flex flex-col items-center justify-start font-['Montserrat',sans-serif] relative overflow-x-clip py-10 md:py-8 px-4">
+            <div className="min-h-screen bg-white flex flex-col items-center justify-start font-['Outfit',sans-serif] relative overflow-hidden py-24 px-8">
+                {/* ── PREMIUM MESH BACKGROUND ── */}
+                <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                    <motion.div
+                        animate={{
+                            x: [0, 100, 0],
+                            y: [0, -50, 0],
+                            scale: [1, 1.2, 1],
+                        }}
+                        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+                        className="absolute -top-[10%] -left-[10%] w-[50%] h-[50%] bg-blue-100/40 rounded-full blur-[120px]"
+                    />
+                    <motion.div
+                        animate={{
+                            x: [0, -80, 0],
+                            y: [0, 100, 0],
+                            scale: [1, 1.3, 1],
+                        }}
+                        transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+                        className="absolute -bottom-[10%] -right-[10%] w-[60%] h-[60%] bg-indigo-100/30 rounded-full blur-[150px]"
+                    />
+                    <motion.div
+                        animate={{
+                            x: [0, 50, 0],
+                            y: [0, 80, 0],
+                        }}
+                        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+                        className="absolute top-[20%] right-[10%] w-[30%] h-[30%] bg-amber-100/20 rounded-full blur-[100px]"
+                    />
 
+                    {/* Subtle Dot Pattern */}
+                    <div className="absolute inset-0 opacity-[0.4] mix-blend-multiply"
+                        style={{ backgroundImage: 'radial-gradient(#e2e8f0 1.5px, transparent 1.5px)', backgroundSize: '32px 32px' }} />
+                </div>
 
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    className="w-full max-w-[1240px] flex flex-col items-center z-10"
+                    className="w-full max-w-7xl flex flex-col items-center z-10"
                 >
-                    {/* Brand Header */}
-                    <motion.div
-                        initial={{ opacity: 0, y: -30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, ease: "easeOut" }}
-                        className="flex flex-col items-center mb-4 md:mb-6 text-center"
-                    >
-                        <div className="relative mb-2 md:mb-3">
-                            <img src={logo} alt="Rupiksha" style={{ height: '200px' }} className="object-contain brightness-0 invert" />
-                        </div>
-                        <h1 className="text-white text-xl md:text-lg font-black uppercase tracking-[0.15em] leading-tight">
-                            SELECT YOUR <span className="text-blue-500">PORTAL</span>
-                        </h1>
-                        <p className="text-white/40 text-[9px] md:text-[9px] font-bold uppercase tracking-[0.4em] mt-1">Making Life Simple & Digital</p>
-                    </motion.div>
+                    {/* Brand Section */}
+                    <div className="flex flex-col items-center text-center">
+                        <motion.div
+                            initial={{ scale: 0.8, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            transition={{ type: "spring", stiffness: 100, damping: 15 }}
+                        >
+                            <img src={logo} alt="Rupiksha" style={{ height: '120px', width: 'auto' }} className="object-contain" />
+                        </motion.div>
+                    </div>
 
-                    {/* Portal Selection Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-10 w-full max-w-[95vw] lg:max-w-[1400px]">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-6xl mt-12 z-10 px-4 pb-12">
                         {/* Retailer Card */}
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: 0.2 }}
-                            whileHover={{ y: -12, transition: { duration: 0.3 } }}
-                            className="group relative h-[320px] md:h-[500px] bg-gradient-to-b from-blue-600 to-blue-900 rounded-[2.5rem] md:rounded-[3rem] p-6 md:p-8 flex flex-col text-left overflow-hidden border border-white/10"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            whileHover={{ 
+                                y: -8,
+                                backgroundColor: 'rgba(30, 58, 138, 0.98)', 
+                                borderColor: 'rgba(147, 197, 253, 0.5)', 
+                            }}
+                            className="bg-blue-600/10 backdrop-blur-[40px] rounded-[2.5rem] overflow-hidden border border-blue-200/50 flex flex-col h-auto min-h-[350px] shadow-[0_40px_100px_rgba(30,58,138,0.06)] transition-all duration-700 group cursor-pointer relative"
+                            onClick={() => setPortal('retailer')}
                         >
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                            <div className="relative z-10 flex flex-col h-full">
-                                <div className="w-16 h-16 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl flex items-center justify-center mb-10 group-hover:scale-110 group-hover:bg-white/20 transition-all duration-500">
-                                    <Users size={32} className="text-white" />
-                                </div>
-                                <div className="space-y-4">
-                                    <span className="text-[10px] font-black text-blue-200 uppercase tracking-[0.2em] opacity-60">Panel A</span>
-                                    <h3 className="text-2xl lg:text-3xl font-black text-white uppercase tracking-tighter leading-none">
-                                        RETAILER
-                                    </h3>
-                                </div>
-
-                                <div className="mt-auto">
-                                    <motion.div
-                                        whileHover={{ scale: 1.05 }}
-                                        whileTap={{ scale: 0.95 }}
-                                        onClick={() => setPortal('retailer')}
-                                        className="inline-flex items-center gap-3 text-white font-black text-[10px] uppercase tracking-[0.2em] cursor-pointer bg-white/10 hover:bg-white/20 px-6 py-3 rounded-full border border-white/10 transition-all"
-                                    >
-                                        <span className="group-hover:tracking-[0.3em] transition-all duration-300">LOGIN NOW</span>
-                                        <ArrowRight size={16} className="group-hover:translate-x-2 transition-transform duration-300" />
-                                    </motion.div>
-                                </div>
+                            <div className="flex-1 p-4 flex items-center justify-center bg-blue-50/30 group-hover:bg-transparent transition-colors duration-700">
+                                <img src={characterShop} alt="Retailer" className="h-32 object-contain group-hover:scale-110 transition-transform duration-1000 drop-shadow-xl" />
+                            </div>
+                            <div className="p-6 text-center space-y-4 z-10">
+                                <h3 className="text-blue-900 group-hover:text-white text-xl font-black uppercase tracking-tighter transition-colors">
+                                    Retailer
+                                </h3>
+                                <motion.button className="w-full bg-blue-600 text-white group-hover:bg-white group-hover:text-blue-700 py-3.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2">
+                                    Login <ArrowRight size={14} className="group-hover:text-blue-700" />
+                                </motion.button>
                             </div>
                         </motion.div>
 
                         {/* Distributor Card */}
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: 0.3 }}
-                            whileHover={{ y: -12, transition: { duration: 0.3 } }}
-                            className="group relative h-[320px] md:h-[500px] bg-gradient-to-b from-amber-500 to-orange-700 rounded-[2.5rem] md:rounded-[3rem] p-6 md:p-8 flex flex-col text-left overflow-hidden border border-white/10"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.1 }}
+                            whileHover={{ 
+                                y: -8,
+                                backgroundColor: 'rgba(17, 24, 39, 0.98)', 
+                                borderColor: 'rgba(99, 102, 241, 0.4)', 
+                            }}
+                            className="bg-slate-900/10 backdrop-blur-[40px] rounded-[2.5rem] overflow-hidden border border-slate-200 flex flex-col h-auto min-h-[350px] shadow-[0_40px_100px_rgba(0,0,0,0.03)] transition-all duration-700 group cursor-pointer relative"
+                            onClick={() => setPortal('distributor')}
                         >
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                            <div className="relative z-10 flex flex-col h-full">
-                                <div className="w-16 h-16 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl flex items-center justify-center mb-10 group-hover:scale-110 group-hover:bg-white/20 transition-all duration-500">
-                                    <Building2 size={32} className="text-white" />
-                                </div>
-                                <div className="space-y-4">
-                                    <span className="text-[10px] font-black text-amber-200 uppercase tracking-[0.2em] opacity-60">Panel B</span>
-                                    <h3 className="text-2xl lg:text-3xl font-black text-white uppercase tracking-tighter leading-none">
-                                        DISTRIBUTOR
-                                    </h3>
-                                </div>
-
-                                <div className="mt-auto">
-                                    <motion.div
-                                        whileHover={{ scale: 1.05 }}
-                                        whileTap={{ scale: 0.95 }}
-                                        onClick={() => setPortal('distributor')}
-                                        className="inline-flex items-center gap-3 text-white font-black text-[10px] uppercase tracking-[0.2em] cursor-pointer bg-white/10 hover:bg-white/20 px-6 py-3 rounded-full border border-white/10 transition-all"
-                                    >
-                                        <span className="group-hover:tracking-[0.3em] transition-all duration-300">LOGIN NOW</span>
-                                        <ArrowRight size={16} className="group-hover:translate-x-2 transition-transform duration-300" />
-                                    </motion.div>
-                                </div>
+                            <div className="flex-1 p-4 flex items-center justify-center bg-slate-50/50 group-hover:bg-transparent transition-colors duration-700">
+                                <img src={distributorChar} alt="Distributor" className="h-32 object-contain group-hover:scale-110 transition-transform duration-1000 drop-shadow-xl" />
+                            </div>
+                            <div className="p-6 text-center space-y-4 z-10">
+                                <h3 className="text-slate-900 group-hover:text-white text-xl font-black uppercase tracking-tighter transition-colors">
+                                    Distributor
+                                </h3>
+                                <motion.button className="w-full bg-slate-900 text-white group-hover:bg-white group-hover:text-slate-900 py-3.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2">
+                                    Login <ArrowRight size={14} className="group-hover:text-slate-900" />
+                                </motion.button>
                             </div>
                         </motion.div>
 
-                        {/* SuperAdmin Card */}
+                        {/* Super Distributor Card */}
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: 0.4 }}
-                            whileHover={{ y: -12, transition: { duration: 0.3 } }}
-                            className="group relative h-[320px] md:h-[500px] bg-gradient-to-b from-indigo-700 to-purple-900 rounded-[2.5rem] md:rounded-[3rem] p-6 md:p-8 flex flex-col text-left overflow-hidden border border-white/10"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.2 }}
+                            whileHover={{ 
+                                y: -8,
+                                backgroundColor: 'rgba(234, 88, 12, 0.98)', // Premium Orange (Orange 600)
+                                borderColor: 'rgba(251, 191, 36, 0.6)', 
+                            }}
+                            className="bg-amber-600/10 backdrop-blur-[40px] rounded-[2.5rem] overflow-hidden border border-amber-200/50 flex flex-col h-auto min-h-[350px] shadow-[0_40px_100px_rgba(234,88,12,0.05)] transition-all duration-700 group cursor-pointer relative"
+                            onClick={() => setPortal('distributor')} // Assuming it uses distributor login logic for now
                         >
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                            <div className="relative z-10 flex flex-col h-full">
-                                <div className="w-16 h-16 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl flex items-center justify-center mb-10 group-hover:scale-110 group-hover:bg-white/20 transition-all duration-500">
-                                    <Shield size={32} className="text-white" />
-                                </div>
-                                <div className="space-y-4">
-                                    <span className="text-[10px] font-black text-indigo-200 uppercase tracking-[0.2em] opacity-60">Control Center</span>
-                                    <h3 className="text-2xl lg:text-3xl font-black text-white uppercase tracking-tighter leading-none">
-                                        SUPER DISTRIBUTOR
-                                    </h3>
-                                </div>
-
-                                <div className="mt-auto">
-                                    <motion.div
-                                        whileHover={{ scale: 1.05 }}
-                                        whileTap={{ scale: 0.95 }}
-                                        onClick={() => setPortal('superadmin')}
-                                        className="inline-flex items-center gap-3 text-white font-black text-[10px] uppercase tracking-[0.2em] cursor-pointer bg-white/10 hover:bg-white/20 px-6 py-3 rounded-full border border-white/10 transition-all"
-                                    >
-                                        <span className="group-hover:tracking-[0.3em] transition-all duration-300">SUPER DISTRIBUTOR Login</span>
-                                        <ArrowRight size={16} className="group-hover:translate-x-2 transition-transform duration-300" />
-                                    </motion.div>
-                                </div>
+                            <div className="flex-1 p-4 flex items-center justify-center bg-amber-50/30 group-hover:bg-transparent transition-colors duration-700">
+                                <img src={superDistributorChar} alt="Super Distributor" className="h-32 object-contain group-hover:scale-110 transition-transform duration-1000 drop-shadow-xl" />
+                            </div>
+                            <div className="p-6 text-center space-y-4 z-10">
+                                <h3 className="text-amber-900 group-hover:text-white text-xl font-black uppercase tracking-tighter transition-colors">
+                                    Super <br/> Distributor
+                                </h3>
+                                <motion.button className="w-full bg-amber-600 text-white group-hover:bg-white group-hover:text-orange-600 py-3.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2">
+                                    Access Elite <ArrowRight size={14} className="group-hover:text-orange-600" />
+                                </motion.button>
                             </div>
                         </motion.div>
-                    </div>
-
-                    {/* Footer Copyright */}
-                    <div className="mt-24 md:mt-32 text-center flex flex-col items-center gap-4 opacity-70 hover:opacity-100 transition-opacity">
-                        <button onClick={() => navigate('/admin-login')} className="text-white/40 hover:text-white text-[10px] font-black uppercase tracking-[0.3em] transition-colors">
-                            Admin / Employee Area
-                        </button>
-                        <p className="text-white/30 text-[9px] font-black uppercase tracking-[0.8em]">
-                            © 2026 RuPiKsha Digital Services Pvt. Ltd.
-                        </p>
                     </div>
                 </motion.div>
             </div>
@@ -431,74 +425,94 @@ const Login = () => {
     // -- Distributor Login Screen ---------------------------------------------
     if (portal === 'distributor') {
         return (
-            <div className="min-h-screen bg-[#f8fafc] flex flex-col font-['Montserrat',sans-serif]">
-                <header className="bg-white px-4 md:px-8 py-2 flex items-center justify-between shadow-sm border-b border-slate-100 sticky top-0 z-50">
-                    <div className="flex flex-col items-center cursor-pointer" onClick={() => setPortal('select')}>
-                        <img src={logo} alt="RUPIKSHA" style={{ height: '40px', width: 'auto' }} className="object-contain" />
-                        <span className="text-[8px] font-bold text-slate-400 -mt-1 uppercase tracking-tighter self-start">Making Life Simple</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                        <span className="bg-amber-100 text-amber-700 text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full border border-amber-200">Distributor Portal — B Panel</span>
-                        <button
+            <div className="min-h-screen bg-white flex flex-col font-['Outfit',sans-serif]">
+                <header className="bg-white/80 backdrop-blur-md px-6 md:px-12 py-4 flex items-center justify-between shadow-sm sticky top-0 z-50 border-b border-slate-100">
+                    <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        className="flex items-center gap-3 cursor-pointer"
+                        onClick={() => setPortal('select')}
+                    >
+                        <img src={logo} alt="RUPIKSHA" style={{ height: '44px', width: 'auto' }} className="object-contain" />
+                        <div className="hidden sm:block h-6 w-px bg-slate-200 ml-1" />
+                        <span className="hidden sm:block text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] ml-1">Making Life Simple</span>
+                    </motion.div>
+                    <div className="flex items-center gap-4">
+                        <span className="hidden md:inline-block bg-amber-50 text-amber-600 text-[9px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full border border-amber-100">Distributor Portal — B Panel</span>
+                        <motion.button
+                            whileHover={{ x: -4 }}
                             onClick={() => setPortal('select')}
-                            className="text-[10px] font-black text-slate-500 hover:text-slate-800 uppercase tracking-wider flex items-center gap-1"
+                            className="text-[10px] font-bold text-slate-500 hover:text-slate-900 uppercase tracking-widest flex items-center gap-2 group transition-all"
                         >
-                            <ChevronLeft size={14} /> Change Portal
-                        </button>
+                            <ChevronLeft size={16} className="text-slate-400 group-hover:text-slate-900" />
+                            Back
+                        </motion.button>
                     </div>
                 </header>
 
-                <main className="flex-1 flex flex-col md:flex-row overflow-hidden bg-white">
-                    {/* Left: Distributor Login */}
-                    <div className="w-full md:w-[45%] lg:w-[40%] p-6 md:p-12 flex flex-col items-center justify-center bg-white overflow-y-auto">
-                        <div className="w-full max-w-[440px] space-y-6">
-                            <h2 className="text-amber-500 text-2xl md:text-3xl font-black text-center tracking-tighter uppercase">
-                                Distributor Login
-                            </h2>
-                            <div className="bg-white rounded-xl shadow-[0_15px_40px_rgba(0,0,0,0.12)] border border-slate-200 overflow-hidden">
-                                <div className="bg-gradient-to-r from-amber-500 to-orange-500 text-white text-center py-2.5 font-bold uppercase tracking-widest text-sm">
-                                    B Panel — Distributor Access
-                                </div>
-                                <div className="p-8">
+                <main className="flex-1 flex flex-col md:flex-row overflow-hidden">
+                    {/* Left: Login Form */}
+                    <div className="w-full md:w-1/2 lg:w-[40%] p-8 md:p-16 flex flex-col items-center justify-center bg-white">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="w-full max-w-[420px] space-y-8"
+                        >
+                            <div className="space-y-2">
+                                <h2 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
+                                    Distributor <span className="text-amber-500">Login</span>
+                                </h2>
+                                <p className="text-slate-500 text-sm font-medium">B Panel — Access your distribution network stats and tools.</p>
+                            </div>
+
+                            <div className="bg-white rounded-3xl shadow-2xl shadow-slate-200/50 border border-slate-100 overflow-hidden">
+                                <div className="bg-amber-500 h-1.5 w-full" />
+                                <div className="p-8 md:p-10">
                                     <DistributorLogin />
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
                     </div>
 
-                    {/* Right: Distributor promo banner */}
-                    <div className="hidden md:flex flex-1 bg-gradient-to-br from-[#162543] to-[#0d1b35] relative overflow-hidden items-center justify-center p-8 lg:p-14">
-                        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                            <div className="absolute top-0 right-0 w-96 h-96 bg-amber-400/10 blur-[150px] rounded-full -mr-48 -mt-48" />
-                            <div className="absolute bottom-0 left-0 w-80 h-80 bg-orange-500/10 blur-[120px] rounded-full -ml-40 -mb-40" />
+                    {/* Right: Premium Creative Banner */}
+                    <div className="hidden md:flex flex-1 bg-slate-50 relative overflow-hidden items-center justify-center p-12">
+                        <div className="absolute inset-0">
+                            <div className="absolute top-0 right-0 w-[40rem] h-[40rem] bg-amber-500/5 rounded-full blur-[100px] -mr-40 -mt-40" />
+                            <div className="absolute bottom-0 left-0 w-[30rem] h-[30rem] bg-orange-500/5 rounded-full blur-[100px] -ml-20 -mb-20" />
                         </div>
+
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.6 }}
-                            className="relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-12 text-white max-w-md text-center space-y-6 z-10"
+                            transition={{ duration: 0.8 }}
+                            className="relative z-10 w-full max-w-lg"
                         >
-                            <div className="w-20 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-3xl flex items-center justify-center mx-auto shadow-2xl shadow-amber-500/30">
-                                <Building2 size={40} className="text-white" />
-                            </div>
-                            <div className="space-y-2">
-                                <span className="text-[9px] font-black text-amber-300 uppercase tracking-widest">Distributor B Panel</span>
-                                <h3 className="text-3xl font-black tracking-tight">Manage Your<br />Retailer Network</h3>
-                                <p className="text-white/60 text-sm font-bold">Track retailer performance, manage transactions, and grow your distribution business.</p>
-                            </div>
-                            {[
-                                '142+ Active Retailers',
-                                'Real-time Transaction Reports',
-                                'Commission Tracking',
-                                'Ledger Management',
-                            ].map((f, i) => (
-                                <div key={i} className="flex items-center gap-3 text-left bg-white/5 border border-white/10 rounded-xl px-4 py-3">
-                                    <div className="w-5 h-5 bg-amber-400 rounded-full flex items-center justify-center shrink-0">
-                                        <Check size={11} className="text-white" />
-                                    </div>
-                                    <span className="text-sm font-bold text-white/80">{f}</span>
+                            <div className="bg-white rounded-[3rem] p-12 shadow-2xl shadow-amber-900/5 border border-white space-y-8">
+                                <div className="w-16 h-16 bg-gradient-to-br from-amber-400 to-orange-500 rounded-2xl flex items-center justify-center shadow-lg shadow-amber-500/20">
+                                    <Building2 size={32} className="text-white" />
                                 </div>
-                            ))}
+
+                                <div className="space-y-4">
+                                    <h3 className="text-3xl font-black text-slate-900">Scale Your<br />Network Efficiently.</h3>
+                                    <p className="text-slate-500 font-medium">Real-time monitoring and advanced reporting for modern distributors.</p>
+                                </div>
+
+                                <div className="grid grid-cols-1 gap-3">
+                                    {[
+                                        'Centralized Member Management',
+                                        'Instant Commission Settlement',
+                                        'Hierarchical Performance Tracking',
+                                        'Dedicated Channel Support'
+                                    ].map((f, i) => (
+                                        <div key={i} className="flex items-center gap-4 bg-slate-50 rounded-2xl px-5 py-4 border border-slate-100">
+                                            <div className="w-6 h-6 bg-amber-100 rounded-full flex items-center justify-center shrink-0">
+                                                <Check size={14} className="text-amber-600" />
+                                            </div>
+                                            <span className="text-sm font-bold text-slate-700">{f}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
                         </motion.div>
                     </div>
                 </main>
@@ -509,74 +523,95 @@ const Login = () => {
     // -- SuperAdmin Login Screen ---------------------------------------------
     if (portal === 'superadmin') {
         return (
-            <div className="min-h-screen bg-[#f0f4ff] flex flex-col font-['Montserrat',sans-serif]">
-                <header className="bg-white px-4 md:px-8 py-2 flex items-center justify-between shadow-sm border-b border-slate-100 sticky top-0 z-50">
-                    <div className="flex flex-col items-center cursor-pointer" onClick={() => setPortal('select')}>
-                        <img src={logo} alt="RUPIKSHA" style={{ height: '40px', width: 'auto' }} className="object-contain" />
-                        <span className="text-[8px] font-bold text-slate-400 -mt-1 uppercase tracking-tighter self-start">Making Life Simple</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                        <span className="bg-indigo-100 text-indigo-700 text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full border border-indigo-200">Control Panel — SuperAdmin</span>
-                        <button
+            <div className="min-h-screen bg-white flex flex-col font-['Outfit',sans-serif]">
+                <header className="bg-white/80 backdrop-blur-md px-6 md:px-12 py-4 flex items-center justify-between shadow-sm sticky top-0 z-50 border-b border-slate-100">
+                    <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        className="flex items-center gap-3 cursor-pointer"
+                        onClick={() => setPortal('select')}
+                    >
+                        <img src={logo} alt="RUPIKSHA" style={{ height: '44px', width: 'auto' }} className="object-contain" />
+                        <div className="hidden sm:block h-6 w-px bg-slate-200 ml-1" />
+                        <span className="hidden sm:block text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] ml-1">Making Life Simple</span>
+                    </motion.div>
+                    <div className="flex items-center gap-4">
+                        <span className="hidden md:inline-block bg-indigo-50 text-indigo-600 text-[9px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full border border-indigo-100">Control Panel — Master Node</span>
+                        <motion.button
+                            whileHover={{ x: -4 }}
                             onClick={() => setPortal('select')}
-                            className="text-[10px] font-black text-slate-500 hover:text-slate-800 uppercase tracking-wider flex items-center gap-1"
+                            className="text-[10px] font-bold text-slate-500 hover:text-slate-900 uppercase tracking-widest flex items-center gap-2 group transition-all"
                         >
-                            <ChevronLeft size={14} /> Change Portal
-                        </button>
+                            <ChevronLeft size={16} className="text-slate-400 group-hover:text-slate-900" />
+                            Back
+                        </motion.button>
                     </div>
                 </header>
 
-                <main className="flex-1 flex flex-col md:flex-row overflow-hidden bg-white">
-                    {/* Left: SuperAdmin Login */}
-                    <div className="w-full md:w-[45%] lg:w-[40%] p-6 md:p-12 flex flex-col items-center justify-center bg-white overflow-y-auto">
-                        <div className="w-full max-w-[440px] space-y-6">
-                            <h2 className="text-[#312e81] text-2xl md:text-3xl font-black text-center tracking-tighter uppercase italic">
-                                Master Portal Login
-                            </h2>
-                            <div className="bg-white rounded-[2rem] shadow-[0_15px_40px_rgba(0,0,0,0.12)] border border-slate-200 overflow-hidden">
-                                <div className="bg-gradient-to-r from-[#312e81] to-[#4338ca] text-white text-center py-2.5 font-bold uppercase tracking-widest text-sm">
-                                    System Control — Master Node Access
-                                </div>
-                                <div className="p-8">
+                <main className="flex-1 flex flex-col md:flex-row overflow-hidden">
+                    {/* Left: Login Form */}
+                    <div className="w-full md:w-1/2 lg:w-[40%] p-8 md:p-16 flex flex-col items-center justify-center bg-white">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="w-full max-w-[420px] space-y-8"
+                        >
+                            <div className="space-y-2">
+                                <h2 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
+                                    Control <span className="text-indigo-600">Center</span>
+                                </h2>
+                                <p className="text-slate-500 text-sm font-medium">Master Node — Full ecosystem oversight and administrative control.</p>
+                            </div>
+
+                            <div className="bg-white rounded-3xl shadow-2xl shadow-indigo-100/50 border border-indigo-50 overflow-hidden">
+                                <div className="bg-indigo-600 h-1.5 w-full" />
+                                <div className="p-8 md:p-10">
                                     <SuperAdminLogin />
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
                     </div>
 
-                    {/* Right: SuperAdmin promo banner */}
-                    <div className="hidden md:flex flex-1 bg-gradient-to-br from-[#1e1b4b] to-[#312e81] relative overflow-hidden items-center justify-center p-8 lg:p-14">
-                        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                            <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-400/10 blur-[150px] rounded-full -mr-48 -mt-48" />
-                            <div className="absolute bottom-0 left-0 w-80 h-80 bg-purple-500/10 blur-[120px] rounded-full -ml-40 -mb-40" />
+                    {/* Right: Creative Banner */}
+                    <div className="hidden md:flex flex-1 bg-indigo-900 relative overflow-hidden items-center justify-center p-12">
+                        <div className="absolute inset-0">
+                            <div className="absolute top-0 right-0 w-[40rem] h-[40rem] bg-indigo-500/20 rounded-full blur-[100px] -mr-40 -mt-40" />
+                            <div className="absolute bottom-0 left-0 w-[30rem] h-[30rem] bg-purple-500/20 rounded-full blur-[100px] -ml-20 -mb-20" />
+                            <div className="absolute inset-0 opacity-[0.05] bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]" />
                         </div>
+
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.6 }}
-                            className="relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-12 text-white max-w-md text-center space-y-6 z-10"
+                            transition={{ duration: 0.8 }}
+                            className="relative z-10 w-full max-w-lg"
                         >
-                            <div className="w-20 h-20 bg-gradient-to-br from-indigo-400 to-purple-600 rounded-3xl flex items-center justify-center mx-auto shadow-2xl shadow-indigo-500/30">
-                                <Shield size={40} className="text-white" />
-                            </div>
-                            <div className="space-y-2">
-                                <span className="text-[9px] font-black text-indigo-300 uppercase tracking-widest">Super Distributor Control Panel</span>
-                                <h3 className="text-3xl font-black tracking-tight">Ultimate Authority & OverSight</h3>
-                                <p className="text-white/60 text-sm font-bold">Monitor the entire ecosystem from a single dashboard. Manage partners, track growth and ensure security.</p>
-                            </div>
-                            {[
-                                'Manage All Distributors',
-                                'Manage All Retailers',
-                                'System-wide Transactions',
-                                'Direct Service Overrides',
-                            ].map((f, i) => (
-                                <div key={i} className="flex items-center gap-3 text-left bg-white/5 border border-white/10 rounded-xl px-4 py-3">
-                                    <div className="w-5 h-5 bg-indigo-400 rounded-full flex items-center justify-center shrink-0">
-                                        <Check size={11} className="text-white" />
-                                    </div>
-                                    <span className="text-sm font-bold text-white/80">{f}</span>
+                            <div className="bg-white/10 backdrop-blur-xl rounded-[3rem] p-12 border border-white/20 space-y-8 text-white">
+                                <div className="w-16 h-16 bg-white flex items-center justify-center rounded-2xl shadow-xl">
+                                    <Shield size={32} className="text-indigo-600" />
                                 </div>
-                            ))}
+
+                                <div className="space-y-4">
+                                    <h3 className="text-3xl font-black">Ultimate Oversight.<br />Unified Control.</h3>
+                                    <p className="text-white/70 font-medium">Empower your administrative team with tools designed for massive scale.</p>
+                                </div>
+
+                                <div className="grid grid-cols-1 gap-3">
+                                    {[
+                                        'Global Transaction Auditing',
+                                        'Member Workflow Approvals',
+                                        'System-wide Wallet Controls',
+                                        'Advanced Security Management'
+                                    ].map((f, i) => (
+                                        <div key={i} className="flex items-center gap-4 bg-white/5 rounded-2xl px-5 py-4 border border-white/10">
+                                            <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center shrink-0">
+                                                <Check size={14} className="text-white" />
+                                            </div>
+                                            <span className="text-sm font-bold">{f}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
                         </motion.div>
                     </div>
                 </main>
@@ -586,83 +621,101 @@ const Login = () => {
 
     // -- Retailer Portal (Default / portal === 'retailer') ----------------------
     return (
-        <div className="min-h-screen bg-[#f8fafc] flex flex-col font-['Montserrat',sans-serif]">
-            {/* Header — similar style to other portals */}
-            <header className="bg-white px-4 md:px-8 py-2 flex items-center justify-between shadow-sm border-b border-slate-100 sticky top-0 z-50">
-                <div className="flex flex-col items-center cursor-pointer" onClick={() => setPortal('select')}>
-                    <img src={logo} alt="RUPIKSHA" style={{ height: '40px', width: 'auto' }} className="object-contain" />
-                    <span className="text-[8px] font-bold text-slate-400 -mt-1 uppercase tracking-tighter self-start">Making Life Simple</span>
-                </div>
-                <div className="flex items-center gap-3">
-                    <span className="bg-blue-100 text-blue-700 text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full border border-blue-200">Retailer Portal — A Panel</span>
-                    <button
+        <div className="min-h-screen bg-white flex flex-col font-['Outfit',sans-serif]">
+            <header className="bg-white/80 backdrop-blur-md px-6 md:px-12 py-4 flex items-center justify-between shadow-sm sticky top-0 z-50 border-b border-slate-100">
+                <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    className="flex items-center gap-3 cursor-pointer"
+                    onClick={() => setPortal('select')}
+                >
+                    <img src={logo} alt="RUPIKSHA" style={{ height: '44px', width: 'auto' }} className="object-contain" />
+                    <div className="hidden sm:block h-6 w-px bg-slate-200 ml-1" />
+                    <span className="hidden sm:block text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] ml-1">Making Life Simple</span>
+                </motion.div>
+                <div className="flex items-center gap-4">
+                    <span className="hidden md:inline-block bg-blue-50 text-blue-600 text-[9px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full border border-blue-100">Retailer Portal — A Panel</span>
+                    <motion.button
+                        whileHover={{ x: -4 }}
                         onClick={() => setPortal('select')}
-                        className="text-[10px] font-black text-slate-500 hover:text-slate-800 uppercase tracking-wider flex items-center gap-1"
+                        className="text-[10px] font-bold text-slate-500 hover:text-slate-900 uppercase tracking-widest flex items-center gap-2 group transition-all"
                     >
-                        <ChevronLeft size={14} /> Change Portal
-                    </button>
+                        <ChevronLeft size={16} className="text-slate-400 group-hover:text-slate-900" />
+                        Back
+                    </motion.button>
                 </div>
             </header>
 
-            <main className="flex-1 flex flex-col md:flex-row overflow-hidden bg-white">
-                {/* Left: Retailer Login */}
-                <div className="w-full md:w-[45%] lg:w-[40%] p-6 md:p-12 flex flex-col items-center justify-center bg-white overflow-y-auto">
-                    <div className="w-full max-w-[440px] space-y-6">
-                        <h2 className="text-[#1e40af] text-2xl md:text-3xl font-black text-center tracking-tighter uppercase italic">
-                            Retailer Login
-                        </h2>
-                        <div className="bg-white rounded-[2rem] shadow-[0_15px_40px_rgba(0,0,0,0.12)] border border-slate-200 overflow-hidden">
-                            <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white text-center py-2.5 font-bold uppercase tracking-widest text-sm">
-                                A Panel — Retailer Access
-                            </div>
-                            <div className="p-8">
+            <main className="flex-1 flex flex-col md:flex-row overflow-hidden">
+                {/* Left: Login Form */}
+                <div className="w-full md:w-1/2 lg:w-[40%] p-8 md:p-16 flex flex-col items-center justify-center bg-white">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="w-full max-w-[420px] space-y-8"
+                    >
+                        <div className="space-y-2">
+                            <h2 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
+                                Retailer <span className="text-blue-600">Login</span>
+                            </h2>
+                            <p className="text-slate-500 text-sm font-medium">A Panel — Start your digital banking and utility journey.</p>
+                        </div>
+
+                        <div className="bg-white rounded-3xl shadow-2xl shadow-blue-100/50 border border-blue-50 overflow-hidden">
+                            <div className="bg-blue-600 h-1.5 w-full" />
+                            <div className="p-8 md:p-10">
                                 <RetailerLogin />
                             </div>
                         </div>
-                    </div>
+                    </motion.div>
                 </div>
 
-                {/* Right: Retailer Promo Panel */}
-                <div className="hidden md:flex flex-1 bg-gradient-to-br from-[#0c1a3a] via-[#1e40af] to-[#0c1a3a] relative overflow-hidden items-center justify-center p-8 lg:p-14">
-                    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                        <div className="absolute top-0 right-0 w-96 h-96 bg-blue-300/10 blur-[150px] rounded-full -mr-48 -mt-48" />
-                        <div className="absolute bottom-0 left-0 w-80 h-80 bg-blue-200/10 blur-[120px] rounded-full -ml-40 -mb-40" />
+                {/* Right: Creative Banner */}
+                <div className="hidden md:flex flex-1 bg-blue-50 relative overflow-hidden items-center justify-center p-12">
+                    <div className="absolute inset-0">
+                        <div className="absolute top-0 right-0 w-[40rem] h-[40rem] bg-blue-500/5 rounded-full blur-[100px] -mr-40 -mt-40" />
+                        <div className="absolute bottom-0 left-0 w-[30rem] h-[30rem] bg-blue-400/5 rounded-full blur-[100px] -ml-20 -mb-20" />
                     </div>
+
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.6 }}
-                        className="relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-12 text-white max-w-md text-center space-y-6 z-10"
+                        transition={{ duration: 0.8 }}
+                        className="relative z-10 w-full max-w-lg"
                     >
-                        <div className="w-20 h-20 bg-gradient-to-br from-blue-400 to-blue-700 rounded-3xl flex items-center justify-center mx-auto shadow-2xl shadow-blue-500/30">
-                            <Users size={40} className="text-white" />
-                        </div>
-                        <div className="space-y-2">
-                            <span className="text-[9px] font-black text-blue-300 uppercase tracking-widest">Retailer A Panel</span>
-                            <h3 className="text-3xl font-black tracking-tight">Grow Your<br />Business Today</h3>
-                            <p className="text-white/60 text-sm font-bold">Access AEPS, DMT, BBPS, Travel &amp; 20+ services — all on one powerful platform.</p>
-                        </div>
-                        {[
-                            'AEPS & Micro ATM Services',
-                            'BBPS — Utility Bill Payments',
-                            'DMT — Money Transfer',
-                            'Travel Booking & Insurance',
-                            '24×7 Dedicated Support',
-                        ].map((f, i) => (
-                            <div key={i} className="flex items-center gap-3 text-left bg-white/5 border border-white/10 rounded-xl px-4 py-3">
-                                <div className="w-5 h-5 bg-blue-400 rounded-full flex items-center justify-center shrink-0">
-                                    <Check size={11} className="text-white" />
-                                </div>
-                                <span className="text-sm font-bold text-white/80">{f}</span>
+                        <div className="bg-white rounded-[3rem] p-12 shadow-2xl shadow-blue-900/5 border border-white space-y-8">
+                            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/20">
+                                <Users size={32} className="text-white" />
                             </div>
-                        ))}
+
+                            <div className="space-y-4">
+                                <h3 className="text-3xl font-black text-slate-900">Empowering Every<br />Merchant Everyday.</h3>
+                                <p className="text-slate-500 font-medium">Join 50k+ retailers providing essential digital services across India.</p>
+                            </div>
+
+                            <div className="grid grid-cols-1 gap-3">
+                                {[
+                                    'AEPS & Aadhaar Withdrawals',
+                                    'DMT & Instant Money Transfer',
+                                    'Utility Bill Payments (BBPS)',
+                                    'Comprehensive Travel Booking'
+                                ].map((f, i) => (
+                                    <div key={i} className="flex items-center gap-4 bg-slate-50 rounded-2xl px-5 py-4 border border-slate-100">
+                                        <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center shrink-0">
+                                            <Check size={14} className="text-blue-600" />
+                                        </div>
+                                        <span className="text-sm font-bold text-slate-700">{f}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
                     </motion.div>
                 </div>
             </main>
 
             {/* WhatsApp Float */}
             <a href="https://wa.me/919289309524" target="_blank" rel="noopener noreferrer" className="fixed bottom-6 right-6 z-[100] group">
-                <div className="absolute -top-14 right-0 bg-white text-[#1e40af] px-4 py-2 rounded-lg shadow-2xl text-[10px] font-black whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all transform translate-y-2 group-hover:translate-y-0 border border-slate-100 uppercase">
+                <div className="absolute -top-14 right-0 bg-white text-blue-600 px-4 py-2 rounded-lg shadow-2xl text-[10px] font-black whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all transform translate-y-2 group-hover:translate-y-0 border border-slate-100 uppercase">
                     Chat with Us
                     <div className="absolute bottom-[-6px] right-6 w-3 h-3 bg-white rotate-45 border-r border-b border-slate-100" />
                 </div>

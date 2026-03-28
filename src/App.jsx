@@ -1,17 +1,48 @@
 import React, { lazy, Suspense, useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import './App.css';
 
 import { LanguageProvider } from './context/LanguageContext';
 import { AuthProvider } from './context/AuthContext';
 
-// --- Loading Component ---
+// --- Premium Page Loader ---
 const PageLoader = () => (
-  <div className="flex items-center justify-center min-h-screen bg-[#f7f9fc]">
-    <div className="flex flex-col items-center gap-4">
-      <div className="w-12 h-12 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin"></div>
-      <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Loading Module...</p>
+  <div className="flex flex-col items-center justify-center min-h-screen bg-white">
+    <div className="relative">
+      <motion.div
+        animate={{
+          scale: [1, 1.2, 1],
+          rotate: [0, 360],
+          borderRadius: ["20%", "50%", "20%"]
+        }}
+        transition={{
+          duration: 3,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+        className="w-16 h-16 bg-gradient-to-tr from-blue-600 to-indigo-600 shadow-2xl shadow-blue-500/30"
+      />
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="w-2 h-2 bg-white rounded-full animate-ping" />
+      </div>
     </div>
+    <motion.div 
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.5 }}
+      className="mt-8 flex flex-col items-center gap-2"
+    >
+      <p className="text-[10px] font-black uppercase tracking-[0.5em] text-slate-900">RUPIKSHA</p>
+      <div className="w-48 h-[2px] bg-slate-100 rounded-full overflow-hidden">
+        <motion.div 
+          animate={{ x: [-200, 200] }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+          className="w-1/2 h-full bg-blue-600"
+        />
+      </div>
+      <p className="text-[8px] font-bold uppercase tracking-[0.3em] text-slate-400 mt-1">Initializing Secure Portal</p>
+    </motion.div>
   </div>
 );
 

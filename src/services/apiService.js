@@ -1,4 +1,6 @@
 const BASE_URL = import.meta.env.VITE_API_URL || "/api";
+const TWO_FACTOR_API_KEY = import.meta.env.VITE_2FACTOR_API_KEY || "YOUR_API_KEY_HERE";
+
 const getToken = () => localStorage.getItem("rupiksha_token");
 const useLocalOnly = true;
 
@@ -206,11 +208,7 @@ export const authService = {
     localStorage.removeItem("rupiksha_user");
     return Promise.resolve({ success: true });
   },
-  otpRequest: (mobile) =>
-    apiFetch("/auth/request-otp", {
-      method: "POST",
-      body: JSON.stringify({ mobile }),
-    }),
+  otpRequest: (mobile) => otpService.sendMobileOtp(mobile),
   forgotPassword: (data) =>
     apiFetch("/auth/forgot-password", {
       method: "POST",
@@ -461,20 +459,43 @@ export const otpService = {
       method: "POST",
       body: JSON.stringify({ email, otp }),
     }),
-  sendMobileOtp: (mobile) =>
-    apiFetch("/send-mobile-otp", {
-      method: "POST",
-      body: JSON.stringify({ mobile }),
-    }),
-  verifyOtp: async (identity, otp) => {
-    const data = await apiFetch("/verify-otp", {
-      method: "POST",
-      body: JSON.stringify({ identity, otp }),
-    });
-    if (data && data.success && data.user && data.user.role) {
-      data.user.role = String(data.user.role).toUpperCase();
+  sendMobileOtp: async (mobile) => {
+    try {
+      const res = await fetch(`https://2factor.in/API/V1/${TWO_FACTOR_API_KEY}/SMS/${mobile}/AUTOGEN/OTP1`);
+      const data = await res.json();
+      if (data.Status === "Success") {
+        // Store sessionId in localStorage to be retrieved during verification
+        localStorage.setItem('2factor_session_id', data.Details);
+        return { success: true, message: "OTP sent successfully." };
+      }
+      return { success: false, message: data.Details || "Failed to send OTP" };
+    } catch (e) {
+      console.error("2Factor Error:", e);
+      return { success: false, message: "Network error sending OTP" };
     }
-    return data;
+  },
+  verifyOtp: async (identity, otp) => {
+    try {
+      const sessionId = localStorage.getItem('2factor_session_id');
+      if (!sessionId) return { success: false, message: "Session expired. Please resend OTP." };
+
+      const res = await fetch(`https://2factor.in/API/V1/${TWO_FACTOR_API_KEY}/SMS/VERIFY/${sessionId}/${otp}`);
+      const data = await res.json();
+      
+      if (data.Status === "Success") {
+        // OTP is correct, now we need to get user data from our backend/mock
+        // We'll call the original apiFetch verify-otp to get user object
+        const mockRes = await apiFetch("/verify-otp", {
+            method: "POST",
+            body: JSON.stringify({ identity, otp: "PASS" }) // "PASS" tells mock to just return user
+        });
+        return mockRes;
+      }
+      return { success: false, message: data.Details || "Invalid OTP" };
+    } catch (e) {
+      console.error("2Factor Verification Error:", e);
+      return { success: false, message: "Verification failed" };
+    }
   },
   sendAdminOtp: (email) =>
     apiFetch("/send-admin-otp", {

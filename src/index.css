@@ -7,11 +7,11 @@ Ab humein alag se koi config file banane ki zaroorat nahi hai (v4 ka naya featur
 */
 
 :root {
-  font-family: 'Inter', 'Outfit', 'Montserrat', system-ui, -apple-system, sans-serif;
-  line-height: 1.5;
-  font-weight: 700;
-  color-scheme: light dark;
-  background-color: #f7f9fc;
+  font-family: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  font-weight: 500;
+  color-scheme: light;
+  background-color: #ffffff;
 }
 
 /* Ensure inputs always have readable text color */
