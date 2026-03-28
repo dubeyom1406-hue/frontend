@@ -52,7 +52,7 @@ export const dataService = {
                 localData.users.push(newUser);
                 this.saveData(localData);
             }
-            return { success: true, message: "User registered successfully." };
+            return { ...newUser, success: true, message: "User registered successfully." };
         }
 
         const url = `${BACKEND_URL}/auth/register`;

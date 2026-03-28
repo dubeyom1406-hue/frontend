@@ -26,6 +26,30 @@ const apiFetch = async (endpoint, options = {}) => {
     }
 
     // Standard mock responses
+    if (endpoint.includes("/auth/register")) {
+      const newUser = options.body ? JSON.parse(options.body) : {};
+      const userExists = data.users.find(u => 
+        (u.username && u.username === newUser.mobile) || 
+        (u.mobile && u.mobile === newUser.mobile)
+      );
+
+      if (userExists) {
+        return { success: false, message: "User already exists with this mobile number." };
+      }
+
+      const userWithId = { 
+        ...newUser, 
+        id: Date.now(), 
+        username: newUser.mobile,
+        status: 'Pending', 
+        balance: '0.00',
+        createdAt: new Date().toISOString()
+      };
+      data.users.push(userWithId);
+      localStorage.setItem('rupiksha_data', JSON.stringify(data));
+      return { success: true, message: "Registration successful. Please wait for admin approval.", registrationId: userWithId.id };
+    }
+
     if (endpoint.includes("/auth/login")) {
       const { username, password } = options.body ? JSON.parse(options.body) : {};
       const cleanUsername = (username || '').trim().toLowerCase();
@@ -34,10 +58,41 @@ const apiFetch = async (endpoint, options = {}) => {
         (u.username && u.username.toLowerCase() === cleanUsername) || 
         (u.mobile && u.mobile.toLowerCase() === cleanUsername)
       ));
-      if (user && (user.password || '').trim() === cleanPassword) {
-         return { success: true, token: "mock_token_" + Date.now(), user: { ...user } };
+
+      if (user) {
+        if (user.status !== 'Approved') {
+          return { success: false, message: `Your account status is ${user.status}. Please contact admin.` };
+        }
+        if ((user.password || '').trim() === cleanPassword) {
+           return { success: true, token: "mock_token_" + Date.now(), user: { ...user } };
+        }
+        return { success: false, message: "Invalid credentials" };
       }
-      return { success: false, message: "Invalid credentials" };
+      return { success: false, message: "User not found" };
+    }
+
+    if (endpoint.includes("/verify-otp")) {
+      const { identity, otp } = options.body ? JSON.parse(options.body) : {};
+      const user = data.users.find(u => (
+        (u.username && u.username === identity) || 
+        (u.mobile && u.mobile === identity)
+      ));
+
+      if (user) {
+        if (user.status !== 'Approved') {
+          return { success: false, message: `Your account status is ${user.status}. Please contact admin.` };
+        }
+        // Mock OTP always passes for testing if it's 6 digits or specific ones
+        return { success: true, token: "mock_token_" + Date.now(), user: { ...user } };
+      }
+      return { success: false, message: "User not found" };
+    }
+
+    if (endpoint.includes("/send-mobile-otp")) {
+        const { mobile } = options.body ? JSON.parse(options.body) : {};
+        const user = data.users.find(u => u.mobile === mobile);
+        if (!user) return { success: false, message: "Mobile number not registered." };
+        return { success: true, message: "OTP sent successfully." };
     }
     
     if (endpoint.includes("/user/profile")) {
