@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import logo from '../assets/rupiksha_logo.png';
+import { useLanguage } from '../context/LanguageContext';
+import { Globe } from 'lucide-react';
 
 export default function Navbar() {
     const navigate = useNavigate();
     const location = useLocation();
     const [scrolled, setScrolled] = useState(false);
     const [menu, setMenu] = useState(false);
+    const { language: lang, setLanguage: setLang, t } = useLanguage();
 
     useEffect(() => {
         const h = () => setScrolled(window.scrollY > 20);
@@ -44,12 +47,19 @@ export default function Navbar() {
 
                 {/* Desktop Links - Far Right */}
                 <div className="rp-nav__desktop">
-                    <button className={`rp-nav__link ${location.pathname === '/about' ? 'active' : ''}`} onClick={() => navigate('/about')}>About Us</button>
-                    <button className={`rp-nav__link ${location.pathname === '/leadership' ? 'active' : ''}`} onClick={() => navigate('/leadership')}>Our Leadership</button>
-                    <button className="rp-nav__link" onClick={() => scroll('services')}>Services</button>
-                    <button className={`rp-nav__link ${location.pathname === '/contact' ? 'active' : ''}`} onClick={() => navigate('/contact')}>Contact</button>
+                    <button className={`rp-nav__link ${location.pathname === '/about' ? 'active' : ''}`} onClick={() => navigate('/about')}>{t('NAV_ABOUT')}</button>
+                    <button className={`rp-nav__link ${location.pathname === '/leadership' ? 'active' : ''}`} onClick={() => navigate('/leadership')}>{t('NAV_LEADERSHIP')}</button>
+                    <button className="rp-nav__link" onClick={() => scroll('services')}>{t('NAV_SERVICES')}</button>
+                    <button className={`rp-nav__link ${location.pathname === '/contact' ? 'active' : ''}`} onClick={() => navigate('/contact')}>{t('NAV_CONTACT')}</button>
+                    
+                    {/* Language Switcher */}
+                    <div className="flex items-center bg-slate-100 rounded-full p-0.5 mx-2">
+                        <button onClick={() => setLang('en')} className={`px-2.5 py-1 rounded-full text-[9px] font-black uppercase tracking-widest transition-all ${lang === 'en' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}>EN</button>
+                        <button onClick={() => setLang('hi')} className={`px-2.5 py-1 rounded-full text-[9px] font-black uppercase tracking-widest transition-all ${lang === 'hi' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}>HI</button>
+                    </div>
+
                     <button className="rp-btn rp-btn--sm rp-btn--primary" onClick={() => navigate('/portal')}>
-                        Portal Login
+                        {t('NAV_PORTAL')}
                     </button>
                 </div>
 
@@ -64,14 +74,23 @@ export default function Navbar() {
             {/* Mobile Menu */}
             <div className={`rp-nav__mobile ${menu ? 'rp-nav__mobile--open' : ''}`}>
                 <div className="rp-nav__mobile-inner">
-                    <button className="rp-nav__mobile-link" onClick={() => { navigate('/'); setMenu(false); }}>Home</button>
-                    <button className="rp-nav__mobile-link" onClick={() => { navigate('/about'); setMenu(false); }}>About Us</button>
-                    <button className="rp-nav__mobile-link" onClick={() => { navigate('/leadership'); setMenu(false); }}>Our Leadership</button>
-                    <button className="rp-nav__mobile-link" onClick={() => scroll('services')}>Services</button>
-                    <button className="rp-nav__mobile-link" onClick={() => { navigate('/contact'); setMenu(false); }}>Contact</button>
+                    <button className="rp-nav__mobile-link" onClick={() => { navigate('/'); setMenu(false); }}>{t('NAV_HOME')}</button>
+                    <button className="rp-nav__mobile-link" onClick={() => { navigate('/about'); setMenu(false); }}>{t('NAV_ABOUT')}</button>
+                    <button className="rp-nav__mobile-link" onClick={() => { navigate('/leadership'); setMenu(false); }}>{t('NAV_LEADERSHIP')}</button>
+                    <button className="rp-nav__mobile-link" onClick={() => scroll('services')}>{t('NAV_SERVICES')}</button>
+                    <button className="rp-nav__mobile-link" onClick={() => { navigate('/contact'); setMenu(false); }}>{t('NAV_CONTACT')}</button>
+                    
+                    <div className="flex items-center gap-4 mt-6">
+                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Language:</span>
+                        <div className="flex items-center bg-slate-100 rounded-full p-0.5">
+                            <button onClick={() => setLang('en')} className={`px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-widest transition-all ${lang === 'en' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-400'}`}>English</button>
+                            <button onClick={() => setLang('hi')} className={`px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-widest transition-all ${lang === 'hi' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-400'}`}>हिन्दी</button>
+                        </div>
+                    </div>
+
                     <div style={{ padding: '20px 0' }}>
                         <button className="rp-btn rp-btn--primary" style={{ width: '100%' }} onClick={() => navigate('/portal')}>
-                            Login / Register
+                            {t('NAV_LOGIN_REGISTER')}
                         </button>
                     </div>
                 </div>

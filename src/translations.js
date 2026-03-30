@@ -58,6 +58,25 @@ export const translations = {
         LAST_3_MONTHS: 'Last 3 Months',
         LAST_6_MONTHS: 'Last 6 Months',
 
+        // Landing Page
+        NAV_ABOUT: 'About Us',
+        NAV_LEADERSHIP: 'Our Leadership',
+        NAV_SERVICES: 'Services',
+        NAV_CONTACT: 'Contact',
+        NAV_PORTAL: 'Portal Login',
+        NAV_HOME: 'Home',
+        NAV_LOGIN_REGISTER: 'Login / Register',
+        HERO_TITLE: 'Empowering Bharat with',
+        HERO_SUB: 'Join India\'s fastest growing fintech network. Providing seamless digital banking, utility payments, and financial services to every corner of the nation.',
+        HERO_REGISTER: 'Register Now',
+        HERO_LEARN: 'Learn More',
+        PARTNER_RETAILER: 'Retailer',
+        PARTNER_DISTRIBUTOR: 'Distributor',
+        PARTNER_INDIVIDUAL: 'Individual',
+        JOIN_RUPIKSHA: 'Join Rupiksha',
+        INCOME_CALC: 'Income Calculator',
+        CATEGORIES_TITLE: 'Categories:',
+
         // Auth
         login_btn: 'Login',
         register_btn: 'Register',
@@ -132,6 +151,25 @@ export const translations = {
         SALES: 'बिक्री*',
         LAST_3_MONTHS: 'पिछले 3 महीने',
         LAST_6_MONTHS: 'पिछले 6 महीने',
+
+        // Landing Page
+        NAV_ABOUT: 'हमारे बारे में',
+        NAV_LEADERSHIP: 'हमारा नेतृत्व',
+        NAV_SERVICES: 'सेवाएं',
+        NAV_CONTACT: 'संपर्क करें',
+        NAV_PORTAL: 'पोर्टल लॉगिन',
+        NAV_HOME: 'होम',
+        NAV_LOGIN_REGISTER: 'लॉगिन / पंजीकरण',
+        HERO_TITLE: 'भारत को सशक्त बनाना',
+        HERO_SUB: 'भारत के सबसे तेजी से बढ़ते फिनटेक नेटवर्क से जुड़ें। देश के हर कोने में निर्बाध डिजिटल बैंकिंग, उपयोगिता भुगतान और वित्तीय सेवाएं प्रदान करना।',
+        HERO_REGISTER: 'अभी पंजीकरण करें',
+        HERO_LEARN: 'अधिक जानें',
+        PARTNER_RETAILER: 'रिटेलर',
+        PARTNER_DISTRIBUTOR: 'वितरक',
+        PARTNER_INDIVIDUAL: 'व्यक्तिगत',
+        JOIN_RUPIKSHA: 'रुपिक्षा से जुड़ें',
+        INCOME_CALC: 'आय कैलकुलेटर',
+        CATEGORIES_TITLE: 'श्रेणियाँ:',
 
         // Auth
         login_btn: 'लॉगिन',

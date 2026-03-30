@@ -757,15 +757,15 @@ function AdvantageCard({ item, i, progress, count }) {
                 left: '50%',
                 translateX: '-50%',
                 width: 'min(480px, 92vw)', // Responsive width
-                background: `linear-gradient(135deg, #ffffff 30%, ${item.color}25)`,
+                background: '#ffffff',
                 borderRadius: 32,
                 padding: 'min(45px, 6vw)',
-                boxShadow: `0 30px 60px ${item.color}20`,
+                boxShadow: '0 30px 60px rgba(0,0,0,0.08)',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
                 textAlign: 'center',
-                border: `2px solid ${item.color}45`,
+                border: '1.2px solid #f1f5f9',
                 willChange: 'transform, opacity'
             }}
         >
@@ -872,7 +872,7 @@ function Partners() {
                 { icon: '📈', text: 'Earn more than ₹50,000 per month' },
                 { icon: '🔄', text: 'Zero physical stock required' }
             ],
-            categories: ['Telecom', 'Pharma', 'Retail', 'FMCG and many more'],
+            categories: ['Telecom Distributors', 'Pharma Stockists', 'Retail Hubs', 'FMCG Agencies', 'Electronic Goods', 'Banking Correspondents', 'PDS Centers', 'Hardware Dealers', 'Agro-Business Points', 'Regional Hubs and more'],
             color: '#10b981',
             image: "/photo/distributor_main.jpg"
         },
@@ -914,7 +914,7 @@ function Partners() {
                     ))}
                 </div>
 
-                <div className={`partner-content-card ${visible ? 'visible' : ''}`}>
+                <div className={`partner-content-card ${visible ? 'visible' : ''}`} style={{ minHeight: activeTab === 'distributor' ? '360px' : '420px' }}>
                     <div className="partner-visual">
                         {activeTab === 'distributor' ? (
                             <img src={current.image} alt={current.title} className="partner-img" />
@@ -1394,7 +1394,7 @@ const CSS = `
 /* ═══════════════════════════════════════════
    PARTNERS SECTION
  ═══════════════════════════════════════════ */
-.rp-partners { padding: 100px 5%; background: #fff; position: relative; }
+.rp-partners { padding: 60px 5%; background: #fff; position: relative; }
 .partners-header { text-align: center; margin-bottom: 60px; display: flex; flex-direction: column; align-items: center; }
 .partners-tag { 
   display: inline-block; padding: 6px 16px; background: #f0f7ff; border: 1.5px solid #dbeafe; 
@@ -1451,8 +1451,9 @@ const CSS = `
 
 .partner-content-card {
   max-width: 1200px; margin: 0 auto; background: #fff; border: 1px solid #e2e8f0;
-  border-radius: 40px; display: grid; grid-template-columns: 450px 1fr; gap: 0;
+  border-radius: 40px; display: grid; grid-template-columns: 42% 58%; gap: 0;
   box-shadow: 0 40px 80px -20px rgba(0,0,0,0.1); opacity: 0;
+  min-height: 540px; /* Slightly reduced height as requested */
   transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; overflow: hidden;
 }
 .partner-content-card.visible { opacity: 1; transform: translateY(0); }
@@ -1462,13 +1463,13 @@ const CSS = `
 .partner-visual:hover .partner-img { transform: scale(1.05); }
 .partner-visual-overlay { position: absolute; inset: 0; mix-blend-mode: multiply; opacity: 0.3; }
 
-.partner-info { padding: 60px; display: flex; flex-direction: column; justify-content: center; }
-.partner-info h3 { font-size: 2.8rem; font-weight: 800; margin-bottom: 20px; font-family: 'Plus Jakarta Sans', sans-serif; }
-.partner-desc { font-size: 1.1rem; color: #475569; line-height: 1.8; margin-bottom: 24px; }
+.partner-info { padding: 24px 40px; display: flex; flex-direction: column; justify-content: center; }
+.partner-info h3 { font-size: 1.8rem; font-weight: 800; margin-bottom: 8px; font-family: 'Plus Jakarta Sans', sans-serif; }
+.partner-desc { font-size: 0.95rem; color: #475569; line-height: 1.6; margin-bottom: 12px; }
 
-.partner-highlights { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 32px; }
+.partner-highlights { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px; margin-bottom: 16px; }
 .highlight-item { 
-  display: flex; align-items: center; gap: 12px; padding: 14px 18px; 
+  display: flex; align-items: center; gap: 10px; padding: 10px 14px; 
   border-radius: 16px; border: 1px solid rgba(0,0,0,0.03);
   transition: transform 0.3s;
 }
@@ -1476,7 +1477,7 @@ const CSS = `
 .highlight-icon { font-size: 1.4rem; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1)); }
 .highlight-text { font-size: 0.9rem; font-weight: 700; color: #1e293b; line-height: 1.3; }
 
-.partner-actions { display: flex; gap: 16px; margin-bottom: 40px; }
+.partner-actions { display: flex; gap: 12px; margin-bottom: 16px; }
 
 .partner-categories-compact h4 { font-size: 0.85rem; font-weight: 800; color: #94a3b8; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 2px; }
 .cat-grid-compact { display: flex; flex-wrap: wrap; gap: 10px; }

@@ -288,7 +288,7 @@ const Login = () => {
     // -- Portal Selection Screen --------------------------------------------
     if (portal === 'select') {
         return (
-            <div className="min-h-screen bg-white flex flex-col items-center justify-start font-['Outfit',sans-serif] relative overflow-hidden py-24 px-8">
+            <div className="h-screen bg-white flex flex-col items-center justify-center font-['Outfit',sans-serif] relative overflow-hidden p-4 md:p-8">
                 {/* ── PREMIUM MESH BACKGROUND ── */}
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
                     <motion.div
@@ -335,11 +335,11 @@ const Login = () => {
                             animate={{ scale: 1, opacity: 1 }}
                             transition={{ type: "spring", stiffness: 100, damping: 15 }}
                         >
-                            <img src={logo} alt="Rupiksha" style={{ height: '120px', width: 'auto' }} className="object-contain" />
+                            <img src={logo} alt="Rupiksha" style={{ height: '100px', width: 'auto' }} className="object-contain" />
                         </motion.div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-6xl mt-12 z-10 px-4 pb-12">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 w-full max-w-6xl mt-6 md:mt-8 z-10 px-4">
                         {/* Retailer Card */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
@@ -349,11 +349,11 @@ const Login = () => {
                                 backgroundColor: 'rgba(30, 58, 138, 0.98)', 
                                 borderColor: 'rgba(147, 197, 253, 0.5)', 
                             }}
-                            className="bg-blue-600/10 backdrop-blur-[40px] rounded-[2.5rem] overflow-hidden border border-blue-200/50 flex flex-col h-auto min-h-[350px] shadow-[0_40px_100px_rgba(30,58,138,0.06)] transition-all duration-700 group cursor-pointer relative"
+                            className="bg-blue-600/10 backdrop-blur-[40px] rounded-[2.5rem] overflow-hidden border border-blue-200/50 flex flex-col h-auto min-h-[280px] md:min-h-[320px] shadow-[0_40px_100px_rgba(30,58,138,0.06)] transition-all duration-700 group cursor-pointer relative"
                             onClick={() => setPortal('retailer')}
                         >
                             <div className="flex-1 p-4 flex items-center justify-center bg-blue-50/30 group-hover:bg-transparent transition-colors duration-700">
-                                <img src={characterShop} alt="Retailer" className="h-32 object-contain group-hover:scale-110 transition-transform duration-1000 drop-shadow-xl" />
+                                <img src={characterShop} alt="Retailer" className="h-24 md:h-28 object-contain group-hover:scale-110 transition-transform duration-1000 drop-shadow-xl" />
                             </div>
                             <div className="p-6 text-center space-y-4 z-10">
                                 <h3 className="text-blue-900 group-hover:text-white text-xl font-black uppercase tracking-tighter transition-colors">
@@ -375,11 +375,11 @@ const Login = () => {
                                 backgroundColor: 'rgba(17, 24, 39, 0.98)', 
                                 borderColor: 'rgba(99, 102, 241, 0.4)', 
                             }}
-                            className="bg-slate-900/10 backdrop-blur-[40px] rounded-[2.5rem] overflow-hidden border border-slate-200 flex flex-col h-auto min-h-[350px] shadow-[0_40px_100px_rgba(0,0,0,0.03)] transition-all duration-700 group cursor-pointer relative"
+                            className="bg-slate-900/10 backdrop-blur-[40px] rounded-[2.5rem] overflow-hidden border border-slate-200 flex flex-col h-auto min-h-[280px] md:min-h-[320px] shadow-[0_40px_100px_rgba(0,0,0,0.03)] transition-all duration-700 group cursor-pointer relative"
                             onClick={() => setPortal('distributor')}
                         >
                             <div className="flex-1 p-4 flex items-center justify-center bg-slate-50/50 group-hover:bg-transparent transition-colors duration-700">
-                                <img src={distributorChar} alt="Distributor" className="h-32 object-contain group-hover:scale-110 transition-transform duration-1000 drop-shadow-xl" />
+                                <img src={distributorChar} alt="Distributor" className="h-24 md:h-28 object-contain group-hover:scale-110 transition-transform duration-1000 drop-shadow-xl" />
                             </div>
                             <div className="p-6 text-center space-y-4 z-10">
                                 <h3 className="text-slate-900 group-hover:text-white text-xl font-black uppercase tracking-tighter transition-colors">
@@ -401,11 +401,11 @@ const Login = () => {
                                 backgroundColor: 'rgba(234, 88, 12, 0.98)', // Premium Orange (Orange 600)
                                 borderColor: 'rgba(251, 191, 36, 0.6)', 
                             }}
-                            className="bg-amber-600/10 backdrop-blur-[40px] rounded-[2.5rem] overflow-hidden border border-amber-200/50 flex flex-col h-auto min-h-[350px] shadow-[0_40px_100px_rgba(234,88,12,0.05)] transition-all duration-700 group cursor-pointer relative"
+                            className="bg-amber-600/10 backdrop-blur-[40px] rounded-[2.5rem] overflow-hidden border border-amber-200/50 flex flex-col h-auto min-h-[280px] md:min-h-[320px] shadow-[0_40px_100px_rgba(234,88,12,0.05)] transition-all duration-700 group cursor-pointer relative"
                             onClick={() => setPortal('distributor')} // Assuming it uses distributor login logic for now
                         >
                             <div className="flex-1 p-4 flex items-center justify-center bg-amber-50/30 group-hover:bg-transparent transition-colors duration-700">
-                                <img src={superDistributorChar} alt="Super Distributor" className="h-32 object-contain group-hover:scale-110 transition-transform duration-1000 drop-shadow-xl" />
+                                <img src={superDistributorChar} alt="Super Distributor" className="h-24 md:h-28 object-contain group-hover:scale-110 transition-transform duration-1000 drop-shadow-xl" />
                             </div>
                             <div className="p-6 text-center space-y-4 z-10">
                                 <h3 className="text-amber-900 group-hover:text-white text-xl font-black uppercase tracking-tighter transition-colors">
@@ -425,8 +425,8 @@ const Login = () => {
     // -- Distributor Login Screen ---------------------------------------------
     if (portal === 'distributor') {
         return (
-            <div className="min-h-screen bg-white flex flex-col font-['Outfit',sans-serif]">
-                <header className="bg-white/80 backdrop-blur-md px-6 md:px-12 py-4 flex items-center justify-between shadow-sm sticky top-0 z-50 border-b border-slate-100">
+            <div className="h-screen bg-white flex flex-col font-['Outfit',sans-serif] overflow-hidden">
+                <header className="bg-white/80 backdrop-blur-md px-6 md:px-12 py-3 flex items-center justify-between shadow-sm sticky top-0 z-50 border-b border-slate-100">
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
@@ -435,10 +435,25 @@ const Login = () => {
                     >
                         <img src={logo} alt="RUPIKSHA" style={{ height: '44px', width: 'auto' }} className="object-contain" />
                         <div className="hidden sm:block h-6 w-px bg-slate-200 ml-1" />
-                        <span className="hidden sm:block text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] ml-1">Making Life Simple</span>
+                        <div className="hidden sm:flex flex-col text-[10.5px] font-bold text-slate-600 uppercase tracking-wider ml-4 border-l border-slate-200 pl-4 space-y-1">
+                            <span className="flex items-center gap-2"><Phone size={11} className="text-blue-500" /> 0621-4008548 | 7004128310</span>
+                            <span className="flex items-center gap-2"><Mail size={11} className="text-blue-500" /> customercare@rupiksha.com</span>
+                        </div>
                     </motion.div>
-                    <div className="flex items-center gap-4">
-                        <span className="hidden md:inline-block bg-amber-50 text-amber-600 text-[9px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full border border-amber-100">Distributor Portal — B Panel</span>
+                    <div className="flex items-center gap-3 md:gap-5">
+                        <motion.button 
+                            whileHover={{ scale: 1.05 }}
+                            className="hidden lg:flex items-center gap-2 text-[10px] font-black text-blue-600 bg-blue-50 px-4 py-1.5 rounded-full border border-blue-100 uppercase tracking-widest transition-all"
+                        >
+                            <RefreshCcw size={14} className="animate-spin-slow" />
+                            Income Calculator
+                        </motion.button>
+                        <div className="h-6 w-px bg-slate-200 hidden lg:block" />
+                        <div className="flex items-center bg-slate-100 rounded-full p-1 p-0.5">
+                            <button onClick={() => setLang('en')} className={`px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest transition-all ${lang === 'en' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}>EN</button>
+                            <button onClick={() => setLang('hi')} className={`px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest transition-all ${lang === 'hi' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}>HI</button>
+                        </div>
+                        <span className="hidden md:inline-block bg-amber-50 text-amber-600 text-[9px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full border border-amber-100">Distributor — B Panel</span>
                         <motion.button
                             whileHover={{ x: -4 }}
                             onClick={() => setPortal('select')}
@@ -452,11 +467,11 @@ const Login = () => {
 
                 <main className="flex-1 flex flex-col md:flex-row overflow-hidden">
                     {/* Left: Login Form */}
-                    <div className="w-full md:w-1/2 lg:w-[40%] p-8 md:p-16 flex flex-col items-center justify-center bg-white">
+                    <div className="w-full md:w-1/2 lg:w-[40%] p-6 md:p-12 flex flex-col items-center justify-center bg-white h-full">
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="w-full max-w-[420px] space-y-8"
+                            className="w-full max-w-[420px] space-y-4 md:space-y-6"
                         >
                             <div className="space-y-2">
                                 <h2 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
@@ -467,7 +482,7 @@ const Login = () => {
 
                             <div className="bg-white rounded-3xl shadow-2xl shadow-slate-200/50 border border-slate-100 overflow-hidden">
                                 <div className="bg-amber-500 h-1.5 w-full" />
-                                <div className="p-8 md:p-10">
+                                <div className="p-6 md:p-10">
                                     <DistributorLogin />
                                 </div>
                             </div>
@@ -487,7 +502,7 @@ const Login = () => {
                             transition={{ duration: 0.8 }}
                             className="relative z-10 w-full max-w-lg"
                         >
-                            <div className="bg-white rounded-[3rem] p-12 shadow-2xl shadow-amber-900/5 border border-white space-y-8">
+                            <div className="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-2xl shadow-amber-900/5 border border-white space-y-4 md:space-y-6">
                                 <div className="w-16 h-16 bg-gradient-to-br from-amber-400 to-orange-500 rounded-2xl flex items-center justify-center shadow-lg shadow-amber-500/20">
                                     <Building2 size={32} className="text-white" />
                                 </div>
@@ -523,8 +538,8 @@ const Login = () => {
     // -- SuperAdmin Login Screen ---------------------------------------------
     if (portal === 'superadmin') {
         return (
-            <div className="min-h-screen bg-white flex flex-col font-['Outfit',sans-serif]">
-                <header className="bg-white/80 backdrop-blur-md px-6 md:px-12 py-4 flex items-center justify-between shadow-sm sticky top-0 z-50 border-b border-slate-100">
+            <div className="h-screen bg-white flex flex-col font-['Outfit',sans-serif] overflow-hidden">
+                <header className="bg-white/80 backdrop-blur-md px-6 md:px-12 py-3 flex items-center justify-between shadow-sm sticky top-0 z-50 border-b border-slate-100">
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
@@ -533,10 +548,25 @@ const Login = () => {
                     >
                         <img src={logo} alt="RUPIKSHA" style={{ height: '44px', width: 'auto' }} className="object-contain" />
                         <div className="hidden sm:block h-6 w-px bg-slate-200 ml-1" />
-                        <span className="hidden sm:block text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] ml-1">Making Life Simple</span>
+                        <div className="hidden sm:flex flex-col text-[10.5px] font-bold text-slate-600 uppercase tracking-wider ml-4 border-l border-slate-200 pl-4 space-y-1">
+                            <span className="flex items-center gap-2"><Phone size={11} className="text-indigo-500" /> 0621-4008548 | 7004128310</span>
+                            <span className="flex items-center gap-2"><Mail size={11} className="text-indigo-500" /> customercare@rupiksha.com</span>
+                        </div>
                     </motion.div>
-                    <div className="flex items-center gap-4">
-                        <span className="hidden md:inline-block bg-indigo-50 text-indigo-600 text-[9px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full border border-indigo-100">Control Panel — Master Node</span>
+                    <div className="flex items-center gap-3 md:gap-5">
+                        <motion.button 
+                            whileHover={{ scale: 1.05 }}
+                            className="hidden lg:flex items-center gap-2 text-[10px] font-black text-indigo-600 bg-indigo-50 px-4 py-1.5 rounded-full border border-indigo-100 uppercase tracking-widest transition-all"
+                        >
+                            <RefreshCcw size={14} className="animate-spin-slow" />
+                            Income Calculator
+                        </motion.button>
+                        <div className="h-6 w-px bg-slate-200 hidden lg:block" />
+                        <div className="flex items-center bg-slate-100 rounded-full p-1 p-0.5">
+                            <button onClick={() => setLang('en')} className={`px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest transition-all ${lang === 'en' ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}>EN</button>
+                            <button onClick={() => setLang('hi')} className={`px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest transition-all ${lang === 'hi' ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}>HI</button>
+                        </div>
+                        <span className="hidden md:inline-block bg-indigo-50 text-indigo-600 text-[9px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full border border-indigo-100">Master — Master Node</span>
                         <motion.button
                             whileHover={{ x: -4 }}
                             onClick={() => setPortal('select')}
@@ -550,11 +580,11 @@ const Login = () => {
 
                 <main className="flex-1 flex flex-col md:flex-row overflow-hidden">
                     {/* Left: Login Form */}
-                    <div className="w-full md:w-1/2 lg:w-[40%] p-8 md:p-16 flex flex-col items-center justify-center bg-white">
+                    <div className="w-full md:w-1/2 lg:w-[40%] p-6 md:p-12 flex flex-col items-center justify-center bg-white h-full">
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="w-full max-w-[420px] space-y-8"
+                            className="w-full max-w-[420px] space-y-4 md:space-y-6"
                         >
                             <div className="space-y-2">
                                 <h2 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
@@ -565,7 +595,7 @@ const Login = () => {
 
                             <div className="bg-white rounded-3xl shadow-2xl shadow-indigo-100/50 border border-indigo-50 overflow-hidden">
                                 <div className="bg-indigo-600 h-1.5 w-full" />
-                                <div className="p-8 md:p-10">
+                                <div className="p-6 md:p-10">
                                     <SuperAdminLogin />
                                 </div>
                             </div>
@@ -586,7 +616,7 @@ const Login = () => {
                             transition={{ duration: 0.8 }}
                             className="relative z-10 w-full max-w-lg"
                         >
-                            <div className="bg-white/10 backdrop-blur-xl rounded-[3rem] p-12 border border-white/20 space-y-8 text-white">
+                            <div className="bg-white/10 backdrop-blur-xl rounded-[2.5rem] p-8 md:p-12 border border-white/20 space-y-4 md:space-y-6 text-white">
                                 <div className="w-16 h-16 bg-white flex items-center justify-center rounded-2xl shadow-xl">
                                     <Shield size={32} className="text-indigo-600" />
                                 </div>
@@ -621,8 +651,8 @@ const Login = () => {
 
     // -- Retailer Portal (Default / portal === 'retailer') ----------------------
     return (
-        <div className="min-h-screen bg-white flex flex-col font-['Outfit',sans-serif]">
-            <header className="bg-white/80 backdrop-blur-md px-6 md:px-12 py-4 flex items-center justify-between shadow-sm sticky top-0 z-50 border-b border-slate-100">
+        <div className="h-screen bg-white flex flex-col font-['Outfit',sans-serif] overflow-hidden">
+            <header className="bg-white/80 backdrop-blur-md px-6 md:px-12 py-3 flex items-center justify-between shadow-sm sticky top-0 z-50 border-b border-slate-100">
                 <motion.div
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -631,10 +661,25 @@ const Login = () => {
                 >
                     <img src={logo} alt="RUPIKSHA" style={{ height: '44px', width: 'auto' }} className="object-contain" />
                     <div className="hidden sm:block h-6 w-px bg-slate-200 ml-1" />
-                    <span className="hidden sm:block text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] ml-1">Making Life Simple</span>
+                    <div className="hidden sm:flex flex-col text-[10.5px] font-bold text-slate-600 uppercase tracking-wider ml-4 border-l border-slate-200 pl-4 space-y-1">
+                        <span className="flex items-center gap-2"><Phone size={11} className="text-blue-600" /> 0621-4008548 | 7004128310</span>
+                        <span className="flex items-center gap-2"><Mail size={11} className="text-blue-600" /> customercare@rupiksha.com</span>
+                    </div>
                 </motion.div>
-                <div className="flex items-center gap-4">
-                    <span className="hidden md:inline-block bg-blue-50 text-blue-600 text-[9px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full border border-blue-100">Retailer Portal — A Panel</span>
+                <div className="flex items-center gap-3 md:gap-5">
+                    <motion.button 
+                        whileHover={{ scale: 1.05 }}
+                        className="hidden lg:flex items-center gap-2 text-[10px] font-black text-blue-600 bg-blue-50 px-4 py-1.5 rounded-full border border-blue-100 uppercase tracking-widest transition-all"
+                    >
+                        <RefreshCcw size={14} className="animate-spin-slow" />
+                        Income Calculator
+                    </motion.button>
+                    <div className="h-6 w-px bg-slate-200 hidden lg:block" />
+                    <div className="flex items-center bg-slate-100 rounded-full p-1 p-0.5">
+                        <button onClick={() => setLang('en')} className={`px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest transition-all ${lang === 'en' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}>EN</button>
+                        <button onClick={() => setLang('hi')} className={`px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest transition-all ${lang === 'hi' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}>HI</button>
+                    </div>
+                    <span className="hidden md:inline-block bg-blue-50 text-blue-600 text-[9px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full border border-blue-100">Retailer — A Panel</span>
                     <motion.button
                         whileHover={{ x: -4 }}
                         onClick={() => setPortal('select')}
@@ -648,11 +693,11 @@ const Login = () => {
 
             <main className="flex-1 flex flex-col md:flex-row overflow-hidden">
                 {/* Left: Login Form */}
-                <div className="w-full md:w-1/2 lg:w-[40%] p-8 md:p-16 flex flex-col items-center justify-center bg-white">
+                <div className="w-full md:w-1/2 lg:w-[40%] p-6 md:p-12 flex flex-col items-center justify-center bg-white h-full">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="w-full max-w-[420px] space-y-8"
+                        className="w-full max-w-[420px] space-y-4 md:space-y-6"
                     >
                         <div className="space-y-2">
                             <h2 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
@@ -683,7 +728,7 @@ const Login = () => {
                         transition={{ duration: 0.8 }}
                         className="relative z-10 w-full max-w-lg"
                     >
-                        <div className="bg-white rounded-[3rem] p-12 shadow-2xl shadow-blue-900/5 border border-white space-y-8">
+                        <div className="bg-white rounded-[2.5rem] p-8 md:p-10 shadow-2xl shadow-blue-900/5 border border-white space-y-4 md:space-y-6">
                             <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/20">
                                 <Users size={32} className="text-white" />
                             </div>
@@ -720,7 +765,9 @@ const Login = () => {
                     <div className="absolute bottom-[-6px] right-6 w-3 h-3 bg-white rotate-45 border-r border-b border-slate-100" />
                 </div>
                 <div className="bg-[#25D366] text-white p-4 rounded-full shadow-[0_10px_30px_rgba(37,211,102,0.5)] hover:bg-[#128C7E] hover:scale-110 active:scale-90 transition-all relative flex items-center justify-center">
-                    <MessageSquare size={32} />
+                    <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.134.298-.348.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.446 4.432-9.877 9.888-9.877 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.446-4.435 9.878-9.89 9.878m8.391-18.332A11.944 11.944 0 0012.05 0C5.41 0 .011 5.399.007 12.04c0 2.123.554 4.197 1.608 6.022L0 24l6.117-1.605a11.947 11.947 0 005.933 1.568h.005c6.637 0 12.036-5.402 12.041-12.042a11.95 11.95 0 00-3.645-8.522"/>
+                    </svg>
                     <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-600 border-2 border-white rounded-full flex items-center justify-center text-[10px] font-bold animate-bounce shadow">1</span>
                 </div>
             </a>
