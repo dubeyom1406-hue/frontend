@@ -351,7 +351,7 @@ const Hero = () => {
                     </button>
 
                     <div className="rp-hero__stores" style={{ display: 'flex', alignItems: 'center' }}>
-                        <div className="rp-store-btn" onClick={() => window.open('https://play.google.com/store', '_blank')} style={{ background: '#000', borderRadius: '12px', padding: isMobile ? '8px 16px' : '10px 20px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <div className="rp-store-btn" onClick={() => window.open('https://play.google.com/store/apps/details?id=com.rupiksha.services&pcampaignid=web_share', '_blank')} style={{ background: '#000', borderRadius: '12px', padding: isMobile ? '8px 16px' : '10px 20px', display: 'flex', alignItems: 'center', gap: '8px' }}>
                             <svg viewBox="0 0 24 24" fill="white" width="20" height="20"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.61 3,21.09 3,20.5M16.81,15.12L18.81,16.27C19.46,16.61 19.81,17.21 19.81,17.81C19.81,18.41 19.46,19.01 18.81,19.35L5.75,26.85C5.25,27.14 4.65,27.14 4.15,26.85L14.89,16.11L16.81,15.12M14.89,7.89L4.15,17.15L5.75,18.15L18.81,10.65C19.46,10.31 19.81,9.71 19.81,9.11C19.81,8.51 19.46,7.91 18.81,7.57L16.81,8.88L14.89,7.89Z" /></svg>
                             <div className="rp-store-text">
                                 <small style={{ display: 'block', fontSize: '8px', opacity: 0.8 }}>GET IT ON</small>
@@ -757,15 +757,15 @@ function AdvantageCard({ item, i, progress, count }) {
                 left: '50%',
                 translateX: '-50%',
                 width: 'min(480px, 92vw)', // Responsive width
-                background: '#fff',
+                background: `linear-gradient(135deg, #ffffff 30%, ${item.color}25)`,
                 borderRadius: 32,
                 padding: 'min(45px, 6vw)',
-                boxShadow: '0 30px 60px rgba(0,0,0,0.12)',
+                boxShadow: `0 30px 60px ${item.color}20`,
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
                 textAlign: 'center',
-                border: '1px solid #e2e8f0',
+                border: `2px solid ${item.color}45`,
                 willChange: 'transform, opacity'
             }}
         >
