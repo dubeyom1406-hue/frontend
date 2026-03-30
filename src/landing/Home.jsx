@@ -6,6 +6,7 @@ import characterImg from '../assets/character-removebg-preview.png';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
 import VerticalCardSlider from '../components/VerticalCardSlider';
+import PhotoSlider from '../components/PhotoSlider';
 const aadhaar_3d_logo = "https://upload.wikimedia.org/wikipedia/en/thumb/c/cf/Aadhaar_Logo.svg/1200px-Aadhaar_Logo.svg.png";
 
 /* ─────────────────────────────────────────────
@@ -915,7 +916,7 @@ function Partners() {
 
                 <div className={`partner-content-card ${visible ? 'visible' : ''}`}>
                     <div className="partner-visual">
-                        <img src={current.image} alt={current.title} className="partner-img" />
+                        <PhotoSlider />
                         <div className="partner-visual-overlay" style={{ background: `linear-gradient(to top, ${current.color}cc, transparent)` }} />
                     </div>
                     <div className="partner-info">
