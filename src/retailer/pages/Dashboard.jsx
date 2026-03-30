@@ -77,7 +77,7 @@ const NewsCarousel = ({ banners = [], showDots = true }) => {
     }, [displayBanners.length]);
 
     return (
-        <div className="relative w-full h-[180px] md:h-[260px] lg:h-[300px] overflow-hidden rounded-[48px] shadow-sm border border-slate-100 bg-gradient-to-br from-white to-blue-50 group">
+        <div className="relative w-full h-[180px] md:h-[260px] lg:h-[300px] overflow-hidden rounded-[24px] md:rounded-[48px] shadow-sm border border-slate-100 bg-gradient-to-br from-white to-blue-50 group">
             <AnimatePresence mode="wait">
                 <motion.div 
                     key={idx}
@@ -85,7 +85,7 @@ const NewsCarousel = ({ banners = [], showDots = true }) => {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.8, ease: "easeOut" }}
-                    className="w-full h-full flex items-center justify-center p-12"
+                    className="w-full h-full flex items-center justify-center p-6 md:p-12"
                 >
                     <img 
                         src={displayBanners[idx]}
@@ -99,17 +99,17 @@ const NewsCarousel = ({ banners = [], showDots = true }) => {
             
             {/* Dots */}
             {showDots && displayBanners.length > 1 && (
-                <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3 z-10">
+                <div className="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 flex gap-2 md:gap-3 z-10">
                     {displayBanners.map((_, i) => (
                         <div 
                             key={i} 
                             onClick={() => setIdx(i)}
-                            className={`h-1.5 rounded-full transition-all duration-700 cursor-pointer ${i === idx ? 'w-10 bg-white' : 'w-2 bg-white/30 hover:bg-white/50'}`} 
+                            className={`h-1 md:h-1.5 rounded-full transition-all duration-700 cursor-pointer ${i === idx ? 'w-6 md:w-10 bg-white' : 'w-1.5 md:w-2 bg-white/30 hover:bg-white/50'}`} 
                         />
                     ))}
                 </div>
             )}
-            <div className="absolute top-8 left-10">
+            <div className="absolute top-4 md:top-8 left-6 md:left-10">
                 <Badge color="amber">News Blast</Badge>
             </div>
         </div>
@@ -312,20 +312,20 @@ const RetailerDashboard = () => {
                             <X size={20} />
                         </button>
                     </div>
-                    <div className="p-10 text-center">
+                    <div className="p-6 md:p-10 text-center">
                         <div className="mb-4">
                              <Badge color="blue">{dbInfo?.category || 'Service'}</Badge>
                         </div>
-                        <h2 className="text-3xl font-black text-slate-800 tracking-tight mb-4 uppercase italic">{service.label}</h2>
-                        <p className="text-slate-500 font-bold text-sm leading-relaxed mb-8">
+                        <h2 className="text-2xl md:text-3xl font-black text-slate-800 tracking-tight mb-4 uppercase italic">{service.label}</h2>
+                        <p className="text-slate-500 font-bold text-xs md:text-sm leading-relaxed mb-8 px-2 md:px-0">
                             {dbInfo?.details || `Experience the best-in-class ${service.label} with Rupiksha. Fast, secure and reliable transactions at your fingertips.`}
                         </p>
                         <div className="grid grid-cols-2 gap-4">
-                            <button onClick={onClose} className="px-6 py-4 rounded-2xl border-2 border-slate-100 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:bg-slate-50 transition-all">
+                            <button onClick={onClose} className="px-4 md:px-6 py-3 md:py-4 rounded-xl md:rounded-2xl border-2 border-slate-100 text-[9px] md:text-[10px] font-black uppercase tracking-widest text-slate-400 hover:bg-slate-50 transition-all">
                                 Close
                             </button>
-                            <button onClick={() => { onClose(); navigate(service.path); }} className="px-6 py-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 text-[10px] font-black uppercase tracking-widest text-white shadow-xl shadow-blue-200 hover:scale-105 active:scale-95 transition-all">
-                                Launch Service
+                            <button onClick={() => { onClose(); navigate(service.path); }} className="px-4 md:px-6 py-3 md:py-4 rounded-xl md:rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 text-[9px] md:text-[10px] font-black uppercase tracking-widest text-white shadow-xl shadow-blue-200 hover:scale-105 active:scale-95 transition-all">
+                                Launch
                             </button>
                         </div>
                     </div>
@@ -341,27 +341,10 @@ const RetailerDashboard = () => {
             <div className="max-w-[1440px] mx-auto space-y-6">
 
 
-                {/* News Bar: Admin Editable */}
-                {appData?.news && (
-                    <motion.div 
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        className="bg-white border rounded-[2rem] border-slate-100 py-3 flex items-center gap-4 px-6 md:px-10 shadow-sm"
-                    >
-                        <div className="bg-blue-600 text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest whitespace-nowrap">
-                            Bulletin
-                        </div>
-                        <div className="flex-1 overflow-hidden">
-                            <motion.p 
-                                animate={{ x: [1000, -1000] }}
-                                transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-                                className="text-sm font-bold text-slate-600 whitespace-nowrap"
-                            >
-                                {appData.news}
-                            </motion.p>
-                        </div>
-                    </motion.div>
-                )}
+
+
+
+
 
                 {/* News Carousel: Integrated between Header and Services */}
                 <motion.div 
@@ -376,7 +359,7 @@ const RetailerDashboard = () => {
                     layout
                     initial={{ opacity: 0, scale: 0.98 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="bg-white border border-slate-100 p-8 lg:p-10 rounded-[48px] shadow-sm relative z-10 overflow-hidden"
+                    className="bg-white border border-slate-100 p-6 md:p-10 rounded-[32px] md:rounded-[48px] shadow-sm relative z-10 overflow-hidden"
                 >
                     <div className="flex justify-between items-center mb-6">
                         <div className="space-y-1">
@@ -397,7 +380,7 @@ const RetailerDashboard = () => {
                         </div>
                     </div>
                     
-                    <div className="grid grid-cols-4 md:grid-cols-7 lg:grid-cols-7 gap-6 md:gap-6">
+                    <div className="grid grid-cols-3 md:grid-cols-7 lg:grid-cols-7 gap-4 md:gap-6">
                         {services.map((service, idx) => (
                             <ServiceItem 
                                 key={idx} 
@@ -415,15 +398,15 @@ const RetailerDashboard = () => {
                             onClick={() => setIsServicesExpanded(!isServicesExpanded)}
                             className="group flex flex-col items-center gap-3 cursor-pointer"
                         >
-                            <div className="w-16 h-16 rounded-[24px] flex items-center justify-center shadow-xl bg-white border border-slate-100 text-slate-800 group-hover:bg-blue-600 group-hover:border-blue-600 group-hover:text-white transition-all duration-300">
+                            <div className="w-14 h-14 md:w-16 md:h-16 rounded-[20px] md:rounded-[24px] flex items-center justify-center shadow-xl bg-white border border-slate-100 text-slate-800 group-hover:bg-blue-600 group-hover:border-blue-600 group-hover:text-white transition-all duration-300">
                                 <motion.div animate={{ rotate: isServicesExpanded ? 180 : 0 }} className="grid grid-cols-3 gap-1">
                                     {[...Array(9)].map((_, i) => (
-                                        <div key={i} className="w-1 h-1 rounded-full bg-current" />
+                                        <div key={i} className="w-0.5 h-0.5 md:w-1 md:h-1 rounded-full bg-current" />
                                     ))}
                                 </motion.div>
                             </div>
-                            <span className="text-[10px] font-black text-slate-500 group-hover:text-slate-800 text-center uppercase tracking-tight leading-tight transition-colors">
-                                {isServicesExpanded ? 'See Less' : 'All Services'}
+                            <span className="text-[9px] md:text-[10px] font-black text-slate-500 group-hover:text-slate-800 text-center uppercase tracking-tight leading-tight transition-colors">
+                                {isServicesExpanded ? 'See Less' : 'All Hubs'}
                             </span>
                         </motion.div>
                     </div>
@@ -438,7 +421,7 @@ const RetailerDashboard = () => {
                                 transition={{ duration: 0.5, ease: [0.04, 0.62, 0.23, 0.98] }}
                                 className="overflow-hidden"
                             >
-                                <div className="grid grid-cols-4 md:grid-cols-7 lg:grid-cols-7 gap-6 md:gap-6 pt-8 border-t border-slate-50 mt-8">
+                                <div className="grid grid-cols-3 md:grid-cols-7 lg:grid-cols-7 gap-4 md:gap-6 pt-8 border-t border-slate-50 mt-8">
                                     {[
                                         { id: 'cms', label: 'CMS Hub', emoji: '🏢', color: 'from-cyan-50 to-cyan-100 border border-cyan-200', path: '/cms' },
                                         { id: 'travel', label: 'Travel Hub', emoji: '✈️', color: 'from-amber-50 to-amber-100 border border-amber-200', path: '/travel' },

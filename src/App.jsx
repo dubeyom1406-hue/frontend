@@ -47,41 +47,46 @@ const PageLoader = () => (
 );
 
 // --- Lazy Loads ---
-const Login = lazy(() => import('./auth/Login'));
+// Core Shared
+import ProtectedRoute from './components/ProtectedRoute';
+import LockScreen from './components/LockScreen';
+
+// Core Public & Auth
+import Login from './auth/Login';
 const AdminLogin = lazy(() => import('./auth/AdminLogin'));
 const Home = lazy(() => import('./landing/Home'));
 const About = lazy(() => import('./landing/About'));
 const Contact = lazy(() => import('./landing/Contact'));
 const Leadership = lazy(() => import('./landing/Leadership'));
 
-// Retailer
-const RetailerLayout = lazy(() => import('./retailer/components/RetailerLayout'));
-const Dashboard = lazy(() => import('./retailer/pages/Dashboard'));
-const Profile = lazy(() => import('./retailer/pages/Profile'));
-const Travel = lazy(() => import('./retailer/pages/Travel'));
-const Utility = lazy(() => import('./retailer/pages/Utility'));
-const AEPS = lazy(() => import('./retailer/pages/AEPS'));
-const DMT = lazy(() => import('./retailer/pages/DMT'));
-const CMS = lazy(() => import('./retailer/pages/CMS'));
-const AllServices = lazy(() => import('./retailer/pages/AllServices'));
-const Reports = lazy(() => import('./retailer/pages/Reports'));
-const Plans = lazy(() => import('./retailer/pages/Plans'));
-const MATM = lazy(() => import('./retailer/pages/MATM'));
-const AddMoneyComponent = lazy(() => import('./retailer/components/banking/AddMoney'));
-const Loans = lazy(() => import('./retailer/pages/Loans'));
-const SaleReport = lazy(() => import('./retailer/pages/reports/SaleReport'));
-const ConsolidatedLedger = lazy(() => import('./retailer/pages/reports/ConsolidatedLedger'));
-const DailyLedger = lazy(() => import('./retailer/pages/reports/DailyLedger'));
-const GSTInvoiceReport = lazy(() => import('./retailer/pages/reports/GstInvoiceReport'));
-const AuditReport = lazy(() => import('./retailer/pages/reports/AuditReport'));
-const Support = lazy(() => import('./retailer/pages/Support'));
+// Core Retailer (Directly imported for instant navigation)
+import RetailerLayout from './retailer/components/RetailerLayout';
+import Dashboard from './retailer/pages/Dashboard';
+import Profile from './retailer/pages/Profile';
+import Travel from './retailer/pages/Travel';
+import Utility from './retailer/pages/Utility';
+import AEPS from './retailer/pages/AEPS';
+import DMT from './retailer/pages/DMT';
+import CMS from './retailer/pages/CMS';
+import AllServices from './retailer/pages/AllServices';
+import Reports from './retailer/pages/Reports';
+import Plans from './retailer/pages/Plans';
+import MATM from './retailer/pages/MATM';
+import AddMoneyComponent from './retailer/components/banking/AddMoney';
+import Loans from './retailer/pages/Loans';
+import SaleReport from './retailer/pages/reports/SaleReport';
+import ConsolidatedLedger from './retailer/pages/reports/ConsolidatedLedger';
+import DailyLedger from './retailer/pages/reports/DailyLedger';
+import GSTInvoiceReport from './retailer/pages/reports/GstInvoiceReport';
+import AuditReport from './retailer/pages/reports/AuditReport';
+import Support from './retailer/pages/Support';
+import KYCVerification from './retailer/pages/KYCVerification';
+import AEPSKycForm from './retailer/pages/AEPSKycForm';
 
 // Admin Core
 const Admin = lazy(() => import('./admin/Admin'));
 const RetailerDetails = lazy(() => import('./admin/components/RetailerDetails'));
 const DistributorDetails = lazy(() => import('./admin/components/DistributorDetails'));
-const KYCVerification = lazy(() => import('./retailer/pages/KYCVerification'));
-const AEPSKycForm = lazy(() => import('./retailer/pages/AEPSKycForm'));
 
 // Distributor
 const DistributorLayout = lazy(() => import('./distributor/components/DistributorLayout'));
@@ -170,8 +175,6 @@ const SARetailerComplaints = lazy(() => import('./superadmin/pages/Support').the
 const SATrainingVideos = lazy(() => import('./superadmin/pages/Support').then(m => ({ default: m.TrainingVideos })));
 const SuperAdminOldReports_SA = lazy(() => import('./superadmin/pages/OldReports'));
 
-import ProtectedRoute from './components/ProtectedRoute';
-import LockScreen from './components/LockScreen';
 import { useAuth } from './context/AuthContext';
 import { useLocation } from 'react-router-dom';
 
@@ -248,9 +251,11 @@ function App() {
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/utility" element={<Utility />} />
+                <Route path="/travel" element={<Travel />} />
                 <Route path="/aeps" element={<AEPS />} />
                 <Route path="/dmt" element={<DMT />} />
                 <Route path="/cms" element={<CMS />} />
+                <Route path="/payout" element={<DMT />} />
                 <Route path="/all-services" element={<AllServices />} />
                 <Route path="/plans" element={<Plans />} />
                 <Route path="/matm" element={<MATM />} />

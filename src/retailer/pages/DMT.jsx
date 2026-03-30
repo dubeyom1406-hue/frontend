@@ -40,12 +40,14 @@ const DMT = () => {
     const currentUser = dataService.getCurrentUser();
     setUser(currentUser);
     initSpeech();
-    fetchWalletLimit();
+    if (currentUser?.id) {
+       fetchWalletLimit(currentUser.id);
+    }
   }, []);
 
-  const fetchWalletLimit = async () => {
+  const fetchWalletLimit = async (userId) => {
     try {
-      const res = await dmtService.walletLimit({ userId: "276" }); // Using ID from backend analysis
+      const res = await dmtService.walletLimit({ userId: userId }); 
       if (res.status === "SUCCESS") {
         setWalletLimit(res.data);
       }

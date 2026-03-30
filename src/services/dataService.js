@@ -267,25 +267,6 @@ export const dataService = {
         }
     },
 
-    submitAepsKyc: async function (userId, formData) {
-        try {
-            const token = localStorage.getItem('rupiksha_token');
-            // Send userId as actual value in the URL query param, not as a literal
-            const res = await fetch(`${BACKEND_URL}/aeps/onboard?userId=${userId}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify({ userId, ...formData })
-            });
-            const data = await safeJson(res, { status: false, message: 'No response from server' });
-            return data;
-        } catch (e) {
-            console.error('AEPS KYC Submit Error:', e);
-            return { status: false, message: e.message };
-        }
-    },
 
     getSystemStats: async function () {
         try {
@@ -301,14 +282,19 @@ export const dataService = {
     },
 
     getWalletBalances: async function (userId) {
+        if (useLocalOnly) {
+            const user = this.getCurrentUser();
+            return { 
+                main: user?.balance || "0.00", 
+                aeps: user?.aepsBalance || "0.00", 
+                incentive: user?.incentiveBalance || "0.00" 
+            };
+        }
         try {
             const token = localStorage.getItem('rupiksha_token');
             const user = this.getCurrentUser();
             const isAdmin = true; // Global bypass: Show Venus balance for everyone
 
-            if (useLocalOnly) {
-                return { main: user?.balance || "0.00", aeps: user?.aepsBalance || "0.00", incentive: user?.incentiveBalance || "0.00" };
-            }
             const res = await fetch(`${BACKEND_URL}/get-balance`, {
                 method: 'GET',
                 headers: {
@@ -321,7 +307,7 @@ export const dataService = {
             let mainBalance = String(data.balance || "0.00");
 
             // If Admin, also try to fetch real Venus balance to keep synced
-            if (isAdmin && !useLocalOnly) {
+            if (isAdmin) {
                 try {
                     const vRes = await fetch(`${BACKEND_URL}/recharge-balance`, {
                         method: 'GET',
@@ -364,6 +350,40 @@ export const dataService = {
     },
 
     logTransaction: async function (userId, service, amount, operator, number, status) {
+        if (useLocalOnly) {
+            const data = this.getData();
+            const newTx = {
+                id: Date.now(),
+                userId,
+                service,
+                amount,
+                operator,
+                number,
+                status: status || 'SUCCESS',
+                created_at: new Date().toISOString()
+            };
+            data.transactions = [newTx, ...(data.transactions || [])];
+            
+            // Update user balance in local storage if success
+            if (newTx.status === 'SUCCESS') {
+                const userIdx = data.users.findIndex(u => u.id === userId || u.username === userId);
+                if (userIdx !== -1) {
+                    const currentBal = parseFloat(data.users[userIdx].balance || 0);
+                    data.users[userIdx].balance = (currentBal - parseFloat(amount)).toFixed(2);
+                    
+                    // Also update the session user
+                    const sessionUser = this.getCurrentUser();
+                    if (sessionUser && (sessionUser.id === userId || sessionUser.username === userId)) {
+                        sessionUser.balance = data.users[userIdx].balance;
+                        localStorage.setItem('rupiksha_user', JSON.stringify(sessionUser));
+                    }
+                }
+            }
+            
+            this.saveData(data);
+            window.dispatchEvent(new Event('dataUpdated'));
+            return true;
+        }
         try {
             const token = localStorage.getItem('rupiksha_token');
             const res = await fetch(`${BACKEND_URL}/log-txn`, {
@@ -387,6 +407,11 @@ export const dataService = {
     },
 
     getUserTransactions: async function (userId) {
+        if (useLocalOnly) {
+            const data = this.getData();
+            // Filter transactions for this user
+            return (data.transactions || []).filter(t => t.userId === userId || t.userId === String(userId));
+        }
         try {
             const token = localStorage.getItem('rupiksha_token');
             const res = await fetch(`${BACKEND_URL}/transactions?userId=${userId}`, {

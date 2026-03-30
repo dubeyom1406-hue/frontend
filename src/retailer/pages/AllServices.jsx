@@ -7,12 +7,11 @@ import { Search, Sparkles, ChevronRight, Zap, ArrowRight, Activity, ShieldCheck,
    3D Icon Component – Premium Apple-like 3D feel
 ───────────────────────────────────────────────────────────────*/
 const Icon3D = ({ emoji, bg, shadow }) => (
-    <div className="icon-3d relative group-hover:shadow-2xl" style={{
-        width: '76px', height: '76px',
+    <div className="icon-3d relative group-hover:shadow-2xl w-[60px] h-[60px] md:w-[76px] md:h-[76px]" style={{
         background: bg,
-        borderRadius: '24px',
+        borderRadius: '20px',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
-        fontSize: '36px',
+        fontSize: '28px',
         boxShadow: shadow || '0 10px 30px -10px rgba(0,0,0,0.3)',
         transform: 'perspective(200px) rotateX(10deg)',
         transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
@@ -21,7 +20,7 @@ const Icon3D = ({ emoji, bg, shadow }) => (
     }}>
         {/* Inner glow */}
         <div className="absolute inset-0 rounded-[24px] bg-gradient-to-tr from-white/0 to-white/40 pointer-events-none" />
-        <span style={{ filter: 'drop-shadow(0 8px 8px rgba(0,0,0,0.15))' }}>{emoji}</span>
+        <span className="md:text-[36px]" style={{ filter: 'drop-shadow(0 8px 8px rgba(0,0,0,0.15))' }}>{emoji}</span>
     </div>
 );
 
@@ -34,9 +33,9 @@ const ServiceCard = ({ title, icon3d, actionLabel, actionColor, isLarge, onClick
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: delay * 0.04, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         onClick={onClick}
-        className="group relative bg-[#ffffff]/60 backdrop-blur-xl border border-white/80 rounded-[32px] p-6 flex flex-col items-center gap-4 cursor-pointer
+        className="group relative bg-[#ffffff]/60 backdrop-blur-xl border border-white/80 rounded-[24px] md:rounded-[32px] p-4 md:p-6 flex flex-col items-center gap-2 md:gap-4 cursor-pointer
                    hover:bg-white hover:shadow-[0_24px_48px_-12px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-500 overflow-hidden"
-        style={{ minHeight: isLarge ? 220 : 190 }}
+        style={{ minHeight: 'auto' }}
     >
         {/* Animated background gradient on hover */}
         <div className="absolute inset-0 bg-gradient-to-br from-indigo-50/0 via-white/0 to-blue-50/0 group-hover:from-indigo-100/40 group-hover:to-blue-100/40 transition-colors duration-500 pointer-events-none" />
@@ -47,7 +46,7 @@ const ServiceCard = ({ title, icon3d, actionLabel, actionColor, isLarge, onClick
         </div>
 
         {/* Title */}
-        <p className="text-[13px] font-extrabold text-slate-800 text-center tracking-wide leading-snug mt-2 flex-1 flex items-center z-10">
+        <p className="text-[11px] md:text-[13px] font-extrabold text-slate-800 text-center tracking-wide leading-snug mt-1 md:mt-2 flex-1 flex items-center z-10">
             {title}
         </p>
 
@@ -205,7 +204,7 @@ const AllServices = () => {
                 body { background-color: #f8fafc; }
             `}</style>
 
-            <div className="all-svcs-root p-4 md:p-8 lg:p-10 max-w-[1600px] mx-auto space-y-12 pb-24 min-h-screen">
+            <div className="all-svcs-root p-3 md:p-8 lg:p-10 max-w-[1600px] mx-auto space-y-8 md:space-y-12 pb-24 min-h-screen">
 
 
 
@@ -215,7 +214,7 @@ const AllServices = () => {
                     {filteredBanking.length > 0 && (
                         <section>
                             <SectionHeader label="Banking & Finance" color="#4f46e5" count={filteredBanking.length} />
-                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
+                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 md:gap-6">
                                 {filteredBanking.map((s, i) => (
                                     <ServiceCard key={i} delay={i}
                                         title={s.title} icon3d={s.icon3d} active
@@ -232,7 +231,7 @@ const AllServices = () => {
                     {filteredTravel.length > 0 && (
                         <section>
                             <SectionHeader label="Travel Services" color="#10b981" count={filteredTravel.length} />
-                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
+                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 md:gap-6">
                                 {filteredTravel.map((s, i) => (
                                     <ServiceCard key={i} delay={i} title={s.title} icon3d={s.icon3d} active onClick={() => go('travel')} />
                                 ))}
@@ -244,7 +243,7 @@ const AllServices = () => {
                     {filteredBharat.length > 0 && (
                         <section>
                             <SectionHeader label="Bharat Connect (BBPS)" color="#8b5cf6" count={filteredBharat.length} />
-                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
+                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 md:gap-6">
                                 {filteredBharat.map((s, i) => (
                                     <ServiceCard key={i} delay={i} title={s.title} icon3d={s.icon3d} active onClick={() => go('utility')} />
                                 ))}
@@ -256,7 +255,7 @@ const AllServices = () => {
                     {filteredUtility.length > 0 && (
                         <section>
                             <SectionHeader label="Utility & Other Services" color="#f97316" count={filteredUtility.length} />
-                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
+                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 md:gap-6">
                                 {filteredUtility.map((s, i) => (
                                     <ServiceCard key={i} delay={i} title={s.title} icon3d={s.icon3d} active onClick={() => go('utility')} />
                                 ))}

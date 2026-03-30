@@ -78,7 +78,7 @@ const RetailerLayout = () => {
             window.removeEventListener('dataUpdated', updateData);
             window.removeEventListener('superadminDataUpdated', updateData);
         };
-    }, [currentUser]);
+    }, []);
 
     // Close sidebar on route change (mobile)
     useEffect(() => {
@@ -132,27 +132,8 @@ const RetailerLayout = () => {
             return;
         }
 
-        const routes = {
-            'dashboard': '/dashboard',
-            'aeps_services': '/aeps',
-            'dmt': '/dmt',
-            'cms': '/cms',
-            'travel': '/travel',
-            'utility': '/utility',
-            'all_services': '/all-services',
-            'reports': '/reports',
-            'plans': '/plans',
-            'matm': '/matm',
-            'add_money': '/add-money',
-            'personal_loan': '/personal_loan',
-            'home_loan': '/home_loan',
-            'gold_loan': '/gold_loan',
-            'instant_loan': '/instant_loan',
-            'loan_status': '/loan_status',
-            'gst_certification': '/profile?tab=gst_certification',
-            'tds_certificate': '/profile?tab=tds_certificate'
-        };
-        navigate(routes[tab] || '/dashboard');
+        // Standard routes are handled by NavLink in Sidebar.jsx
+        // We only close mobile sidebar here
         setShowMobileSidebar(false);
     };
 
@@ -195,43 +176,53 @@ const RetailerLayout = () => {
                     }}
                     onMenuClick={() => setShowMobileSidebar(!showMobileSidebar)}
                 />
-                {/* Global Greeting & Wallet Section - ONLY ON DASHBOARD */}
-                {location.pathname === '/dashboard' && (
-                    <div className="px-4 md:px-8 lg:px-10 pt-4 lg:pt-6">
-                        <motion.div 
-                            initial={{ opacity: 0, y: -20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 lg:gap-6 mb-2"
-                        >
-                            {/* LEFT GREETING */}
-                        <div className="flex items-center gap-4 lg:gap-8">
-                             <div className="space-y-0.5">
-                                <div className="flex items-center gap-3 mb-1">
-                                    <div className="w-1.5 lg:w-2.5 h-1.5 lg:h-2.5 rounded-full bg-blue-600 animate-pulse" />
-                                    <span className="text-[10px] lg:text-[12px] font-black text-blue-600 uppercase tracking-[0.3em] lg:tracking-[0.4em]">Personal Dashboard</span>
-                                </div>
-                                <h1 className="text-xl md:text-5xl font-black tracking-tighter text-slate-900 leading-tight">
-                                    Hi {currentUser?.fullName?.split(' ')[0] || currentUser?.name?.split(' ')[0] || currentUser?.businessName?.split(' ')[0] || 'Member'}, <span className="text-slate-400">Welcome Back!</span>
-                                </h1>
-                            </div>
-                        </div>
-                    </motion.div>
-                </div>
-                )}
+
 
                 <main className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-200 pb-16 lg:pb-0">
-                    <AnimatePresence mode="wait">
-                        <motion.div
-                            key={location.pathname + location.search}
-                            initial={{ opacity: 0, scale: 0.98 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.98 }}
-                            transition={{ duration: 0.2 }}
-                            className="h-full"
-                        >
-                            <Outlet />
-                        </motion.div>
-                    </AnimatePresence>
+                    {/* News Bar Moved to Layout level for maximum visibility */}
+                    {appData?.news && (
+                        <div className="px-4 md:px-6 lg:px-10 pt-4">
+                            <motion.div 
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className="bg-white border rounded-2xl md:rounded-[2rem] border-slate-100 py-2.5 md:py-3 flex items-center gap-3 md:gap-4 px-4 md:px-10 shadow-sm"
+                            >
+                                <div className="bg-blue-600 text-white text-[8px] md:text-[10px] font-black px-2.5 md:px-3 py-1 rounded-full uppercase tracking-widest whitespace-nowrap">
+                                    Bulletin
+                                </div>
+                                <div className="flex-1 overflow-hidden">
+                                    <motion.p 
+                                        animate={{ x: [800, -800] }}
+                                        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                                        className="text-[11px] md:text-sm font-bold text-slate-600 whitespace-nowrap"
+                                    >
+                                        {appData.news}
+                                    </motion.p>
+                                </div>
+                            </motion.div>
+                        </div>
+                    )}
+
+                    {/* Global Greeting Section - Restored to Layout level */}
+                    {location.pathname === '/dashboard' && (
+                        <div className="px-4 md:px-8 lg:px-10 pt-4 lg:pt-6">
+                            <motion.div 
+                                initial={{ opacity: 0, y: -20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 lg:gap-6 mb-2"
+                            >
+                                <div className="space-y-0.5">
+                                    <h1 className="text-xl md:text-5xl font-black tracking-tighter text-slate-900 leading-tight">
+                                        Hi {appData.currentUser?.fullName?.split(' ')[0] || appData.currentUser?.name?.split(' ')[0] || appData.currentUser?.businessName?.split(' ')[0] || 'Member'}, <span className="text-slate-400">Welcome Back!</span>
+                                    </h1>
+                                </div>
+                            </motion.div>
+                        </div>
+                    )}
+
+                    <div className="h-full p-0" key={location.pathname}>
+                        <Outlet />
+                    </div>
                 </main>
             </div>
 
