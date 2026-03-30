@@ -90,7 +90,7 @@ const Header = ({ onAddMoney, onProfileClick, onMenuClick }) => {
     return (
         <div className="flex flex-col w-full bg-transparent sticky top-0 z-40 font-['Inter',sans-serif]">
             {/* Main Header Row */}
-            <div className="flex items-center justify-between px-8 h-14">
+            <div className="flex items-center justify-between px-6 lg:px-8 h-16 lg:h-20">
 
                 {/* Left Section: Menu + Compact Search */}
                 <div className="flex items-center gap-4 flex-1">
@@ -100,17 +100,6 @@ const Header = ({ onAddMoney, onProfileClick, onMenuClick }) => {
                     >
                         <Menu size={20} />
                     </button>
-                    
-                    <div className="flex items-center w-full max-w-[200px] lg:max-w-[260px]">
-                        <div className="relative w-full group">
-                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-600 transition-colors" size={14} />
-                            <input 
-                                type="text"
-                                placeholder="Search Services..."
-                                className="w-full bg-slate-50 border border-slate-200 rounded-full py-2 pl-9 pr-3 text-xs text-slate-700 placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-blue-500/30 focus:bg-white transition-all font-medium"
-                            />
-                        </div>
-                    </div>
                 </div>
 
                 {/* Right Section: Icons & Profile Pill */}
@@ -122,13 +111,13 @@ const Header = ({ onAddMoney, onProfileClick, onMenuClick }) => {
                         {/* Notifications Dropdown */}
                         <div className="relative">
                             <div 
-                                className="relative cursor-pointer p-2 rounded-full border border-slate-200 hover:bg-slate-100 transition-colors group"
+                                className="relative cursor-pointer p-2 lg:p-3 rounded-full border border-slate-200 hover:bg-slate-100 transition-colors group"
                                 onClick={() => { setShowNotifications(!showNotifications); setShowProfileMenu(false); }}
                             >
-                                <Bell size={18} className="text-slate-500 group-hover:text-slate-800 transition-colors" />
+                                <Bell size={18} className="lg:size-[22px] text-slate-500 group-hover:text-slate-800 transition-colors" />
                                 {unreadCount > 0 && (
-                                    <div className="absolute -top-1 -right-1 w-4 h-4 bg-blue-600 rounded-full flex items-center justify-center border-2 border-white shadow-sm">
-                                        <span className="text-[9px] font-black text-white">{unreadCount}</span>
+                                    <div className="absolute -top-1 -right-1 w-4 lg:w-5 h-4 lg:h-5 bg-blue-600 rounded-full flex items-center justify-center border-2 border-white shadow-sm">
+                                        <span className="text-[8px] lg:text-[11px] font-black text-white">{unreadCount}</span>
                                     </div>
                                 )}
                             </div>
@@ -191,26 +180,26 @@ const Header = ({ onAddMoney, onProfileClick, onMenuClick }) => {
                             <motion.div
                                 whileHover={{ scale: 1.02 }}
                                 onClick={() => setShowProfileMenu(!showProfileMenu)}
-                                className="flex items-center gap-3 cursor-pointer bg-slate-50 border border-slate-200 pl-1.5 pr-4 py-1.5 rounded-full transition-all hover:bg-slate-100 hover:border-slate-300 shadow-sm"
+                                className="flex items-center gap-1.5 lg:gap-4 cursor-pointer bg-slate-50 border border-slate-200 pl-1.5 lg:pl-2 pr-2 lg:pr-6 py-1.5 lg:py-2.5 rounded-full transition-all hover:bg-slate-100 hover:border-slate-300 shadow-sm"
                             >
-                                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-slate-200 to-slate-400 p-0.5">
+                                <div className="w-8 lg:w-11 h-8 lg:h-11 rounded-full bg-gradient-to-br from-slate-200 to-slate-400 p-0.5">
                                     <div className="w-full h-full rounded-full bg-white overflow-hidden flex items-center justify-center">
                                         {currentUser?.profilePhoto ? (
                                             <img src={currentUser.profilePhoto} alt="User" className="w-full h-full object-cover" />
                                         ) : (
-                                            <span className="text-[10px] font-black text-slate-800 uppercase">{getInitials()}</span>
+                                            <span className="text-[8px] lg:text-[12px] font-black text-slate-800 uppercase">{getInitials()}</span>
                                         )}
                                     </div>
                                 </div>
-                                <div className="flex flex-col items-start leading-tight">
-                                    <span className="text-sm font-black text-slate-800 tracking-tight">
+                                <div className="hidden lg:flex flex-col items-start leading-none">
+                                    <span className="text-lg font-black text-slate-800 tracking-tight">
                                         {currentUser?.name?.split(' ')[0] || 'Member'} {currentUser?.name?.split(' ')[1] || ''}
                                     </span>
-                                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">
+                                    <span className="text-[12px] font-bold text-slate-400 uppercase tracking-tighter mt-1">
                                         {currentUser?.role === 'RETAILER' ? 'Pro Account' : 'Standard'}
                                     </span>
                                 </div>
-                                <ChevronDown size={14} className={`text-slate-400 transition-transform duration-300 ${showProfileMenu ? 'rotate-180 text-blue-600' : ''}`} />
+                                <ChevronDown size={14} className={`text-slate-400 lg:size-[18px] transition-transform duration-300 lg:ml-2 ${showProfileMenu ? 'rotate-180 text-blue-600' : ''}`} />
                             </motion.div>
 
                             <AnimatePresence>

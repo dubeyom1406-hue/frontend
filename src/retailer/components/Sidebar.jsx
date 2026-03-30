@@ -36,6 +36,7 @@ const Sidebar = ({ activeTab, setActiveTab, showMobileSidebar }) => {
             hasSubmenu: true,
             subItems: [
                 { id: 'aeps_services', label: 'AEPS Services' },
+                { id: 'dmt', label: 'DMT (Money Transfer)' },
                 { id: 'cms', label: 'CMS – Loan EMI' },
                 { id: 'matm', label: 'MATM' },
                 { id: 'add_money', label: 'Add Money' },
@@ -159,7 +160,7 @@ const Sidebar = ({ activeTab, setActiveTab, showMobileSidebar }) => {
                             initial={{ height: 0, opacity: 0 }}
                             animate={{ height: 'auto', opacity: 1 }}
                             exit={{ height: 0, opacity: 0 }}
-                            className="ml-9 border-l border-slate-100 overflow-hidden"
+                            className="ml-3 border-l border-slate-100 overflow-hidden"
                         >
                             {item.subItems.map((sub, idx) => {
                                 const isSubActive = activeTab === sub.id;
@@ -179,7 +180,7 @@ const Sidebar = ({ activeTab, setActiveTab, showMobileSidebar }) => {
                                                 setActiveTab(sub.id);
                                             }
                                         }}
-                                        className={`pl-4 py-2 text-[12.5px] font-bold cursor-pointer transition-all rounded-lg my-1 relative
+                                        className={`w-full text-left pl-4 py-2 text-[12.5px] font-bold cursor-pointer transition-all rounded-lg my-1 relative
                                         ${isSubActive ? 'text-blue-600' : 'text-slate-400 hover:text-slate-700 hover:bg-slate-50/50'}`}
                                     >
                                         {isSubActive && (
@@ -199,6 +200,14 @@ const Sidebar = ({ activeTab, setActiveTab, showMobileSidebar }) => {
         );
     };
 
+    const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' ? window.innerWidth < 1024 : false);
+    
+    useEffect(() => {
+        const handleResize = () => setIsMobile(window.innerWidth < 1024);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     const currentUser = appData.currentUser;
     const getInitials = () => {
         if (currentUser?.businessName) {
@@ -214,11 +223,10 @@ const Sidebar = ({ activeTab, setActiveTab, showMobileSidebar }) => {
             initial={false}
             animate={{
                 width: isHovered ? 260 : 88,
-                x: typeof window !== 'undefined' && window.innerWidth < 1024 ? (showMobileSidebar ? 0 : -260) : 0
+                x: isMobile ? (showMobileSidebar ? 0 : -260) : 0
             }}
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-            className={`fixed lg:relative bg-white flex-shrink-0 border-r border-slate-100 flex flex-col h-full font-['Inter',sans-serif] z-50 lg:z-20 overflow-hidden
-                ${showMobileSidebar ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}
+            className="fixed lg:relative bg-white flex-shrink-0 border-r border-slate-100 flex flex-col h-full font-['Inter',sans-serif] z-50 lg:z-20 overflow-hidden"
         >
             {/* Logo Area */}
             <div className={`p-6 flex items-center ${isHovered ? 'justify-start' : 'justify-center'} h-20`}>

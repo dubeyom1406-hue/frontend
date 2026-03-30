@@ -133,7 +133,6 @@ const DistributorDashboard = () => {
 
     const stats = [
         { label: 'Wallet Balance', val: walletBal, prefix: '₹', icon: Wallet, iconColor: '#6366f1', bg: '#eef2ff' },
-        { label: 'Commission', val: '0', prefix: '₹', icon: TrendingUp, iconColor: '#10b981', bg: '#ecfdf5' },
         { label: 'Transactions', val: String(transactions.length), prefix: '', icon: Activity, iconColor: '#f59e0b', bg: '#fffbeb' },
         {
             label: maxR === Infinity ? 'Total Retailers' : `Retailers (${retailers.length}/${maxR})`,

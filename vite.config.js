@@ -12,6 +12,11 @@ export default defineConfig({
     port: 5173,
     strictPort: true,
     proxy: {
+      '/api/levin': {
+        target: 'http://13.233.206.88:8080',
+        changeOrigin: true,
+        secure: false,
+      },
       '/api': {
         target: 'http://localhost:5001',
         changeOrigin: true,

@@ -94,14 +94,13 @@ const SectionHeader = ({ label, color, count }) => (
    SERVICE DATA
 ═══════════════════════════════════════════════════════════════*/
 const bankingServices = [
-    { id: 'quick_mr', title: 'Quick MR Plus', showTransact: true, isLarge: true, icon3d: <Icon3D emoji="💸" bg="linear-gradient(135deg,#dbeafe,#bfdbfe)" shadow="0 10px 30px rgba(37,99,235,0.25)" /> },
-    { id: 'pw_money_ekyc', title: 'PW Money eKYC', showTransact: true, isLarge: true, icon3d: <Icon3D emoji="🪪" bg="linear-gradient(135deg,#ede9fe,#ddd6fe)" shadow="0 10px 30px rgba(124,58,237,0.25)" /> },
-    { id: 'aeps_services', title: 'AEPS Services', showTransact: true, isLarge: true, icon3d: <Icon3D emoji="🏧" bg="linear-gradient(135deg,#d1fae5,#a7f3d0)" shadow="0 10px 30px rgba(16,185,129,0.25)" /> },
-    { id: 'matm', title: '2-in-1 mPOS (New)', actionLabel: 'Purchase', actionColor: 'bg-gradient-to-r from-blue-600 to-indigo-600', icon3d: <Icon3D emoji="💳" bg="linear-gradient(135deg,#dbeafe,#bfdbfe)" shadow="0 10px 30px rgba(37,99,235,0.2)" /> },
+    { id: 'aeps_w', title: 'AEPS Withdrawal', showTransact: true, isLarge: true, icon3d: <Icon3D emoji="🏧" bg="linear-gradient(135deg,#d1fae5,#a7f3d0)" shadow="0 10px 30px rgba(16,185,129,0.25)" /> },
+    { id: 'aeps_d', title: 'AEPS Deposit', showTransact: true, isLarge: true, icon3d: <Icon3D emoji="🏦" bg="linear-gradient(135deg,#e0f2fe,#bae6fd)" shadow="0 10px 30px rgba(14,165,233,0.25)" /> },
+    { id: 'aeps_m', title: 'AEPS Mini Statement', showTransact: true, isLarge: true, icon3d: <Icon3D emoji="📋" bg="linear-gradient(135deg,#fef9c3,#fef08a)" shadow="0 10px 30px rgba(202,138,4,0.25)" /> },
+    { id: 'aeps_a', title: 'Aadhaar Pay', showTransact: true, isLarge: true, icon3d: <Icon3D emoji="💳" bg="linear-gradient(135deg,#ede9fe,#ddd6fe)" shadow="0 10px 30px rgba(124,58,237,0.25)" /> },
     { id: 'fino_suvidha', title: 'Fino Suvidha', actionLabel: 'Purchase', actionColor: 'bg-gradient-to-r from-blue-600 to-indigo-600', icon3d: <Icon3D emoji="🏦" bg="linear-gradient(135deg,#ecfdf5,#d1fae5)" shadow="0 10px 30px rgba(16,185,129,0.2)" /> },
-    { id: 'smart_pos', title: 'Smart POS', actionLabel: 'Purchase', actionColor: 'bg-gradient-to-r from-blue-600 to-indigo-600', icon3d: <Icon3D emoji="🖥️" bg="linear-gradient(135deg,#dbeafe,#e0f2fe)" shadow="0 10px 30px rgba(14,165,233,0.2)" /> },
-    { id: 'matm_cash', title: 'm-ATM Cash', icon3d: <Icon3D emoji="💰" bg="linear-gradient(135deg,#fef9c3,#fef08a)" shadow="0 10px 30px rgba(202,138,4,0.2)" /> },
-    { id: 'matm_mp63', title: 'mATM – MP63', icon3d: <Icon3D emoji="📱" bg="linear-gradient(135deg,#eff6ff,#dbeafe)" shadow="0 10px 30px rgba(37,99,235,0.15)" /> },
+    { id: 'dmt', title: 'DMT (Money Transfer)', showTransact: true, isLarge: true, icon3d: <Icon3D emoji="💸" bg="linear-gradient(135deg,#dbeafe,#bfdbfe)" shadow="0 10px 30px rgba(37,99,235,0.25)" /> },
+    { id: 'matm_unified', title: 'm-ATM', icon3d: <Icon3D emoji="💰" bg="linear-gradient(135deg,#fef9c3,#fef08a)" shadow="0 10px 30px rgba(202,138,4,0.2)" /> },
     { id: 'qpos_mini', title: '2-IN-1 QPOS Mini', actionLabel: 'Purchase', actionColor: 'bg-gradient-to-r from-blue-600 to-indigo-600', icon3d: <Icon3D emoji="🔌" bg="linear-gradient(135deg,#ecfdf5,#d1fae5)" shadow="0 10px 30px rgba(16,185,129,0.2)" /> },
     { id: 'ybl_mr', title: 'Indo Nepal MR', actionLabel: 'Purchase', actionColor: 'bg-gradient-to-r from-blue-600 to-indigo-600', icon3d: <Icon3D emoji="🌏" bg="linear-gradient(135deg,#e0f2fe,#bae6fd)" shadow="0 10px 30px rgba(14,165,233,0.2)" /> },
     { id: 'cms', title: 'CMS Banking', icon3d: <Icon3D emoji="🏛️" bg="linear-gradient(135deg,#fdf4ff,#f3e8ff)" shadow="0 10px 30px rgba(168,85,247,0.2)" /> },
@@ -165,10 +164,11 @@ const AllServices = () => {
 
     const routeMap = {
         aeps_services: '/aeps',
+        dmt: '/dmt',
         cms: '/cms',
         travel: '/travel',
         utility: '/utility',
-        quick_mr: '/dmt', // Assuming /dmt exists or redirect appropriately
+        quick_mr: '/dmt',
         matm: '/matm',
         matm_cash: '/matm',
         matm_mp63: '/matm',
@@ -207,25 +207,7 @@ const AllServices = () => {
 
             <div className="all-svcs-root p-4 md:p-8 lg:p-10 max-w-[1600px] mx-auto space-y-12 pb-24 min-h-screen">
 
-                {/* ── Search Bar ── */}
-                <div className="relative w-full max-w-md ml-auto">
-                    <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
-                    <input
-                        type="text"
-                        placeholder="Search for a service..."
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        className="w-full bg-white border border-slate-200 rounded-[24px] pl-14 pr-6 py-4 text-base font-medium text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all shadow-sm h-[60px]"
-                    />
-                    {searchQuery && (
-                        <button
-                            onClick={() => setSearchQuery('')}
-                            className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-800 text-xs font-bold"
-                        >
-                            CLEAR
-                        </button>
-                    )}
-                </div>
+
 
                 {/* ── Services Grid Sections ── */}
                 <div className="space-y-16">

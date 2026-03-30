@@ -1,4 +1,5 @@
 const BASE_URL = import.meta.env.VITE_API_URL || "/api";
+const DMT_BASE_URL = "/api/levin";
 const TWO_FACTOR_API_KEY = import.meta.env.VITE_2FACTOR_API_KEY || "YOUR_API_KEY_HERE";
 
 const getToken = () => localStorage.getItem("rupiksha_token");
@@ -556,5 +557,79 @@ export const aepsService = {
       method: "POST",
       body: JSON.stringify(data),
     }),
+};
+
+// ─── DMT (Levin API) ─────────────────────────────────────────────────────────
+const dmtFetch = async (endpoint, options = {}) => {
+  const res = await fetch(`${DMT_BASE_URL}${endpoint}`, {
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
+  });
+  if (!res.ok) {
+    let errorMsg = `DMT Gateway Error: ${res.status}`;
+    try {
+      const errJson = await res.json();
+      errorMsg = errJson.message || errJson.error || errorMsg;
+    } catch (e) { }
+    throw new Error(errorMsg);
+  }
+  return res.json();
+};
+
+export const dmtService = {
+  validateCustomer: (mobile) => dmtFetch(`/validate-customer?mobile=${mobile}`, { method: "POST" }),
+  
+  validateAadhaar: (mobile, aadhar, token) => 
+    dmtFetch(`/validate-aadhaar?mobile=${mobile}&aadhar=${aadhar}&token=${token}`, { method: "POST" }),
+  
+  sendOtp: (mobile) => dmtFetch(`/send-otp?mobile=${mobile}`, { method: "POST" }),
+  
+  verifyOtp: (mobile, otp, token) => 
+    dmtFetch(`/verify-otp?mobile=${mobile}&otp=${otp}&token=${token}`, { method: "POST" }),
+  
+  performEkyc: (payload) => dmtFetch("/perform-ekyc", {
+    method: "POST",
+    body: JSON.stringify(payload)
+  }),
+  
+  addBeneficiary: (payload) => dmtFetch("/add-beneficiary", {
+    method: "POST",
+    body: JSON.stringify(payload)
+  }),
+  
+  getAllBeneficiaries: (mobile) => dmtFetch(`/get-all-beneficiary?mobile=${mobile}`, { method: "POST" }),
+  
+  sendTxnOtp: (payload) => dmtFetch("/send-txn-otp", {
+    method: "POST",
+    body: JSON.stringify(payload)
+  }),
+  
+  verifyTxnOtp: (payload) => dmtFetch("/verify-txn-otp", {
+    method: "POST",
+    body: JSON.stringify(payload)
+  }),
+  
+  transaction: (payload) => dmtFetch("/transaction", {
+    method: "POST",
+    body: JSON.stringify(payload)
+  }),
+  
+  transactionStatus: (payload) => dmtFetch("/transaction-status", {
+    method: "POST",
+    body: JSON.stringify(payload)
+  }),
+  
+  accountVerification: (payload) => dmtFetch("/account-verification", {
+    method: "POST",
+    body: JSON.stringify(payload)
+  }),
+  
+  walletLimit: (payload) => dmtFetch("/wallet-limit", {
+    method: "POST",
+    body: JSON.stringify(payload)
+  })
 };
 

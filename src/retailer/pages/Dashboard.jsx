@@ -245,10 +245,13 @@ const RetailerDashboard = () => {
     }, []);
 
     // Re-calculate 'services' on every render based on 'dynamicServices' state
-    const services = dynamicServices.map(ds => {
+    let services = dynamicServices.map(ds => {
         // Try to find a 'default' match to get the emoji/color for already known services
         const known = [
-            { id: 'aeps', label: 'AEPS Hub', emoji: '🏦', color: 'from-blue-50 to-blue-100 border border-blue-200', path: '/aeps' },
+            { id: 'aeps_w', label: 'AEPS Withdrawal', emoji: '🏦', color: 'from-blue-50 to-blue-100 border border-blue-200', path: '/aeps' },
+            { id: 'aeps_d', label: 'AEPS Deposit', emoji: '🏦', color: 'from-blue-50 to-blue-100 border border-blue-200', path: '/aeps' },
+            { id: 'aeps_m', label: 'AEPS Mini Statement', emoji: '🏦', color: 'from-blue-50 to-blue-100 border border-blue-200', path: '/aeps' },
+            { id: 'aeps_a', label: 'Aadhaar Pay', emoji: '🏦', color: 'from-blue-50 to-blue-100 border border-blue-200', path: '/aeps' },
             { id: 'dmt', label: 'Money Transfer', emoji: '💸', color: 'from-emerald-50 to-emerald-100 border border-emerald-200', path: '/dmt' },
             { id: 'matm', label: 'Micro ATM', emoji: '💳', color: 'from-orange-50 to-orange-100 border border-orange-200', path: '/matm' },
             { id: 'utility', label: 'Recharge', emoji: '📱', color: 'from-purple-50 to-purple-100 border border-purple-200', path: '/utility' },
@@ -264,6 +267,20 @@ const RetailerDashboard = () => {
             path: known?.path || '#',
             dynamic: !known
         };
+    });
+
+    // Inject AEPS sub-services if not already present
+    const criticalAEPS = [
+        { id: 'aeps_w', label: 'AEPS Withdrawal', emoji: '🏦', color: 'from-blue-50 to-blue-100 border border-blue-200', path: '/aeps' },
+        { id: 'aeps_d', label: 'AEPS Deposit', emoji: '🏦', color: 'from-blue-50 to-blue-100 border border-blue-200', path: '/aeps' },
+        { id: 'aeps_m', label: 'AEPS Mini Statement', emoji: '🏦', color: 'from-blue-50 to-blue-100 border border-blue-200', path: '/aeps' },
+        { id: 'aeps_a', label: 'Aadhaar Pay', emoji: '🏦', color: 'from-blue-50 to-blue-100 border border-blue-200', path: '/aeps' },
+    ];
+
+    criticalAEPS.forEach(critical => {
+        if (!services.some(s => s.label === critical.label)) {
+            services.unshift(critical);
+        }
     });
 
     const ServiceDetailsModal = ({ service, onClose }) => {
@@ -322,87 +339,7 @@ const RetailerDashboard = () => {
             <style>{`@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');`}</style>
             
             <div className="max-w-[1440px] mx-auto space-y-6">
-                
-                {/* Header Section */}
-                <motion.div 
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 mb-4 pt-4"
-                >
-                    {/* LEFT GREETING */}
-                    <div className="flex items-center gap-8 px-2 md:px-0">
-                         <div className="space-y-0.5">
-                            <div className="flex items-center gap-3 mb-1">
-                                <div className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
-                                <span className="text-[10px] font-black text-blue-600 uppercase tracking-[0.4em]">Personal Dashboard</span>
-                            </div>
-                            <h1 className="text-2xl md:text-4xl font-black tracking-tighter text-slate-900 leading-tight">
-                                Hi {currentUser?.fullName?.split(' ')[0] || currentUser?.name?.split(' ')[0] || currentUser?.businessName?.split(' ')[0] || 'Member'}, <span className="text-slate-400">Welcome Back!</span>
-                            </h1>
-                        </div>
-                    </div>
 
-                    {/* RIGHT WALLET CLUSTER */}
-                    <div className="relative w-full lg:w-auto px-2 md:px-0">
-                        <div className="hidden lg:flex items-center bg-white border border-slate-100 p-1.5 rounded-[28px] shadow-xl shadow-slate-200/50">
-                            {[
-                                { id: 'main', label: 'Main', balance: balances.main, color: 'blue', icon: <Wallet size={12} />, actions: ['Add Funds', 'Usage', 'History'] },
-                                { id: 'aeps', label: 'AEPS', balance: balances.aeps, color: 'emerald', icon: <Zap size={12} />, actions: ['Move to Main', 'AEPS Hub'] },
-                                { id: 'incentive', label: 'Incentive', balance: balances.incentive, color: 'amber', icon: <TrendingUp size={12} />, actions: ['Settle to Main', 'Breakdown'] },
-                            ].map((w, i) => (
-                                <div key={i} className="relative group/wallet">
-                                    <div 
-                                        onClick={() => setActiveWallet(activeWallet === w.id ? null : w.id)}
-                                        className={`flex items-center gap-4 px-5 py-2 cursor-pointer hover:bg-slate-50 transition-colors rounded-2xl ${i !== 2 ? 'border-r border-slate-50' : ''}`}
-                                    >
-                                        <div className={`w-8 h-8 flex items-center justify-center bg-${w.color}-50 rounded-xl text-${w.color}-600 shadow-sm group-hover/wallet:scale-110 transition-transform`}>
-                                            {w.icon}
-                                        </div>
-                                        <div className="flex flex-col">
-                                            <span className="text-[8px] font-black uppercase tracking-widest text-slate-400 leading-none mb-1.5">{w.label}</span>
-                                            <span className="text-sm font-black tracking-tighter text-slate-800 leading-none">₹{Number(w.balance).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
-                                        </div>
-                                    </div>
-
-                                    {/* Mini Modal / Popover */}
-                                    <AnimatePresence>
-                                        {activeWallet === w.id && (
-                                            <motion.div 
-                                                initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                                                animate={{ opacity: 1, y: 0, scale: 1 }}
-                                                exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                                                className="absolute top-full right-0 mt-3 w-48 bg-white border border-slate-100 rounded-[24px] shadow-2xl p-2 z-[60] overflow-hidden"
-                                            >
-                                                <div className="p-3 border-b border-slate-50 bg-slate-50/50 rounded-t-[18px] mb-1">
-                                                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">{w.label} Actions</p>
-                                                </div>
-                                                <div className="space-y-0.5">
-                                                    {w.actions.map((act, idx) => (
-                                                        <button 
-                                                            key={idx}
-                                                            onClick={(e) => {
-                                                                e.stopPropagation();
-                                                                if (act === 'Add Funds') navigate('/add-money');
-                                                                if (act === 'History') navigate('/reports');
-                                                                if (act === 'AEPS Hub') navigate('/aeps');
-                                                                if (act === 'Usage') navigate('/reports');
-                                                                setActiveWallet(null);
-                                                            }}
-                                                            className="w-full text-left px-4 py-2.5 text-[10px] font-bold text-slate-600 hover:bg-slate-50 hover:text-blue-600 rounded-xl transition-colors uppercase tracking-tight"
-                                                        >
-                                                            {act}
-                                                        </button>
-                                                    ))}
-                                                </div>
-                                            </motion.div>
-                                        )}
-                                    </AnimatePresence>
-                                </div>
-                            ))}
-                        </div>
-                        {activeWallet && <div className="fixed inset-0 z-50" onClick={() => setActiveWallet(null)} />}
-                    </div>
-                </motion.div>
 
                 {/* News Bar: Admin Editable */}
                 {appData?.news && (

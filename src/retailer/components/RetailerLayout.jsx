@@ -5,7 +5,7 @@ import Header from './Header';
 import MobileBottomNav from './MobileBottomNav';
 import { dataService } from '../../services/dataService';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Clock, LogOut } from 'lucide-react';
+import { Clock, LogOut, Wallet, Zap, ChevronRight } from 'lucide-react';
 import RetailerEKYC from './banking/RetailerEKYC';
 
 const RetailerLayout = () => {
@@ -13,6 +13,8 @@ const RetailerLayout = () => {
     const location = useLocation();
     const [showMobileSidebar, setShowMobileSidebar] = useState(false);
     const [appData, setAppData] = useState(dataService.getData());
+    const [balances, setBalances] = useState({ main: "0.00", aeps: "0.00" });
+    const [activeWallet, setActiveWallet] = useState(null);
     const currentUser = appData.currentUser;
 
     // Map path to active tab for Sidebar
@@ -23,6 +25,7 @@ const RetailerLayout = () => {
 
         if (path === '/dashboard') return 'dashboard';
         if (path.startsWith('/aeps')) return 'aeps_services';
+        if (path.startsWith('/dmt')) return 'dmt';
         if (path.startsWith('/cms')) return 'cms';
         if (path.startsWith('/travel')) return 'travel';
         if (path.startsWith('/utility')) return 'utility';
@@ -64,10 +67,28 @@ const RetailerLayout = () => {
     }, [currentUser, navigate]);
 
     useEffect(() => {
-        const updateData = () => setAppData(dataService.getData());
+        const updateData = () => {
+            setAppData(dataService.getData());
+        };
+        
+        const fetchBalances = async () => {
+            if (currentUser) {
+                const bals = await dataService.getWalletBalances(currentUser.id);
+                setBalances(bals);
+            }
+        };
+
+        fetchBalances();
+        const interval = setInterval(fetchBalances, 10000);
+
         window.addEventListener('dataUpdated', updateData);
-        return () => window.removeEventListener('dataUpdated', updateData);
-    }, []);
+        window.addEventListener('superadminDataUpdated', updateData);
+        return () => {
+            clearInterval(interval);
+            window.removeEventListener('dataUpdated', updateData);
+            window.removeEventListener('superadminDataUpdated', updateData);
+        };
+    }, [currentUser]);
 
     // Close sidebar on route change (mobile)
     useEffect(() => {
@@ -124,6 +145,7 @@ const RetailerLayout = () => {
         const routes = {
             'dashboard': '/dashboard',
             'aeps_services': '/aeps',
+            'dmt': '/dmt',
             'cms': '/cms',
             'travel': '/travel',
             'utility': '/utility',
@@ -183,7 +205,89 @@ const RetailerLayout = () => {
                     }}
                     onMenuClick={() => setShowMobileSidebar(!showMobileSidebar)}
                 />
-                {/* pb-16 lg:pb-0 ensures content not hidden behind mobile bottom nav */}
+                {/* Global Greeting & Wallet Section - ONLY ON DASHBOARD */}
+                {location.pathname === '/dashboard' && (
+                    <div className="px-4 md:px-8 lg:px-10 pt-4 lg:pt-6">
+                        <motion.div 
+                            initial={{ opacity: 0, y: -20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 lg:gap-6 mb-2"
+                        >
+                            {/* LEFT GREETING */}
+                        <div className="flex items-center gap-4 lg:gap-8">
+                             <div className="space-y-0.5">
+                                <div className="flex items-center gap-3 mb-1">
+                                    <div className="w-1.5 lg:w-2.5 h-1.5 lg:h-2.5 rounded-full bg-blue-600 animate-pulse" />
+                                    <span className="text-[10px] lg:text-[12px] font-black text-blue-600 uppercase tracking-[0.3em] lg:tracking-[0.4em]">Personal Dashboard</span>
+                                </div>
+                                <h1 className="text-xl md:text-5xl font-black tracking-tighter text-slate-900 leading-tight">
+                                    Hi {currentUser?.fullName?.split(' ')[0] || currentUser?.name?.split(' ')[0] || currentUser?.businessName?.split(' ')[0] || 'Member'}, <span className="text-slate-400">Welcome Back!</span>
+                                </h1>
+                            </div>
+                        </div>
+
+                        {/* RIGHT WALLET CLUSTER */}
+                        <div className="relative w-full lg:w-auto">
+                            <div className="flex items-center bg-white border border-slate-100 p-1 rounded-[24px] shadow-sm">
+                                {[
+                                    { id: 'main', label: 'Main', balance: balances.main, color: 'blue', icon: <Wallet size={12} />, actions: ['Add Funds', 'Usage', 'History'] },
+                                    { id: 'aeps', label: 'AEPS', balance: balances.aeps, color: 'emerald', icon: <Zap size={12} />, actions: ['Move to Main', 'AEPS Hub'] },
+                                ].map((w, i) => (
+                                    <div key={i} className="relative group/wallet">
+                                        <div 
+                                            onClick={() => setActiveWallet(activeWallet === w.id ? null : w.id)}
+                                            className={`flex items-center gap-3 lg:gap-5 px-3 lg:px-6 py-2 lg:py-2.5 cursor-pointer hover:bg-slate-50 transition-colors rounded-xl lg:rounded-2xl ${i !== 1 ? 'border-r border-slate-50' : ''}`}
+                                        >
+                                            <div className={`w-7 lg:w-9 h-7 lg:h-9 flex items-center justify-center bg-${w.color}-50 rounded-lg lg:rounded-xl text-${w.color}-600 shadow-sm group-hover/wallet:scale-110 transition-transform`}>
+                                                {React.cloneElement(w.icon, { size: 12 })}
+                                            </div>
+                                            <div className="flex flex-col">
+                                                <span className="text-[8px] lg:text-[9px] font-black uppercase tracking-widest text-slate-400 leading-none mb-1 lg:mb-1.5">{w.label}</span>
+                                                <span className="text-xs lg:text-sm font-black tracking-tighter text-slate-800 leading-none">₹{Number(w.balance).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
+                                            </div>
+                                        </div>
+
+                                        {/* Mini Modal / Popover */}
+                                        <AnimatePresence>
+                                            {activeWallet === w.id && (
+                                                <motion.div 
+                                                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                                                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                                                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                                                    className="absolute top-full right-0 mt-3 w-44 bg-white border border-slate-100 rounded-[20px] shadow-2xl p-1.5 z-[60] overflow-hidden"
+                                                >
+                                                    <div className="p-2.5 border-b border-slate-50 bg-slate-50/50 rounded-t-[15px] mb-1">
+                                                        <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest">{w.label} Actions</p>
+                                                    </div>
+                                                    <div className="space-y-0.5">
+                                                        {w.actions.map((act, idx) => (
+                                                            <button 
+                                                                key={idx}
+                                                                onClick={(e) => {
+                                                                    e.stopPropagation();
+                                                                    if (act === 'Add Funds') navigate('/add-money');
+                                                                    if (act === 'History') navigate('/reports');
+                                                                    if (act === 'AEPS Hub') navigate('/aeps');
+                                                                    if (act === 'Usage') navigate('/reports');
+                                                                    setActiveWallet(null);
+                                                                }}
+                                                                className="w-full text-left px-3 py-2 text-[9px] font-bold text-slate-600 hover:bg-slate-50 hover:text-blue-600 rounded-lg transition-colors uppercase tracking-tight"
+                                                            >
+                                                                {act}
+                                                            </button>
+                                                        ))}
+                                                    </div>
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </motion.div>
+                </div>
+                )}
+
                 <main className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-200 pb-16 lg:pb-0">
                     <AnimatePresence mode="wait">
                         <motion.div

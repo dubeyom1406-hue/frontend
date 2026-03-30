@@ -61,6 +61,7 @@ const Profile = lazy(() => import('./retailer/pages/Profile'));
 const Travel = lazy(() => import('./retailer/pages/Travel'));
 const Utility = lazy(() => import('./retailer/pages/Utility'));
 const AEPS = lazy(() => import('./retailer/pages/AEPS'));
+const DMT = lazy(() => import('./retailer/pages/DMT'));
 const CMS = lazy(() => import('./retailer/pages/CMS'));
 const AllServices = lazy(() => import('./retailer/pages/AllServices'));
 const Reports = lazy(() => import('./retailer/pages/Reports'));
@@ -248,6 +249,7 @@ function App() {
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/utility" element={<Utility />} />
                 <Route path="/aeps" element={<AEPS />} />
+                <Route path="/dmt" element={<DMT />} />
                 <Route path="/cms" element={<CMS />} />
                 <Route path="/all-services" element={<AllServices />} />
                 <Route path="/plans" element={<Plans />} />

@@ -329,10 +329,6 @@ const SuperAdminDashboard = () => {
                                                     <span className="text-[8px] font-bold text-white/40 uppercase tracking-tighter">AEPS</span>
                                                     <p className="text-sm font-bold text-indigo-200">₹ {aepsBal}</p>
                                                 </div>
-                                                <div className="flex flex-col items-end">
-                                                    <span className="text-[8px] font-bold text-white/40 uppercase tracking-tighter">Commission</span>
-                                                    <p className="text-sm font-bold text-emerald-300">₹ {incentiveBal}</p>
-                                                </div>
                                             </div>
                                         </div>
                                     </motion.div>

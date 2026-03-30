@@ -1189,7 +1189,10 @@ export const dataService = {
                     ]
                 },
                 services: [
-                    { id: 1, label: 'AEPS Hub', category: 'Banking', icon: 'zap', active: true, image: null, details: 'Cash Withdrawal, Balance Inquiry, and Mini Statement using Aadhar enabled Payment System.' },
+                    { id: 1, label: 'AEPS Withdrawal', category: 'Banking', icon: 'zap', active: true, image: null, details: 'Secure cash withdrawal from any bank account using Aadhaar fingerprint authentication.' },
+                    { id: 13, label: 'AEPS Deposit', category: 'Banking', icon: 'zap', active: true, image: null, details: 'Deposit cash into Aadhaar linked bank accounts instantly and securely.' },
+                    { id: 14, label: 'AEPS Mini Statement', category: 'Banking', icon: 'zap', active: true, image: null, details: 'Check recent transaction history and mini statements for Aadhaar linked accounts.' },
+                    { id: 15, label: 'Aadhaar Pay', category: 'Banking', icon: 'zap', active: true, image: null, details: 'Advanced merchant payment system using Aadhaar for higher limit transactions.' },
                     { id: 2, label: 'Money Transfer', category: 'Banking', icon: 'send', active: true, image: null, details: 'Direct Money Transfer (DMT) to any bank account in India instantly.' },
                     { id: 3, label: 'Micro ATM', category: 'Banking', icon: 'shield', active: true, image: null, details: 'Convert your shop into an ATM and withdraw cash using Debit Cards.' },
                     { id: 4, label: 'Payout Service', category: 'Banking', icon: 'zap', active: true, image: null, details: 'Bulk payout and settlement service for businesses.' },
@@ -1237,7 +1240,10 @@ export const dataService = {
         }
         if (!data.loans) data.loans = [];
         if (!data.services) data.services = [
-            { id: 1, label: 'AEPS Hub', category: 'Banking', icon: 'zap', active: true, image: null },
+            { id: 1, label: 'AEPS Withdrawal', category: 'Banking', icon: 'zap', active: true, image: null },
+            { id: 13, label: 'AEPS Deposit', category: 'Banking', icon: 'zap', active: true, image: null },
+            { id: 14, label: 'AEPS Mini Statement', category: 'Banking', icon: 'zap', active: true, image: null },
+            { id: 15, label: 'Aadhaar Pay', category: 'Banking', icon: 'zap', active: true, image: null },
             { id: 2, label: 'Money Transfer', category: 'Banking', icon: 'send', active: true, image: null },
             { id: 3, label: 'Micro ATM', category: 'Banking', icon: 'shield', active: true, image: null },
             { id: 4, label: 'Payout Service', category: 'Banking', icon: 'zap', active: true, image: null },
