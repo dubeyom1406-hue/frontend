@@ -17,10 +17,10 @@ export default function Navbar() {
         return () => window.removeEventListener('scroll', h);
     }, []);
 
-    const isHome = location.pathname === '/';
+    const isLanding = ['/', '/about', '/leadership', '/contact'].includes(location.pathname);
 
     const scroll = (id) => {
-        if (isHome) {
+        if (isLanding && location.pathname === '/') {
             document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
         } else {
             navigate('/#' + id);
@@ -29,7 +29,7 @@ export default function Navbar() {
     };
 
     const handleLogoClick = () => {
-        if (isHome) {
+        if (location.pathname === '/') {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         } else {
             navigate('/');
@@ -52,11 +52,13 @@ export default function Navbar() {
                     <button className="rp-nav__link" onClick={() => scroll('services')}>{t('NAV_SERVICES')}</button>
                     <button className={`rp-nav__link ${location.pathname === '/contact' ? 'active' : ''}`} onClick={() => navigate('/contact')}>{t('NAV_CONTACT')}</button>
                     
-                    {/* Language Switcher */}
-                    <div className="flex items-center bg-slate-100 rounded-full p-0.5 mx-2">
-                        <button onClick={() => setLang('en')} className={`px-2.5 py-1 rounded-full text-[9px] font-black uppercase tracking-widest transition-all ${lang === 'en' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}>EN</button>
-                        <button onClick={() => setLang('hi')} className={`px-2.5 py-1 rounded-full text-[9px] font-black uppercase tracking-widest transition-all ${lang === 'hi' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}>HI</button>
-                    </div>
+                    {/* Language Switcher - Hidden on Landing Pages */}
+                    {!isLanding && (
+                        <div className="flex items-center bg-slate-100 rounded-full p-0.5 mx-2">
+                            <button onClick={() => setLang('en')} className={`px-2.5 py-1 rounded-full text-[9px] font-black uppercase tracking-widest transition-all ${lang === 'en' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}>EN</button>
+                            <button onClick={() => setLang('hi')} className={`px-2.5 py-1 rounded-full text-[9px] font-black uppercase tracking-widest transition-all ${lang === 'hi' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}>HI</button>
+                        </div>
+                    )}
 
                     <button className="rp-btn rp-btn--sm rp-btn--primary" onClick={() => navigate('/portal')}>
                         {t('NAV_PORTAL')}
@@ -80,13 +82,15 @@ export default function Navbar() {
                     <button className="rp-nav__mobile-link" onClick={() => scroll('services')}>{t('NAV_SERVICES')}</button>
                     <button className="rp-nav__mobile-link" onClick={() => { navigate('/contact'); setMenu(false); }}>{t('NAV_CONTACT')}</button>
                     
-                    <div className="flex items-center gap-4 mt-6">
-                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Language:</span>
-                        <div className="flex items-center bg-slate-100 rounded-full p-0.5">
-                            <button onClick={() => setLang('en')} className={`px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-widest transition-all ${lang === 'en' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-400'}`}>English</button>
-                            <button onClick={() => setLang('hi')} className={`px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-widest transition-all ${lang === 'hi' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-400'}`}>हिन्दी</button>
+                    {!isLanding && (
+                        <div className="flex items-center gap-4 mt-6">
+                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Language:</span>
+                            <div className="flex items-center bg-slate-100 rounded-full p-0.5">
+                                <button onClick={() => setLang('en')} className={`px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-widest transition-all ${lang === 'en' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-400'}`}>English</button>
+                                <button onClick={() => setLang('hi')} className={`px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-widest transition-all ${lang === 'hi' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-400'}`}>हिन्दी</button>
+                            </div>
                         </div>
-                    </div>
+                    )}
 
                     <div style={{ padding: '20px 0' }}>
                         <button className="rp-btn rp-btn--primary" style={{ width: '100%' }} onClick={() => navigate('/portal')}>

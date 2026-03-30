@@ -111,13 +111,13 @@ const Sidebar = ({ activeTab, setActiveTab, showMobileSidebar }) => {
                         }
                     }}
                     className={`flex items-center ${isHovered ? 'justify-between' : 'justify-center'} px-3 py-2.5 my-1.5 cursor-pointer group transition-all duration-300 rounded-xl relative
-                    ${isActive ? 'text-slate-900' : 'text-slate-500 hover:text-slate-900'}`}
+                    ${isActive ? 'text-blue-900' : 'text-slate-500 hover:text-slate-900'}`}
                 >
                     {/* Floating Background */}
                     {isActive && (
                         <motion.div
                             layoutId="active-pill"
-                            className="absolute inset-0 bg-slate-100/80 backdrop-blur-xl border border-slate-200/60 shadow-[0_4px_12px_rgba(0,0,0,0.08)] rounded-xl z-0"
+                            className="absolute inset-0 bg-white shadow-[0_4px_15px_rgba(30,58,138,0.08)] border border-white/50 rounded-xl z-0"
                             transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                         />
                     )}
@@ -130,7 +130,7 @@ const Sidebar = ({ activeTab, setActiveTab, showMobileSidebar }) => {
                             <motion.span
                                 initial={{ opacity: 0, x: -5 }}
                                 animate={{ opacity: 1, x: 0 }}
-                                className={`font-bold text-[13.5px] tracking-tight ${isActive ? 'text-slate-950' : ''}`}
+                                className={`font-bold text-[13.5px] tracking-tight ${isActive ? 'text-blue-900' : ''}`}
                             >
                                 {item.label}
                             </motion.span>
@@ -140,13 +140,13 @@ const Sidebar = ({ activeTab, setActiveTab, showMobileSidebar }) => {
                         <div className="relative z-10">
                             {item.hasSubmenu ? (
                                 <div className={`transition-transform duration-300 ${isExpanded ? 'rotate-180' : 'rotate-0'}`}>
-                                    <ChevronDown size={14} className={`${isActive ? 'text-slate-950' : 'text-slate-300'}`} />
+                                    <ChevronDown size={14} className={`${isActive ? 'text-blue-900' : 'text-slate-300'}`} />
                                 </div>
                             ) : isActive && !item.hasSubmenu && (
                                 <motion.div 
                                     initial={{ scale: 0, opacity: 0 }}
                                     animate={{ scale: 1, opacity: 1 }}
-                                    className="w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.5)]"
+                                    className="w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.3)]"
                                 />
                             )}
                         </div>
@@ -160,7 +160,7 @@ const Sidebar = ({ activeTab, setActiveTab, showMobileSidebar }) => {
                             initial={{ height: 0, opacity: 0 }}
                             animate={{ height: 'auto', opacity: 1 }}
                             exit={{ height: 0, opacity: 0 }}
-                            className="ml-3 border-l border-slate-100 overflow-hidden"
+                            className="ml-3 border-l border-white/40 overflow-hidden"
                         >
                             {item.subItems.map((sub, idx) => {
                                 const isSubActive = activeTab === sub.id;
@@ -168,25 +168,15 @@ const Sidebar = ({ activeTab, setActiveTab, showMobileSidebar }) => {
                                     <div
                                         key={idx}
                                         onClick={() => {
-                                            if (item.id === 'travel') {
-                                                setActiveTab('travel');
-                                                try { window.dispatchEvent(new CustomEvent('travelSelect', { detail: sub.id })); } catch (e) { }
-                                            }
-                                            else if (item.id === 'utility') {
-                                                setActiveTab('utility');
-                                                try { window.dispatchEvent(new CustomEvent('utilitySelect', { detail: sub.id })); } catch (e) { }
-                                            }
-                                            else {
-                                                setActiveTab(sub.id);
-                                            }
+                                            setActiveTab(sub.id);
                                         }}
                                         className={`w-full text-left pl-4 py-2 text-[12.5px] font-bold cursor-pointer transition-all rounded-lg my-1 relative
-                                        ${isSubActive ? 'text-blue-600' : 'text-slate-400 hover:text-slate-700 hover:bg-slate-50/50'}`}
+                                        ${isSubActive ? 'text-blue-600' : 'text-slate-400 hover:text-slate-700 hover:bg-white/50'}`}
                                     >
                                         {isSubActive && (
                                             <motion.div 
                                                 layoutId="active-sub-pill"
-                                                className="absolute inset-0 bg-blue-50/50 rounded-lg -z-10"
+                                                className="absolute inset-0 bg-white/60 rounded-lg -z-10"
                                             />
                                         )}
                                         {sub.label}
@@ -226,23 +216,14 @@ const Sidebar = ({ activeTab, setActiveTab, showMobileSidebar }) => {
                 x: isMobile ? (showMobileSidebar ? 0 : -260) : 0
             }}
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-            className="fixed lg:relative bg-white flex-shrink-0 border-r border-slate-100 flex flex-col h-full font-['Inter',sans-serif] z-50 lg:z-20 overflow-hidden"
+            className="fixed lg:relative bg-gradient-to-br from-indigo-100 via-purple-100 to-blue-100 flex-shrink-0 border-r border-white/20 flex flex-col h-full font-['Inter',sans-serif] z-50 lg:z-20 overflow-hidden"
         >
             {/* Logo Area */}
-            <div className={`p-6 flex items-center ${isHovered ? 'justify-start' : 'justify-center'} h-20`}>
-                <div className="flex items-center gap-3">
-                    <div className="h-10 w-10 flex-shrink-0 flex items-center justify-center overflow-hidden">
-                        <img src={mainLogo} alt="RUPIKSHA" className="h-full w-auto object-contain" />
+            <div className="flex items-center justify-center h-24 mb-2">
+                <div className="flex items-center justify-center">
+                    <div className="h-16 w-16 flex-shrink-0 flex items-center justify-center overflow-visible">
+                        <img src={mainLogo} alt="RUPIKSHA" className="h-full w-auto object-contain transition-none" />
                     </div>
-                    {isHovered && (
-                        <motion.span
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            className="font-bold text-slate-900 text-lg tracking-tight"
-                        >
-                            RuPiKsha
-                        </motion.span>
-                    )}
                 </div>
             </div>
 
@@ -335,10 +316,10 @@ const Sidebar = ({ activeTab, setActiveTab, showMobileSidebar }) => {
             </div>
 
             {/* Profile area - minimal like Nexus */}
-            <div className="p-4 border-t border-slate-50">
+            <div className="p-4 border-t border-white/20">
                 <div className={`flex items-center ${isHovered ? 'justify-between px-2' : 'justify-center'} py-1.5`}>
                     <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-full bg-slate-50 flex items-center justify-center border border-slate-100 overflow-hidden">
+                        <div className="w-9 h-9 rounded-full bg-white flex items-center justify-center border border-white shadow-sm overflow-hidden">
                             {currentUser?.profilePhoto ? (
                                 <img src={currentUser.profilePhoto} alt="U" className="w-full h-full object-cover" />
                             ) : (

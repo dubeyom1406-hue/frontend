@@ -1,7 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { dataService } from "../services/dataService";
-import { doc, onSnapshot } from "firebase/firestore";
-import { db } from "../firebase";
 
 const AuthContext = createContext({
   user: null,
@@ -23,23 +21,11 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const [isLocked, setIsLocked] = useState(false);
   
-  // Real-time Firebase Listener for User Balance & Data
+  // Real-time listener removed in favor of Local/JSON storage mode.
+  // Balances are updated via dataService.
   useEffect(() => {
     if (!user || !user.username) return;
-
-    const unsub = onSnapshot(doc(db, "users", user.username), (docSnapshot) => {
-      if (docSnapshot.exists()) {
-        const fireData = docSnapshot.data();
-        setUser(prev => ({
-          ...prev,
-          ...fireData,
-          balance: fireData.balance || 0,
-          role: fireData.role ? String(fireData.role).toUpperCase() : prev?.role
-        }));
-      }
-    });
-
-    return () => unsub();
+    // You can add periodic balance refreshing here if needed
   }, [user?.username]);
 
   useEffect(() => {

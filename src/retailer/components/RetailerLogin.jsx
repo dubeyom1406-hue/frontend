@@ -227,79 +227,84 @@ const RetailerLogin = () => {
                 {loginError && <div className="bg-red-50 border border-red-200 text-red-700 text-[11px] font-bold px-3 py-2 rounded-xl">{loginError}</div>}
 
                 <form onSubmit={handleRegister} className="space-y-3.5">
-                    <div className="relative">
-                        <User size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-                        <input type="text" placeholder={t('name_label')} value={registerForm.name}
-                            onChange={e => setRegisterForm({ ...registerForm, name: e.target.value })} required
-                            className="w-full pl-10 pr-4 py-3 bg-white border border-slate-300 rounded-xl focus:border-blue-500 outline-none text-sm font-medium text-slate-900" />
+                    <div className="grid grid-cols-2 gap-2">
+                        <div className="relative">
+                            <User size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                            <input type="text" placeholder={t('name_label')} value={registerForm.name}
+                                onChange={e => setRegisterForm({ ...registerForm, name: e.target.value })} required
+                                className="w-full pl-8 pr-3 py-2 bg-white border border-slate-300 rounded-lg focus:border-blue-500 outline-none text-[12px] font-medium text-slate-900" />
+                        </div>
+                        <div className="relative">
+                            <Smartphone size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                            <input type="tel" placeholder={t('mobile_label')} value={registerForm.mobile}
+                                onChange={e => setRegisterForm({ ...registerForm, mobile: e.target.value.replace(/\D/g, '').slice(0, 10) })} required
+                                className="w-full pl-8 pr-3 py-2 bg-white border border-slate-300 rounded-lg focus:border-blue-500 outline-none text-[12px] font-medium text-slate-900" />
+                        </div>
                     </div>
-                    <div className="relative">
-                        <Smartphone size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-                        <input type="tel" placeholder={t('mobile_label')} value={registerForm.mobile}
-                            onChange={e => setRegisterForm({ ...registerForm, mobile: e.target.value.replace(/\D/g, '').slice(0, 10) })} required
-                            className="w-full pl-10 pr-4 py-3 bg-white border border-slate-300 rounded-xl focus:border-blue-500 outline-none text-sm font-medium text-slate-900" />
-                    </div>
-                    <div className="relative">
-                        <Mail size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-                        <input type="email" placeholder={t('email_label')} value={registerForm.email}
-                            onChange={e => setRegisterForm({ ...registerForm, email: e.target.value })} required
-                            className="w-full pl-10 pr-4 py-3 bg-white border border-slate-300 rounded-xl focus:border-blue-500 outline-none text-sm font-medium text-slate-900" />
-                    </div>
-                    <div className="relative">
-                        <Lock size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-                        <input type="text" placeholder="Date of Birth (DD/MM/YYYY)" value={registerForm.dob}
-                            onChange={e => setRegisterForm({ ...registerForm, dob: e.target.value })} required
-                            className="w-full pl-10 pr-4 py-3 bg-white border border-slate-300 rounded-xl focus:border-blue-500 outline-none text-sm font-medium text-slate-900" />
+
+                    <div className="grid grid-cols-2 gap-2">
+                        <div className="relative">
+                            <Mail size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                            <input type="email" placeholder={t('email_label')} value={registerForm.email}
+                                onChange={e => setRegisterForm({ ...registerForm, email: e.target.value })} required
+                                className="w-full pl-8 pr-3 py-2 bg-white border border-slate-300 rounded-lg focus:border-blue-500 outline-none text-[12px] font-medium text-slate-900" />
+                        </div>
+                        <div className="relative">
+                            <Lock size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                            <input type="text" placeholder="Birth: DD/MM/YYYY" value={registerForm.dob}
+                                onChange={e => setRegisterForm({ ...registerForm, dob: e.target.value })} required
+                                className="w-full pl-8 pr-3 py-2 bg-white border border-slate-300 rounded-lg focus:border-blue-500 outline-none text-[12px] font-medium text-slate-900" />
+                        </div>
                     </div>
 
                     <div className="relative">
-                        <Building2 size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                        <Building2 size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400" />
                         <input type="text" placeholder="Business / Shop Name" value={registerForm.businessName}
                             onChange={e => setRegisterForm({ ...registerForm, businessName: e.target.value })} required
-                            className="w-full pl-10 pr-4 py-3 bg-white border border-slate-300 rounded-xl focus:border-blue-500 outline-none text-sm font-medium text-slate-900" />
+                            className="w-full pl-8 pr-3 py-2 bg-white border border-slate-300 rounded-lg focus:border-blue-500 outline-none text-[12px] font-medium text-slate-900" />
                     </div>
 
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-2 gap-2">
                         <div className="relative">
-                            <MapPin size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                            <MapPin size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400" />
                             <input type="text" placeholder="City" value={registerForm.city}
                                 onChange={e => setRegisterForm({ ...registerForm, city: e.target.value })} required
-                                className="w-full pl-10 pr-4 py-3 bg-white border border-slate-300 rounded-xl focus:border-blue-500 outline-none text-sm font-medium text-slate-900" />
+                                className="w-full pl-8 pr-3 py-2 bg-white border border-slate-300 rounded-lg focus:border-blue-500 outline-none text-[12px] font-medium text-slate-900" />
                         </div>
                         <div className="relative">
-                            <MapPin size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                            <MapPin size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400" />
                             <input type="text" placeholder="Pincode" value={registerForm.pincode}
                                 onChange={e => setRegisterForm({ ...registerForm, pincode: e.target.value.replace(/\D/g, '').slice(0, 6) })} required
-                                className="w-full pl-10 pr-4 py-3 bg-white border border-slate-300 rounded-xl focus:border-blue-500 outline-none text-sm font-medium text-slate-900" />
+                                className="w-full pl-8 pr-3 py-2 bg-white border border-slate-300 rounded-lg focus:border-blue-500 outline-none text-[12px] font-medium text-slate-900" />
                         </div>
                     </div>
 
                     <div className="relative">
-                        <MapPin size={16} className="absolute left-3 top-3 text-slate-400" />
+                        <MapPin size={14} className="absolute left-2.5 top-2 text-slate-400" />
                         <textarea placeholder="Full Address" value={registerForm.address}
                             onChange={e => setRegisterForm({ ...registerForm, address: e.target.value })} required
-                            className="w-full pl-10 pr-4 py-3 bg-white border border-slate-300 rounded-xl focus:border-blue-500 outline-none text-sm font-medium text-slate-900 min-h-[60px] resize-none"></textarea>
+                            className="w-full pl-8 pr-3 py-1.5 bg-white border border-slate-300 rounded-lg focus:border-blue-500 outline-none text-[12px] font-medium text-slate-900 h-[40px] resize-none"></textarea>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-2 gap-2">
                         <div className="relative">
-                            <Users size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                            <Users size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400" />
                             <select value={registerForm.role} onChange={e => setRegisterForm({ ...registerForm, role: e.target.value })} required
-                                className="w-full pl-10 pr-8 py-3 bg-white border border-slate-300 rounded-xl focus:border-blue-500 outline-none text-[11px] font-black uppercase appearance-none text-slate-900">
+                                className="w-full pl-8 pr-6 py-2 bg-white border border-slate-300 rounded-lg focus:border-blue-500 outline-none text-[10px] font-black uppercase appearance-none text-slate-900">
                                 <option value="RETAILER">Retailer</option>
                                 <option value="DISTRIBUTOR">Distributor</option>
                                 <option value="SUPER_DISTRIBUTOR">Super Dist.</option>
                             </select>
-                            <ChevronDown size={14} className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400" />
+                            <ChevronDown size={12} className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400" />
                         </div>
                         <div className="relative">
-                            <Globe size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                            <Globe size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400" />
                             <select value={registerForm.state} onChange={e => setRegisterForm({ ...registerForm, state: e.target.value })} required
-                                className="w-full pl-10 pr-8 py-3 bg-white border border-slate-300 rounded-xl focus:border-blue-500 outline-none text-[11px] font-black uppercase appearance-none text-slate-900">
+                                className="w-full pl-8 pr-6 py-2 bg-white border border-slate-300 rounded-lg focus:border-blue-500 outline-none text-[10px] font-black uppercase appearance-none text-slate-900">
                                 <option value="">State</option>
                                 {INDIAN_STATES.map(s => <option key={s} value={s}>{s}</option>)}
                             </select>
-                            <ChevronDown size={14} className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400" />
+                            <ChevronDown size={12} className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400" />
                         </div>
                     </div>
 
@@ -314,9 +319,15 @@ const RetailerLogin = () => {
                         className="w-full bg-gradient-to-r from-blue-600 to-blue-800 text-white font-black py-3 rounded-xl text-[11px] uppercase tracking-widest shadow-lg flex items-center justify-center gap-2 transition-all active:scale-95 disabled:opacity-60">
                         {isLoading ? 'Processing...' : 'Create Account'}
                     </button>
-                    <button type="button" onClick={() => setMode('login')} className="w-full text-center text-[10px] font-black text-slate-500 uppercase tracking-wider">
-                        ← Back to Login
-                    </button>
+                    
+                    <div className="flex items-center gap-3 pt-1">
+                        <button type="button" onClick={() => setMode('login')} className="flex-1 text-center text-[10px] font-black text-slate-500 border border-slate-200 py-2 rounded-lg uppercase tracking-wider hover:bg-slate-50">
+                            ← Login
+                        </button>
+                        <button type="button" onClick={() => setMode('forgot')} className="flex-1 text-center text-[10px] font-black text-slate-500 border border-slate-200 py-2 rounded-lg uppercase tracking-wider hover:bg-slate-50">
+                            Forgot Pass?
+                        </button>
+                    </div>
                 </form>
             </motion.div>
         );

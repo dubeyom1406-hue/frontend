@@ -76,6 +76,27 @@ export const translations = {
         JOIN_RUPIKSHA: 'Join Rupiksha',
         INCOME_CALC: 'Income Calculator',
         CATEGORIES_TITLE: 'Categories:',
+        PARTNER_TAG: 'Partnership Opportunities',
+        PARTNER_TITLE: 'Grow with Rupiksha',
+        PARTNER_SUB: 'Choose the role that fits your business goals and start earning today.',
+        
+        PARTNER_RETAILER_DESC: 'Use our digital suite of products to upgrade your store and manage your credits, customers and payments better. Offer our assisted financial and digital commerce services to increase your income. Be the trusted banker in your area.',
+        PARTNER_RETAILER_H1: 'Join over 15,00,000 active retailers',
+        PARTNER_RETAILER_H2: 'Earn more than ₹25,000 per month',
+        PARTNER_RETAILER_H3: 'No working capital required',
+        PARTNER_RETAILER_CATS: 'Kirana Shop,Restaurant,Medical Shop,Fertilizer Shop,Apparel Shop,Tailoring Shop,Mobile Recharge Centre,Insurance Agency,Hardware Store,Travel Agency and more',
+        
+        PARTNER_DISTRIBUTOR_DESC: 'Make more out of your distribution business. Onboard your network to offer Rupiksha and earn more than 18% per month on the money invested. No physical stock, staff or physical transfer of goods required.',
+        PARTNER_DISTRIBUTOR_H1: 'Join over 1,00,000 distributors',
+        PARTNER_DISTRIBUTOR_H2: 'Earn more than ₹50,000 per month',
+        PARTNER_DISTRIBUTOR_H3: 'Zero physical stock required',
+        PARTNER_DISTRIBUTOR_CATS: 'Telecom Distributors,Pharma Stockists,Retail Hubs,FMCG Agencies,Electronic Goods,Banking Correspondents,PDS Centers,Hardware Dealers,Agro-Business Points,Regional Hubs and more',
+        
+        PARTNER_INDIVIDUAL_DESC: 'Grab the opportunity to run your own business from your home or shop. Become a Rupiksha Digital Pradhan and offer financial services to your area.',
+        PARTNER_INDIVIDUAL_H1: 'Run business from comfort of home',
+        PARTNER_INDIVIDUAL_H2: 'Earn more than ₹15,000 per month',
+        PARTNER_INDIVIDUAL_H3: 'Ideal for Griha Udyog, SHGs, & Teachers',
+        PARTNER_INDIVIDUAL_CATS: 'Griha Udyog Members,Self Help Groups,Teachers,Students,Home-based businesses',
 
         // Auth
         login_btn: 'Login',
@@ -170,6 +191,27 @@ export const translations = {
         JOIN_RUPIKSHA: 'रुपिक्षा से जुड़ें',
         INCOME_CALC: 'आय कैलकुलेटर',
         CATEGORIES_TITLE: 'श्रेणियाँ:',
+        PARTNER_TAG: 'साझेदारी के अवसर',
+        PARTNER_TITLE: 'रुपिक्षा के साथ बढ़ें',
+        PARTNER_SUB: 'वह भूमिका चुनें जो आपके व्यावसायिक लक्ष्यों के अनुकूल हो और आज ही कमाना शुरू करें।',
+        
+        PARTNER_RETAILER_DESC: 'अपनी दुकान को अपग्रेड करने और अपने क्रेडिट, ग्राहकों और भुगतानों को बेहतर ढंग से प्रबंधित करने के लिए हमारे डिजिटल उत्पादों के सूट का उपयोग करें। अपनी आय बढ़ाने के लिए हमारी सहायता प्राप्त वित्तीय और डिजिटल वाणिज्य सेवाओं की पेशकश करें। अपने क्षेत्र में भरोसेमंद बैंकर बनें।',
+        PARTNER_RETAILER_H1: '15,00,000 से अधिक सक्रिय रिटेलर्स से जुड़ें',
+        PARTNER_RETAILER_H2: 'प्रति माह ₹25,000 से अधिक कमाएं',
+        PARTNER_RETAILER_H3: 'किसी कार्यशील पूंजी की आवश्यकता नहीं',
+        PARTNER_RETAILER_CATS: 'किराना दुकान,रेस्तरां,मेडिकल स्टोर,उर्वरक की दुकान,परिधान की दुकान,सिलाई की दुकान,मोबाइल रिचार्ज केंद्र,बीमा एजेंसी,हार्डवेयर स्टोर,ट्रैवल एजेंसी और बहुत कुछ',
+        
+        PARTNER_DISTRIBUTOR_DESC: 'अपने वितरण व्यवसाय से अधिक लाभ उठाएं। निवेश किए गए पैसे पर प्रति माह 18% से अधिक कमाने के लिए हमारे नेटवर्क से जुड़ें। किसी भौतिक स्टॉक, स्टाफ या माल के भौतिक हस्तांतरण की आवश्यकता नहीं है।',
+        PARTNER_DISTRIBUTOR_H1: '1,00,000 से अधिक वितरकों से जुड़ें',
+        PARTNER_DISTRIBUTOR_H2: 'प्रति माह ₹50,000 से अधिक कमाएं',
+        PARTNER_DISTRIBUTOR_H3: 'जीरो फिजिकल स्टॉक की आवश्यकता',
+        PARTNER_DISTRIBUTOR_CATS: 'टेलीकॉम वितरक,फार्मा स्टॉकिस्ट,रिटेल हब,एफएमसीजी एजेंसियां,इलेक्ट्रॉनिक सामान,बैंकिंग प्रतिनिधि,पीडीएस केंद्र,हार्डवेयर डीलर,कृषि-व्यवसाय केंद्र,क्षेत्रीय हब और बहुत कुछ',
+        
+        PARTNER_INDIVIDUAL_DESC: 'अपने घर या दुकान से अपना खुद का व्यवसाय चलाने का अवसर प्राप्त करें। रुपिक्षा डिजिटल प्रधान बनें और अपने क्षेत्र में वित्तीय सेवाएं प्रदान करें।',
+        PARTNER_INDIVIDUAL_H1: 'घर के आराम से व्यवसाय चलाएं',
+        PARTNER_INDIVIDUAL_H2: 'प्रति माह ₹15,000 से अधिक कमाएं',
+        PARTNER_INDIVIDUAL_H3: 'गृह उद्योग, स्वयं सहायता समूहों और शिक्षकों के लिए आदर्श',
+        PARTNER_INDIVIDUAL_CATS: 'गृह उद्योग सदस्य,स्वयं सहायता समूह,शिक्षक,छात्र,घर-आधारित व्यवसाय',
 
         // Auth
         login_btn: 'लॉगिन',

@@ -13,8 +13,7 @@ const RetailerLayout = () => {
     const location = useLocation();
     const [showMobileSidebar, setShowMobileSidebar] = useState(false);
     const [appData, setAppData] = useState(dataService.getData());
-    const [balances, setBalances] = useState({ main: "0.00", aeps: "0.00" });
-    const [activeWallet, setActiveWallet] = useState(null);
+
     const currentUser = appData.currentUser;
 
     // Map path to active tab for Sidebar
@@ -71,20 +70,11 @@ const RetailerLayout = () => {
             setAppData(dataService.getData());
         };
         
-        const fetchBalances = async () => {
-            if (currentUser) {
-                const bals = await dataService.getWalletBalances(currentUser.id);
-                setBalances(bals);
-            }
-        };
 
-        fetchBalances();
-        const interval = setInterval(fetchBalances, 10000);
 
         window.addEventListener('dataUpdated', updateData);
         window.addEventListener('superadminDataUpdated', updateData);
         return () => {
-            clearInterval(interval);
             window.removeEventListener('dataUpdated', updateData);
             window.removeEventListener('superadminDataUpdated', updateData);
         };
@@ -225,65 +215,6 @@ const RetailerLayout = () => {
                                 </h1>
                             </div>
                         </div>
-
-                        {/* RIGHT WALLET CLUSTER */}
-                        <div className="relative w-full lg:w-auto">
-                            <div className="flex items-center bg-white border border-slate-100 p-1 rounded-[24px] shadow-sm">
-                                {[
-                                    { id: 'main', label: 'Main', balance: balances.main, color: 'blue', icon: <Wallet size={12} />, actions: ['Add Funds', 'Usage', 'History'] },
-                                    { id: 'aeps', label: 'AEPS', balance: balances.aeps, color: 'emerald', icon: <Zap size={12} />, actions: ['Move to Main', 'AEPS Hub'] },
-                                ].map((w, i) => (
-                                    <div key={i} className="relative group/wallet">
-                                        <div 
-                                            onClick={() => setActiveWallet(activeWallet === w.id ? null : w.id)}
-                                            className={`flex items-center gap-3 lg:gap-5 px-3 lg:px-6 py-2 lg:py-2.5 cursor-pointer hover:bg-slate-50 transition-colors rounded-xl lg:rounded-2xl ${i !== 1 ? 'border-r border-slate-50' : ''}`}
-                                        >
-                                            <div className={`w-7 lg:w-9 h-7 lg:h-9 flex items-center justify-center bg-${w.color}-50 rounded-lg lg:rounded-xl text-${w.color}-600 shadow-sm group-hover/wallet:scale-110 transition-transform`}>
-                                                {React.cloneElement(w.icon, { size: 12 })}
-                                            </div>
-                                            <div className="flex flex-col">
-                                                <span className="text-[8px] lg:text-[9px] font-black uppercase tracking-widest text-slate-400 leading-none mb-1 lg:mb-1.5">{w.label}</span>
-                                                <span className="text-xs lg:text-sm font-black tracking-tighter text-slate-800 leading-none">₹{Number(w.balance).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
-                                            </div>
-                                        </div>
-
-                                        {/* Mini Modal / Popover */}
-                                        <AnimatePresence>
-                                            {activeWallet === w.id && (
-                                                <motion.div 
-                                                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                                                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                                                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                                                    className="absolute top-full right-0 mt-3 w-44 bg-white border border-slate-100 rounded-[20px] shadow-2xl p-1.5 z-[60] overflow-hidden"
-                                                >
-                                                    <div className="p-2.5 border-b border-slate-50 bg-slate-50/50 rounded-t-[15px] mb-1">
-                                                        <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest">{w.label} Actions</p>
-                                                    </div>
-                                                    <div className="space-y-0.5">
-                                                        {w.actions.map((act, idx) => (
-                                                            <button 
-                                                                key={idx}
-                                                                onClick={(e) => {
-                                                                    e.stopPropagation();
-                                                                    if (act === 'Add Funds') navigate('/add-money');
-                                                                    if (act === 'History') navigate('/reports');
-                                                                    if (act === 'AEPS Hub') navigate('/aeps');
-                                                                    if (act === 'Usage') navigate('/reports');
-                                                                    setActiveWallet(null);
-                                                                }}
-                                                                className="w-full text-left px-3 py-2 text-[9px] font-bold text-slate-600 hover:bg-slate-50 hover:text-blue-600 rounded-lg transition-colors uppercase tracking-tight"
-                                                            >
-                                                                {act}
-                                                            </button>
-                                                        ))}
-                                                    </div>
-                                                </motion.div>
-                                            )}
-                                        </AnimatePresence>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
                     </motion.div>
                 </div>
                 )}
@@ -291,7 +222,7 @@ const RetailerLayout = () => {
                 <main className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-200 pb-16 lg:pb-0">
                     <AnimatePresence mode="wait">
                         <motion.div
-                            key={location.pathname}
+                            key={location.pathname + location.search}
                             initial={{ opacity: 0, scale: 0.98 }}
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.98 }}

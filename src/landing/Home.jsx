@@ -8,6 +8,8 @@ import Navbar from '../components/Navbar';
 import VerticalCardSlider from '../components/VerticalCardSlider';
 import PhotoSlider from '../components/PhotoSlider';
 const aadhaar_3d_logo = "https://upload.wikimedia.org/wikipedia/en/thumb/c/cf/Aadhaar_Logo.svg/1200px-Aadhaar_Logo.svg.png";
+import { useLanguage } from '../context/LanguageContext';
+import { Phone, Mail, RefreshCcw } from 'lucide-react';
 
 /* ─────────────────────────────────────────────
    Tiny hook: trigger in-view class once element
@@ -848,43 +850,44 @@ function Advantage() {
 ══════════════════════════════════════════════ */
 function Partners() {
     const navigate = useNavigate();
+    const { t, language: lang } = useLanguage();
     const [activeTab, setActiveTab] = useState('retailer');
     const [ref, visible] = useInView();
 
     const data = {
         retailer: {
-            title: 'Retailer',
-            desc: 'Use our digital suite of products to upgrade your store and manage your credits, customers and payments better. Offer our assisted financial and digital commerce services to increase your income. Be the trusted banker in your area.',
+            title: t('PARTNER_RETAILER'),
+            desc: t('PARTNER_RETAILER_DESC'),
             highlights: [
-                { icon: '👥', text: 'Join over 15,00,000 active retailers' },
-                { icon: '💰', text: 'Earn more than ₹25,000 per month' },
-                { icon: '🛡️', text: 'No working capital required' }
+                { icon: '👥', text: t('PARTNER_RETAILER_H1') },
+                { icon: '💰', text: t('PARTNER_RETAILER_H2') },
+                { icon: '🛡️', text: t('PARTNER_RETAILER_H3') }
             ],
-            categories: ['Kirana Shop', 'Restaurant', 'Medical Shop', 'Fertilizer Shop', 'Apparel Shop', 'Tailoring Shop', 'Mobile Recharge Centre', 'Insurance Agency', 'Hardware Store', 'Travel Agency and more'],
+            categories: t('PARTNER_RETAILER_CATS').split(','),
             color: '#2563eb',
             image: "https://images.unsplash.com/photo-1580674285054-bed31e145f59?q=80&w=1000&auto=format&fit=crop"
         },
         distributor: {
-            title: 'Distributor',
-            desc: 'Make more out of your distribution business. Onboard your network to offer Rupiksha and earn more than 18% per month on the money invested. No physical stock, staff or physical transfer of goods required. Both you and your retailers make money on every transaction.',
+            title: t('PARTNER_DISTRIBUTOR'),
+            desc: t('PARTNER_DISTRIBUTOR_DESC'),
             highlights: [
-                { icon: '🏢', text: 'Join over 1,00,000 distributors' },
-                { icon: '📈', text: 'Earn more than ₹50,000 per month' },
-                { icon: '🔄', text: 'Zero physical stock required' }
+                { icon: '🏢', text: t('PARTNER_DISTRIBUTOR_H1') },
+                { icon: '📈', text: t('PARTNER_DISTRIBUTOR_H2') },
+                { icon: '🔄', text: t('PARTNER_DISTRIBUTOR_H3') }
             ],
-            categories: ['Telecom Distributors', 'Pharma Stockists', 'Retail Hubs', 'FMCG Agencies', 'Electronic Goods', 'Banking Correspondents', 'PDS Centers', 'Hardware Dealers', 'Agro-Business Points', 'Regional Hubs and more'],
+            categories: t('PARTNER_DISTRIBUTOR_CATS').split(','),
             color: '#10b981',
             image: "/photo/distributor_main.jpg"
         },
         individual: {
-            title: 'Individual / SHG',
-            desc: 'Grab the opportunity to run your own business from your home or shop. Become a Rupiksha Digital Pradhan and offer financial services to your area. Home-based businesses can take their stores online and service more customers.',
+            title: t('PARTNER_INDIVIDUAL'),
+            desc: t('PARTNER_INDIVIDUAL_DESC'),
             highlights: [
-                { icon: '🏠', text: 'Run business from comfort of home' },
-                { icon: '💸', text: 'Earn more than ₹15,000 per month' },
-                { icon: '👩‍🏫', text: 'Ideal for Griha Udyog, SHGs, & Teachers' }
+                { icon: '🏠', text: t('PARTNER_INDIVIDUAL_H1') },
+                { icon: '💸', text: t('PARTNER_INDIVIDUAL_H2') },
+                { icon: '👩‍🏫', text: t('PARTNER_INDIVIDUAL_H3') }
             ],
-            categories: ['Griha Udyog Members', 'Self Help Groups', 'Teachers', 'Students', 'Home-based businesses'],
+            categories: t('PARTNER_INDIVIDUAL_CATS').split(','),
             color: '#f59e0b',
             image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1000&auto=format&fit=crop"
         }
@@ -896,20 +899,24 @@ function Partners() {
         <section className="rp-partners" id="partners" ref={ref}>
             <div className="section-container">
                 <div className="partners-header">
-                    <span className="partners-tag">Partnership Opportunities</span>
-                    <h2 className="partners-title-glow">Grow with Rupiksha</h2>
-                    <p className="partners-sub">Choose the role that fits your business goals and start earning today.</p>
+                    <span className="partners-tag">{t('PARTNER_TAG')}</span>
+                    <h2 className="partners-title-glow">{t('PARTNER_TITLE')}</h2>
+                    <p className="partners-sub">{t('PARTNER_SUB')}</p>
                 </div>
 
                 <div className="partners-tabs">
-                    {Object.keys(data).map(key => (
+                    {[
+                        { id: 'retailer', label: t('PARTNER_RETAILER'), emoji: '🏪' },
+                        { id: 'distributor', label: t('PARTNER_DISTRIBUTOR'), emoji: '🏗️' },
+                        { id: 'individual', label: t('PARTNER_INDIVIDUAL'), emoji: '🚀' }
+                    ].map(tab => (
                         <button
-                            key={key}
-                            className={`partner-tab-btn ${activeTab === key ? 'active' : ''}`}
-                            onClick={() => setActiveTab(key)}
-                            style={{ '--color': data[key].color }}
+                            key={tab.id}
+                            className={`partner-tab-btn ${activeTab === tab.id ? 'active' : ''}`}
+                            onClick={() => setActiveTab(tab.id)}
+                            style={{ '--color': data[tab.id].color }}
                         >
-                            {data[key].title}
+                            {tab.emoji} {tab.label}
                         </button>
                     ))}
                 </div>

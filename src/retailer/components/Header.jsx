@@ -16,12 +16,12 @@ const Header = ({ onAddMoney, onProfileClick, onMenuClick }) => {
     const navigate = useNavigate();
     const { t } = useLanguage();
     const [appData, setAppData] = useState(dataService.getData());
-    const [showBalance, setShowBalance] = useState(true);
     const [showProfileMenu, setShowProfileMenu] = useState(false);
     const [showNotifications, setShowNotifications] = useState(false);
-    const [notifications, setNotifications] = useState([]); // Empty by default
-    const { lockTimeLeft, logoutTimeLeft } = useAuth();
-    
+    const [notifications, setNotifications] = useState([]);
+    const [balances, setBalances] = useState({ main: "0.00", aeps: "0.00" });
+    const [activeWallet, setActiveWallet] = useState(null);
+    const currentUser = appData.currentUser;
     const unreadCount = notifications.filter(n => !n.read).length;
 
     const formatTime = (ms) => {
@@ -66,17 +66,24 @@ const Header = ({ onAddMoney, onProfileClick, onMenuClick }) => {
             }
         };
 
+        const fetchBalances = async () => {
+            if (currentUser) {
+                const bals = await dataService.getWalletBalances(currentUser.id);
+                setBalances(bals);
+            }
+        };
+
         fetchAllNotifications();
-        window.addEventListener('dataUpdated', fetchAllNotifications);
-        const interval = setInterval(fetchAllNotifications, 30000); // 30s check in header
+        fetchBalances();
+        window.addEventListener('dataUpdated', () => { fetchAllNotifications(); fetchBalances(); });
+        const interval = setInterval(() => { fetchAllNotifications(); fetchBalances(); }, 15000);
 
         return () => {
             window.removeEventListener('dataUpdated', fetchAllNotifications);
             clearInterval(interval);
         };
-    }, []);
+    }, [currentUser]);
 
-    const currentUser = appData.currentUser;
     const headerData = currentUser?.wallet || appData.wallet;
 
     // ... (rest of the helper functions)
@@ -108,6 +115,61 @@ const Header = ({ onAddMoney, onProfileClick, onMenuClick }) => {
                     {/* Notification & Profile Pill */}
                     <div className="flex items-center gap-4 relative">
                         
+                        {/* WALLET INTEGRATION - Global Header */}
+                        <div className="hidden md:flex items-center bg-white border border-slate-100 p-0.5 rounded-full shadow-sm mr-2 transition-all">
+                                {[
+                                    { id: 'main', label: 'Main', balance: balances.main, color: 'blue', icon: <Wallet size={13} />, actions: ['Add Funds', 'Usage', 'History'] },
+                                    { id: 'aeps', label: 'AEPS', balance: balances.aeps, color: 'emerald', icon: <RefreshCw size={13} />, actions: ['Move to Main', 'AEPS Hub'] },
+                                ].map((w, i) => (
+                                    <div key={i} className="relative group/wallet">
+                                        <div 
+                                            onClick={() => setActiveWallet(activeWallet === w.id ? null : w.id)}
+                                            className={`flex items-center gap-3.5 px-5 py-2.5 cursor-pointer hover:bg-slate-50 transition-colors rounded-full ${i === 0 ? 'border-r border-slate-50' : ''}`}
+                                        >
+                                            <div className={`w-9 h-9 flex items-center justify-center bg-${w.color}-50 rounded-full text-${w.color}-600 transition-transform group-hover/wallet:scale-110`}>
+                                                {w.icon}
+                                            </div>
+                                            <div className="flex flex-col">
+                                                <span className="text-[9.5px] font-black uppercase tracking-widest text-slate-400 leading-none mb-0.5">{w.label}</span>
+                                                <span className="text-[16px] font-black tracking-tight text-slate-900 leading-none">₹{Number(w.balance).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
+                                            </div>
+                                        </div>
+
+                                        <AnimatePresence>
+                                            {activeWallet === w.id && (
+                                                <motion.div 
+                                                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                                                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                                                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                                                    className="absolute top-full right-0 mt-3 w-40 bg-white border border-slate-100 rounded-[20px] shadow-2xl p-1.5 z-[60] overflow-hidden"
+                                                >
+                                                    <div className="p-2 border-b border-slate-50 bg-slate-50/50 rounded-t-[15px] mb-1">
+                                                        <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest">{w.label} Actions</p>
+                                                    </div>
+                                                    <div className="space-y-0.5">
+                                                        {w.actions.map((act, idx) => (
+                                                            <button 
+                                                                key={idx}
+                                                                onClick={(e) => {
+                                                                    e.stopPropagation();
+                                                                    if (act === 'Add Funds') navigate('/add-money');
+                                                                    if (act === 'History') navigate('/reports');
+                                                                    if (act === 'AEPS Hub') navigate('/aeps');
+                                                                    if (act === 'Usage') navigate('/reports');
+                                                                    setActiveWallet(null);
+                                                                }}
+                                                                className="w-full text-left px-3 py-2 text-[9px] font-bold text-slate-600 hover:bg-slate-50 hover:text-blue-600 rounded-lg transition-colors uppercase tracking-tight"
+                                                            >
+                                                                {act}
+                                                            </button>
+                                                        ))}
+                                                    </div>
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
+                                    </div>
+                                ))}
+                        </div>
                         {/* Notifications Dropdown */}
                         <div className="relative">
                             <div 

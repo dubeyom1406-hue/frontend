@@ -162,7 +162,7 @@ const Login = () => {
     const [registerForm, setRegisterForm] = useState({ name: '', mobile: '', email: '', state: '', role: 'RETAILER', lang: lang === 'en' ? 'English' : 'Hindi', agreement: false });
     const [forgotForm, setForgotForm] = useState({ mobile: '', dob: '' });
 
-    // Update register form when global lang changes
+    // Update form when global lang changes
     useEffect(() => {
         setRegisterForm(prev => ({ ...prev, lang: lang === 'en' ? 'English' : 'Hindi' }));
     }, [lang]);
@@ -344,10 +344,10 @@ const Login = () => {
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            whileHover={{ 
+                            whileHover={{
                                 y: -8,
-                                backgroundColor: 'rgba(30, 58, 138, 0.98)', 
-                                borderColor: 'rgba(147, 197, 253, 0.5)', 
+                                backgroundColor: 'rgba(30, 58, 138, 0.98)',
+                                borderColor: 'rgba(147, 197, 253, 0.5)',
                             }}
                             className="bg-blue-600/10 backdrop-blur-[40px] rounded-[2.5rem] overflow-hidden border border-blue-200/50 flex flex-col h-auto min-h-[280px] md:min-h-[320px] shadow-[0_40px_100px_rgba(30,58,138,0.06)] transition-all duration-700 group cursor-pointer relative"
                             onClick={() => setPortal('retailer')}
@@ -370,10 +370,10 @@ const Login = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.1 }}
-                            whileHover={{ 
+                            whileHover={{
                                 y: -8,
-                                backgroundColor: 'rgba(17, 24, 39, 0.98)', 
-                                borderColor: 'rgba(99, 102, 241, 0.4)', 
+                                backgroundColor: 'rgba(17, 24, 39, 0.98)',
+                                borderColor: 'rgba(99, 102, 241, 0.4)',
                             }}
                             className="bg-slate-900/10 backdrop-blur-[40px] rounded-[2.5rem] overflow-hidden border border-slate-200 flex flex-col h-auto min-h-[280px] md:min-h-[320px] shadow-[0_40px_100px_rgba(0,0,0,0.03)] transition-all duration-700 group cursor-pointer relative"
                             onClick={() => setPortal('distributor')}
@@ -396,10 +396,10 @@ const Login = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.2 }}
-                            whileHover={{ 
+                            whileHover={{
                                 y: -8,
                                 backgroundColor: 'rgba(234, 88, 12, 0.98)', // Premium Orange (Orange 600)
-                                borderColor: 'rgba(251, 191, 36, 0.6)', 
+                                borderColor: 'rgba(251, 191, 36, 0.6)',
                             }}
                             className="bg-amber-600/10 backdrop-blur-[40px] rounded-[2.5rem] overflow-hidden border border-amber-200/50 flex flex-col h-auto min-h-[280px] md:min-h-[320px] shadow-[0_40px_100px_rgba(234,88,12,0.05)] transition-all duration-700 group cursor-pointer relative"
                             onClick={() => setPortal('distributor')} // Assuming it uses distributor login logic for now
@@ -409,7 +409,7 @@ const Login = () => {
                             </div>
                             <div className="p-6 text-center space-y-4 z-10">
                                 <h3 className="text-amber-900 group-hover:text-white text-xl font-black uppercase tracking-tighter transition-colors">
-                                    Super <br/> Distributor
+                                    Super <br /> Distributor
                                 </h3>
                                 <motion.button className="w-full bg-amber-600 text-white group-hover:bg-white group-hover:text-orange-600 py-3.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2">
                                     Access Elite <ArrowRight size={14} className="group-hover:text-orange-600" />
@@ -434,40 +434,31 @@ const Login = () => {
                         onClick={() => setPortal('select')}
                     >
                         <img src={logo} alt="RUPIKSHA" style={{ height: '44px', width: 'auto' }} className="object-contain" />
-                        <div className="hidden sm:block h-6 w-px bg-slate-200 ml-1" />
-                        <div className="hidden sm:flex flex-col text-[10.5px] font-bold text-slate-600 uppercase tracking-wider ml-4 border-l border-slate-200 pl-4 space-y-1">
-                            <span className="flex items-center gap-2"><Phone size={11} className="text-blue-500" /> 0621-4008548 | 7004128310</span>
-                            <span className="flex items-center gap-2"><Mail size={11} className="text-blue-500" /> customercare@rupiksha.com</span>
-                        </div>
                     </motion.div>
                     <div className="flex items-center gap-3 md:gap-5">
-                        <motion.button 
-                            whileHover={{ scale: 1.05 }}
-                            className="hidden lg:flex items-center gap-2 text-[10px] font-black text-blue-600 bg-blue-50 px-4 py-1.5 rounded-full border border-blue-100 uppercase tracking-widest transition-all"
-                        >
-                            <RefreshCcw size={14} className="animate-spin-slow" />
-                            Income Calculator
-                        </motion.button>
-                        <div className="h-6 w-px bg-slate-200 hidden lg:block" />
                         <div className="flex items-center bg-slate-100 rounded-full p-1 p-0.5">
                             <button onClick={() => setLang('en')} className={`px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest transition-all ${lang === 'en' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}>EN</button>
                             <button onClick={() => setLang('hi')} className={`px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest transition-all ${lang === 'hi' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}>HI</button>
                         </div>
-                        <span className="hidden md:inline-block bg-amber-50 text-amber-600 text-[9px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full border border-amber-100">Distributor — B Panel</span>
                         <motion.button
-                            whileHover={{ x: -4 }}
-                            onClick={() => setPortal('select')}
-                            className="text-[10px] font-bold text-slate-500 hover:text-slate-900 uppercase tracking-widest flex items-center gap-2 group transition-all"
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={(e) => { e.stopPropagation(); setPortal('select'); }}
+                            className="bg-amber-50 text-amber-600 text-[8px] font-black uppercase tracking-widest px-3 py-1 rounded-full border border-amber-100 flex items-center gap-1.5 transition-all"
                         >
-                            <ChevronLeft size={16} className="text-slate-400 group-hover:text-slate-900" />
-                            Back
+                            <ChevronLeft size={12} />
+                            Distributor
                         </motion.button>
+                        <div className="hidden sm:flex flex-col text-[12px] font-bold text-slate-600 tracking-wide border-l border-slate-200 pl-4 space-y-0.5">
+                            <span className="flex items-center gap-2 uppercase"><Phone size={14} className="text-blue-600 fill-blue-50" strokeWidth={2.5} /> 0621-4008548 | 7004128310</span>
+                            <span className="flex items-center gap-2 lowercase"><Mail size={14} className="text-blue-600 fill-blue-50" strokeWidth={2.5} /> customercare@rupiksha.com</span>
+                        </div>
                     </div>
                 </header>
 
                 <main className="flex-1 flex flex-col md:flex-row overflow-hidden">
                     {/* Left: Login Form */}
-                    <div className="w-full md:w-1/2 lg:w-[40%] p-6 md:p-12 flex flex-col items-center justify-center bg-white h-full">
+                    <div className="w-full md:w-1/2 lg:w-[40%] p-6 md:p-12 flex flex-col items-center justify-center bg-amber-100 h-full">
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -475,13 +466,14 @@ const Login = () => {
                         >
                             <div className="space-y-2">
                                 <h2 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
-                                    Distributor <span className="text-amber-500">Login</span>
+                                    Welcome to <span className="text-amber-500">Rupiksha</span>
                                 </h2>
-                                <p className="text-slate-500 text-sm font-medium">B Panel — Access your distribution network stats and tools.</p>
                             </div>
 
                             <div className="bg-white rounded-3xl shadow-2xl shadow-slate-200/50 border border-slate-100 overflow-hidden">
-                                <div className="bg-amber-500 h-1.5 w-full" />
+                                <div className="bg-blue-600 py-3 flex items-center justify-center">
+                                    <span className="text-white text-[10px] font-black uppercase tracking-[0.2em]">Distributor Login</span>
+                                </div>
                                 <div className="p-6 md:p-10">
                                     <DistributorLogin />
                                 </div>
@@ -547,40 +539,31 @@ const Login = () => {
                         onClick={() => setPortal('select')}
                     >
                         <img src={logo} alt="RUPIKSHA" style={{ height: '44px', width: 'auto' }} className="object-contain" />
-                        <div className="hidden sm:block h-6 w-px bg-slate-200 ml-1" />
-                        <div className="hidden sm:flex flex-col text-[10.5px] font-bold text-slate-600 uppercase tracking-wider ml-4 border-l border-slate-200 pl-4 space-y-1">
-                            <span className="flex items-center gap-2"><Phone size={11} className="text-indigo-500" /> 0621-4008548 | 7004128310</span>
-                            <span className="flex items-center gap-2"><Mail size={11} className="text-indigo-500" /> customercare@rupiksha.com</span>
-                        </div>
                     </motion.div>
                     <div className="flex items-center gap-3 md:gap-5">
-                        <motion.button 
-                            whileHover={{ scale: 1.05 }}
-                            className="hidden lg:flex items-center gap-2 text-[10px] font-black text-indigo-600 bg-indigo-50 px-4 py-1.5 rounded-full border border-indigo-100 uppercase tracking-widest transition-all"
-                        >
-                            <RefreshCcw size={14} className="animate-spin-slow" />
-                            Income Calculator
-                        </motion.button>
-                        <div className="h-6 w-px bg-slate-200 hidden lg:block" />
                         <div className="flex items-center bg-slate-100 rounded-full p-1 p-0.5">
                             <button onClick={() => setLang('en')} className={`px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest transition-all ${lang === 'en' ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}>EN</button>
                             <button onClick={() => setLang('hi')} className={`px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest transition-all ${lang === 'hi' ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}>HI</button>
                         </div>
-                        <span className="hidden md:inline-block bg-indigo-50 text-indigo-600 text-[9px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full border border-indigo-100">Master — Master Node</span>
                         <motion.button
-                            whileHover={{ x: -4 }}
-                            onClick={() => setPortal('select')}
-                            className="text-[10px] font-bold text-slate-500 hover:text-slate-900 uppercase tracking-widest flex items-center gap-2 group transition-all"
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={(e) => { e.stopPropagation(); setPortal('select'); }}
+                            className="bg-indigo-50 text-indigo-600 text-[8px] font-black uppercase tracking-widest px-3 py-1 rounded-full border border-indigo-100 flex items-center gap-1.5 transition-all"
                         >
-                            <ChevronLeft size={16} className="text-slate-400 group-hover:text-slate-900" />
-                            Back
+                            <ChevronLeft size={12} />
+                            Master
                         </motion.button>
+                        <div className="hidden sm:flex flex-col text-[12px] font-bold text-slate-600 tracking-wide border-l border-slate-200 pl-4 space-y-0.5">
+                            <span className="flex items-center gap-2 uppercase"><Phone size={14} className="text-blue-600 fill-blue-50" strokeWidth={2.5} /> 0621-4008548 | 7004128310</span>
+                            <span className="flex items-center gap-2 lowercase"><Mail size={14} className="text-blue-600 fill-blue-50" strokeWidth={2.5} /> customercare@rupiksha.com</span>
+                        </div>
                     </div>
                 </header>
 
                 <main className="flex-1 flex flex-col md:flex-row overflow-hidden">
                     {/* Left: Login Form */}
-                    <div className="w-full md:w-1/2 lg:w-[40%] p-6 md:p-12 flex flex-col items-center justify-center bg-white h-full">
+                    <div className="w-full md:w-1/2 lg:w-[40%] p-6 md:p-12 flex flex-col items-center justify-center bg-amber-100 h-full">
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -588,13 +571,14 @@ const Login = () => {
                         >
                             <div className="space-y-2">
                                 <h2 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
-                                    Control <span className="text-indigo-600">Center</span>
+                                    Welcome to <span className="text-indigo-600">Rupiksha</span>
                                 </h2>
-                                <p className="text-slate-500 text-sm font-medium">Master Node — Full ecosystem oversight and administrative control.</p>
                             </div>
 
                             <div className="bg-white rounded-3xl shadow-2xl shadow-indigo-100/50 border border-indigo-50 overflow-hidden">
-                                <div className="bg-indigo-600 h-1.5 w-full" />
+                                <div className="bg-blue-600 py-3 flex items-center justify-center">
+                                    <span className="text-white text-[10px] font-black uppercase tracking-[0.2em]">Master Login</span>
+                                </div>
                                 <div className="p-6 md:p-10">
                                     <SuperAdminLogin />
                                 </div>
@@ -660,40 +644,31 @@ const Login = () => {
                     onClick={() => setPortal('select')}
                 >
                     <img src={logo} alt="RUPIKSHA" style={{ height: '44px', width: 'auto' }} className="object-contain" />
-                    <div className="hidden sm:block h-6 w-px bg-slate-200 ml-1" />
-                    <div className="hidden sm:flex flex-col text-[10.5px] font-bold text-slate-600 uppercase tracking-wider ml-4 border-l border-slate-200 pl-4 space-y-1">
-                        <span className="flex items-center gap-2"><Phone size={11} className="text-blue-600" /> 0621-4008548 | 7004128310</span>
-                        <span className="flex items-center gap-2"><Mail size={11} className="text-blue-600" /> customercare@rupiksha.com</span>
-                    </div>
                 </motion.div>
                 <div className="flex items-center gap-3 md:gap-5">
-                    <motion.button 
-                        whileHover={{ scale: 1.05 }}
-                        className="hidden lg:flex items-center gap-2 text-[10px] font-black text-blue-600 bg-blue-50 px-4 py-1.5 rounded-full border border-blue-100 uppercase tracking-widest transition-all"
-                    >
-                        <RefreshCcw size={14} className="animate-spin-slow" />
-                        Income Calculator
-                    </motion.button>
-                    <div className="h-6 w-px bg-slate-200 hidden lg:block" />
                     <div className="flex items-center bg-slate-100 rounded-full p-1 p-0.5">
                         <button onClick={() => setLang('en')} className={`px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest transition-all ${lang === 'en' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}>EN</button>
                         <button onClick={() => setLang('hi')} className={`px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest transition-all ${lang === 'hi' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}>HI</button>
                     </div>
-                    <span className="hidden md:inline-block bg-blue-50 text-blue-600 text-[9px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full border border-blue-100">Retailer — A Panel</span>
                     <motion.button
-                        whileHover={{ x: -4 }}
-                        onClick={() => setPortal('select')}
-                        className="text-[10px] font-bold text-slate-500 hover:text-slate-900 uppercase tracking-widest flex items-center gap-2 group transition-all"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={(e) => { e.stopPropagation(); setPortal('select'); }}
+                        className="bg-blue-50 text-blue-600 text-[8px] font-black uppercase tracking-widest px-3 py-1 rounded-full border border-blue-100 flex items-center gap-1.5 transition-all"
                     >
-                        <ChevronLeft size={16} className="text-slate-400 group-hover:text-slate-900" />
-                        Back
+                        <ChevronLeft size={12} />
+                        Retailer
                     </motion.button>
+                    <div className="hidden sm:flex flex-col text-[12px] font-bold text-slate-600 tracking-wide border-l border-slate-200 pl-4 space-y-0.5">
+                        <span className="flex items-center gap-2 uppercase"><Phone size={14} className="text-blue-600 fill-blue-50" strokeWidth={2.5} /> 0621-4008548 | 7004128310</span>
+                        <span className="flex items-center gap-2 lowercase"><Mail size={14} className="text-blue-600 fill-blue-50" strokeWidth={2.5} /> customercare@rupiksha.com</span>
+                    </div>
                 </div>
             </header>
 
             <main className="flex-1 flex flex-col md:flex-row overflow-hidden">
                 {/* Left: Login Form */}
-                <div className="w-full md:w-1/2 lg:w-[40%] p-6 md:p-12 flex flex-col items-center justify-center bg-white h-full">
+                <div className="w-full md:w-1/2 lg:w-[40%] p-6 md:p-12 flex flex-col items-center justify-center bg-amber-100 h-full">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -701,13 +676,14 @@ const Login = () => {
                     >
                         <div className="space-y-2">
                             <h2 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
-                                Retailer <span className="text-blue-600">Login</span>
+                                Welcome to <span className="text-blue-600">Rupiksha</span>
                             </h2>
-                            <p className="text-slate-500 text-sm font-medium">A Panel — Start your digital banking and utility journey.</p>
                         </div>
 
                         <div className="bg-white rounded-3xl shadow-2xl shadow-blue-100/50 border border-blue-50 overflow-hidden">
-                            <div className="bg-blue-600 h-1.5 w-full" />
+                            <div className="bg-blue-600 py-3 flex items-center justify-center">
+                                <span className="text-white text-[10px] font-black uppercase tracking-[0.2em]">Retailer Login</span>
+                            </div>
                             <div className="p-8 md:p-10">
                                 <RetailerLogin />
                             </div>
@@ -759,14 +735,14 @@ const Login = () => {
             </main>
 
             {/* WhatsApp Float */}
-            <a href="https://wa.me/919289309524" target="_blank" rel="noopener noreferrer" className="fixed bottom-6 right-6 z-[100] group">
+            <a href="https://wa.me/917004128310" target="_blank" rel="noopener noreferrer" className="fixed bottom-6 right-6 z-[100] group">
                 <div className="absolute -top-14 right-0 bg-white text-blue-600 px-4 py-2 rounded-lg shadow-2xl text-[10px] font-black whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all transform translate-y-2 group-hover:translate-y-0 border border-slate-100 uppercase">
                     Chat with Us
                     <div className="absolute bottom-[-6px] right-6 w-3 h-3 bg-white rotate-45 border-r border-b border-slate-100" />
                 </div>
                 <div className="bg-[#25D366] text-white p-4 rounded-full shadow-[0_10px_30px_rgba(37,211,102,0.5)] hover:bg-[#128C7E] hover:scale-110 active:scale-90 transition-all relative flex items-center justify-center">
                     <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
-                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.134.298-.348.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.446 4.432-9.877 9.888-9.877 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.446-4.435 9.878-9.89 9.878m8.391-18.332A11.944 11.944 0 0012.05 0C5.41 0 .011 5.399.007 12.04c0 2.123.554 4.197 1.608 6.022L0 24l6.117-1.605a11.947 11.947 0 005.933 1.568h.005c6.637 0 12.036-5.402 12.041-12.042a11.95 11.95 0 00-3.645-8.522"/>
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.134.298-.348.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.446 4.432-9.877 9.888-9.877 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.446-4.435 9.878-9.89 9.878m8.391-18.332A11.944 11.944 0 0012.05 0C5.41 0 .011 5.399.007 12.04c0 2.123.554 4.197 1.608 6.022L0 24l6.117-1.605a11.947 11.947 0 005.933 1.568h.005c6.637 0 12.036-5.402 12.041-12.042a11.95 11.95 0 00-3.645-8.522" />
                     </svg>
                     <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-600 border-2 border-white rounded-full flex items-center justify-center text-[10px] font-bold animate-bounce shadow">1</span>
                 </div>
